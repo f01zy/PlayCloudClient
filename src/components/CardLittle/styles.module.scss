@@ -1,0 +1,14 @@
+.cardLittle {
+  display: flex;
+  align-items: center;
+
+  h2 {
+    font-size: 15px;
+  }
+
+  h4,
+  p {
+    color: #9b9b9b;
+    font-size: 14px;
+  }
+}

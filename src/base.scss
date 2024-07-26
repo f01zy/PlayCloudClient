@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: #fafafa;
+}
+
+body {
+  background: #010101;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #666;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+}
+
+nextjs-portal {
+  display: none;
+}
