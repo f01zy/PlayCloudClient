@@ -1,5 +1,3 @@
-"use client"
-
 import { IUser } from "@/interfaces/user.interface"
 import { SerializedError, createSlice } from "@reduxjs/toolkit"
 import { login, register } from "./user.actions"

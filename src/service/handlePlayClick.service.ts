@@ -1,3 +1,5 @@
+"use client"
+
 import { musicInterval, playerController } from "@/components/Layout";
 import { startMusicInterval } from "./startMusicInterval.service";
 import { setIsPaused } from "@/store/site/site.slice";

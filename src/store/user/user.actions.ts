@@ -1,5 +1,3 @@
-"use client"
-
 import { $api } from '@/http';
 import { ILogin } from '@/interfaces/login.interface';
 import { IRegister } from "@/interfaces/register.interface"

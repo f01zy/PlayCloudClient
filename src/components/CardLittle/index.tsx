@@ -1,3 +1,5 @@
+"use client"
+
 import styles from "@/components/CardLittle/styles.module.scss"
 import { STATIC_URL } from "@/config";
 import { IMusic } from "@/interfaces/music.interface";

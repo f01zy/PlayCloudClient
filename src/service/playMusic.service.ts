@@ -1,3 +1,5 @@
+"use client"
+
 import { playerController } from "@/components/Layout"
 import { IMusic } from "@/interfaces/music.interface"
 import { IMusicStore, setCurrentMusic, setMusicDelay } from "@/store/site/site.slice"

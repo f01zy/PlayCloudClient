@@ -1,5 +1,3 @@
-"use client"
-
 import { IMusic } from "@/interfaces/music.interface"
 import { createSlice } from "@reduxjs/toolkit"
 

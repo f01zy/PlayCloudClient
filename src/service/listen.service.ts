@@ -1,3 +1,5 @@
+"use client"
+
 import { $api } from '@/http';
 import { IUser } from "@/interfaces/user.interface"
 import { setUser } from "@/store/user/user.slice"
