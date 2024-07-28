@@ -12,12 +12,10 @@
 
   &.active {
     opacity: 1;
-    visibility: visible;
   }
 
   &.disable {
     opacity: 0;
-    visibility: hidden;
   }
 }
 
