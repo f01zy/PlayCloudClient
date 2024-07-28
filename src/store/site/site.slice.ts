@@ -14,13 +14,15 @@ export interface IAlert {
 interface ISite {
   music: IMusicStore | null,
   alert: IAlert | null,
+  alertSafeMessage: string
   blocked: boolean
 }
 
 const initialState: ISite = {
   music: null,
   alert: null,
-  blocked: false
+  blocked: false,
+  alertSafeMessage: ""
 }
 
 export const siteSlice = createSlice({
@@ -45,10 +47,14 @@ export const siteSlice = createSlice({
 
     setBlocked(state, { payload }: { payload: boolean }) {
       state.blocked = payload
+    },
+
+    setAlertSafeMessage(state, { payload }: { payload: string }) {
+      state.alertSafeMessage = payload
     }
   }
 })
 
-export const { setMusicDelay, setCurrentMusic, setIsPaused, setAlert, setBlocked } = siteSlice.actions
+export const { setMusicDelay, setCurrentMusic, setIsPaused, setAlert, setBlocked, setAlertSafeMessage } = siteSlice.actions
 
 export default siteSlice.reducer
