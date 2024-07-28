@@ -51,7 +51,7 @@ const MusicDetail: FC<IMusicDetail> = ({ id }) => {
           {currentMusic ? currentMusic._id === music._id ? currentMusic.isPaused ? <FaPlay /> : <FaPause /> : <FaPlay /> : <FaPlay />}
         </div>
         <div className={styles.button} onClick={() => {
-          if (currentBlocked) return alert(dispatch, { message: "There are too many requests. Try it in 5 seconds", type: "error" }, currentAlert)
+          if (currentBlocked) return alert(dispatch, { message: "There are too many requests. Try it in 5 seconds" }, currentAlert)
           else blocked(dispatch, currentBlocked)
           user ? $api.post<IMusic>("/music/like", { id: music._id }).then(res => setMusic(res.data)) : router.push("/login")
         }}>
