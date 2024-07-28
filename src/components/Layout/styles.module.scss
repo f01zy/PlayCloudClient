@@ -4,17 +4,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform, opacity .7s ease;
+  transition: opacity .7s ease;
   position: absolute;
   bottom: 20px;
+  z-index: 1000;
 
   &.active {
-    transform: translateY(0);
     opacity: 1;
   }
 
   &.disable {
-    transform: translateY(-30px);
     opacity: 0;
   }
 }
