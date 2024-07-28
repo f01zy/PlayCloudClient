@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "@/base.scss";
 import { Providers } from "@/components/Providers";
 import Layout from "@/components/Layout";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from "@/theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,11 +18,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-          <Layout>
-            {children}
-          </Layout>
-        </Providers>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>
+            <Providers>
+              <Layout>
+                {children}
+              </Layout>
+            </Providers>
+          </ThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   )
