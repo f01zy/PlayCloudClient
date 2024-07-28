@@ -8,22 +8,18 @@ export interface IMusicStore extends IMusic {
 }
 
 export interface IAlert {
-  show: boolean
   message: string
 }
 
 interface ISite {
   music: IMusicStore | null,
-  alert: IAlert,
+  alert: IAlert | null,
   blocked: boolean
 }
 
 const initialState: ISite = {
   music: null,
-  alert: {
-    message: "",
-    show: false
-  },
+  alert: null,
   blocked: false
 }
 
@@ -43,7 +39,7 @@ export const siteSlice = createSlice({
       if (state.music) state.music.isPaused = payload
     },
 
-    setAlert(state, { payload }: { payload: IAlert }) {
+    setAlert(state, { payload }: { payload: IAlert | null }) {
       state.alert = payload
     },
 

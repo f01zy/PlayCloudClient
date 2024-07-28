@@ -9,6 +9,7 @@ import Player from "../Player";
 import { PlayerController } from "@/service/playerController.service";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { Alert } from "@mui/material";
+import { useState } from "react";
 
 export const playerController = new PlayerController()
 export let musicInterval: NodeJS.Timeout | null = null
@@ -17,9 +18,10 @@ export const setMusicInterval = (newInterval: NodeJS.Timeout | null) => musicInt
 let i = 0
 
 const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  const alert = useTypedSelector(selector => selector.siteSlice.alert)
   const pathname = usePathname()!
   const params = useParams()
-  const alert = useTypedSelector(selector => selector.siteSlice.alert)
+  const [alertMessage] = useState<string | undefined>(alert?.message)
 
   let id: string | null = null
 
@@ -44,8 +46,8 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         ) : <>{children}</>
       }
       <Player />
-      <div className={`${styles.alert} ${alert.show ? styles.active : styles.disable}`}>
-        <Alert severity="info">{alert.message}</Alert>
+      <div className={`${styles.alert} ${alert ? styles.active : styles.disable}`}>
+        <Alert severity="info">{alertMessage}</Alert>
       </div>
     </>
   )
