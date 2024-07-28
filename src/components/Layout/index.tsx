@@ -8,6 +8,7 @@ import { useAuth } from "@/hooks/auth.hook";
 import Player from "../Player";
 import { PlayerController } from "@/service/playerController.service";
 import { useTypedSelector } from "@/hooks/selector.hook";
+import { Alert } from "@mui/material";
 
 export const playerController = new PlayerController()
 export let musicInterval: NodeJS.Timeout | null = null
@@ -18,7 +19,7 @@ let i = 0
 const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const pathname = usePathname()!
   const params = useParams()
-  const music = useTypedSelector(selector => selector.siteSlice.music)
+  const alert = useTypedSelector(selector => selector.siteSlice.alert)
 
   let id: string | null = null
 
@@ -29,19 +30,23 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   i === 0 && useAuth()
   i++
 
-  return dontSidebarsPages.indexOf(pathname) === -1 ? (
+  return (
     <>
-      <Sidebar />
-      <div className={styles.column}>
-        <Navigation />
-        {children}
-      </div>
+      {
+        dontSidebarsPages.indexOf(pathname) === -1 ? (
+          <>
+            <Sidebar />
+            <div className={styles.column}>
+              <Navigation />
+              {children}
+            </div>
+          </>
+        ) : { children }
+      }
       <Player />
-    </>
-  ) : (
-    <>
-      {children}
-      < Player />
+      <div className={`${styles.alert} ${alert ? styles.active : styles.disable}`}>
+        <Alert security={alert?.type}></Alert>
+      </div>
     </>
   )
 }

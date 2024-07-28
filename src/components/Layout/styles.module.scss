@@ -1,3 +1,24 @@
+.alert {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform, opacity .7s ease;
+  position: absolute;
+  bottom: 20px;
+
+  &.active {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  &.disable {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+}
+
 .column {
   width: 80%;
 
