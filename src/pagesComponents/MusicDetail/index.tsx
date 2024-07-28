@@ -16,6 +16,7 @@ import CardLittle from "@/components/CardLittle";
 import { FcLike, FcDislike } from "react-icons/fc";
 import Link from "next/link";
 import { alert } from "@/service/alert.service";
+import { blocked } from "@/service/blocked.service";
 
 interface IMusicDetail {
   id: string
@@ -25,7 +26,7 @@ const MusicDetail: FC<IMusicDetail> = ({ id }) => {
   const [music, setMusic] = useState<IMusic | null>(null)
   const currentMusic = useTypedSelector(selector => selector.siteSlice.music)
   const user = useTypedSelector(selector => selector.userSlice.user)
-  const blocked = useTypedSelector(selector => selector.siteSlice.blocked)
+  const currentBlocked = useTypedSelector(selector => selector.siteSlice.blocked)
   const currentAlert = useTypedSelector(selector => selector.siteSlice.alert)
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
@@ -50,7 +51,8 @@ const MusicDetail: FC<IMusicDetail> = ({ id }) => {
           {currentMusic ? currentMusic._id === music._id ? currentMusic.isPaused ? <FaPlay /> : <FaPause /> : <FaPlay /> : <FaPlay />}
         </div>
         <div className={styles.button} onClick={() => {
-          if (blocked) return alert(dispatch, { message: "There are too many requests. Try it in 5 seconds", type: "error" }, currentAlert)
+          if (currentBlocked) return alert(dispatch, { message: "There are too many requests. Try it in 5 seconds", type: "error" }, currentAlert)
+          else blocked(dispatch, currentBlocked)
           user ? $api.post<IMusic>("/music/like", { id: music._id }).then(res => setMusic(res.data)) : router.push("/login")
         }}>
           {music.liked.indexOf(user?._id || "") != -1 ? <FcDislike /> : <FcLike />}
