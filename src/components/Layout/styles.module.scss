@@ -7,15 +7,17 @@
   transition: opacity .7s ease;
   position: absolute;
   bottom: 20px;
-  z-index: 1000;
+  z-index: 300;
   color: #000;
 
   &.active {
     opacity: 1;
+    visibility: visible;
   }
 
   &.disable {
     opacity: 0;
+    visibility: hidden;
   }
 }
 
