@@ -46,8 +46,7 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       }
       <Player />
       <div className={`${styles.alert} ${alert ? styles.active : styles.disable}`}>
-        <Alert severity="info" color="info">{alertMessage}</Alert>
-        <Alert severity="success" color="success">{alertMessage}</Alert>
+        <Alert severity="info">{alertMessage}</Alert>
       </div>
     </>
   )
