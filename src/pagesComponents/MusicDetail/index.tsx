@@ -17,6 +17,7 @@ import { FcLike, FcDislike } from "react-icons/fc";
 import Link from "next/link";
 import { alert } from "@/service/alert.service";
 import { blocked } from "@/service/blocked.service";
+import { handleClickBlock } from "@/service/handleClickBlock.service";
 
 interface IMusicDetail {
   id: string
@@ -51,8 +52,7 @@ const MusicDetail: FC<IMusicDetail> = ({ id }) => {
           {currentMusic ? currentMusic._id === music._id ? currentMusic.isPaused ? <FaPlay /> : <FaPause /> : <FaPlay /> : <FaPlay />}
         </div>
         <div className={styles.button} onClick={() => {
-          if (currentBlocked) return alert(dispatch, { message: "There are too many requests. Try it in 5 seconds" }, currentAlert)
-          else blocked(dispatch, currentBlocked)
+          handleClickBlock(dispatch, currentBlocked, currentAlert)
           user ? $api.post<IMusic>("/music/like", { id: music._id }).then(res => setMusic(res.data)) : router.push("/login")
         }}>
           {music.liked.indexOf(user?._id || "") != -1 ? <FcDislike /> : <FcLike />}

@@ -9,6 +9,7 @@ import Player from "../Player";
 import { PlayerController } from "@/service/playerController.service";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { Alert } from "@mui/material";
+import Loader from "../Loader";
 
 export const playerController = new PlayerController()
 export let musicInterval: NodeJS.Timeout | null = null
@@ -21,6 +22,7 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const params = useParams()
   const alert = useTypedSelector(selector => selector.siteSlice.alert)
   const alertMessage = useTypedSelector(selector => selector.siteSlice.alertSafeMessage)
+  const isLoading = useTypedSelector(selector => selector.siteSlice.isLoading)
 
   let id: string | null = null
 
@@ -39,14 +41,14 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             <Sidebar />
             <div className={styles.column}>
               <Navigation />
-              {children}
+              {isLoading ? <Loader /> : <>{children}</>}
             </div>
           </>
-        ) : <>{children}</>
+        ) : isLoading ? <Loader /> : <>{children}</>
       }
       <Player />
       <div className={`${styles.alert} ${alert ? styles.active : styles.disable}`}>
-        <Alert severity="info">{alertMessage}</Alert>
+        <Alert className="!text-gray-950" severity="info">{alertMessage}</Alert>
       </div>
     </>
   )

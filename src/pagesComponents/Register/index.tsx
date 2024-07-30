@@ -9,8 +9,10 @@ import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { register as registerF } from "@/store/user/user.actions"
+import { useRouter } from "next/router";
 
 const Register = () => {
+  const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
   const { error, loading } = useTypedSelector(selector => selector.userSlice)
 
@@ -21,7 +23,7 @@ const Register = () => {
   } = useForm<IRegister>()
 
   const onSubmit: SubmitHandler<IRegister> = async data => {
-    dispatch(registerF(data))
+    dispatch(registerF(data)).then(() => router.push("/"))
   }
 
   return <div className={styles.register}>

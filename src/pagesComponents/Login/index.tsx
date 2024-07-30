@@ -7,10 +7,12 @@ import { AppDispatch } from "@/store/store"
 import { login } from "@/store/user/user.actions"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
 
 const Login = () => {
+  const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
   const { error, loading } = useTypedSelector(selector => selector.userSlice)
 
@@ -21,7 +23,7 @@ const Login = () => {
   } = useForm<ILogin>()
 
   const onSubmit: SubmitHandler<ILogin> = async data => {
-    dispatch(login(data))
+    dispatch(login(data)).then(() => router.push("/"))
   }
 
   return <div className={styles.login}>
