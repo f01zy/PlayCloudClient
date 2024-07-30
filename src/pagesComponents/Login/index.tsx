@@ -7,7 +7,7 @@ import { AppDispatch } from "@/store/store"
 import { login } from "@/store/user/user.actions"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
 

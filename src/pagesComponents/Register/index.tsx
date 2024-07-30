@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { register as registerF } from "@/store/user/user.actions"
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
   const router = useRouter()
