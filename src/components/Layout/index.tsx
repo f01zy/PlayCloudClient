@@ -21,7 +21,6 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const params = useParams()
   const alert = useTypedSelector(selector => selector.siteSlice.alert)
   const alertMessage = useTypedSelector(selector => selector.siteSlice.alertSafeMessage)
-  const isLoading = useTypedSelector(selector => selector.siteSlice.isLoading)
 
   let id: string | null = null
 
