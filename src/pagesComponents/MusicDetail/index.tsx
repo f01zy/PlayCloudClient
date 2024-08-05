@@ -52,7 +52,7 @@ const MusicDetail: FC<IMusicDetail> = ({ id }) => {
           {currentMusic ? currentMusic._id === music._id ? currentMusic.isPaused ? <FaPlay /> : <FaPause /> : <FaPlay /> : <FaPlay />}
         </div>
         <div className={styles.button} onClick={() => {
-          handleClickBlock(dispatch, currentBlocked, currentAlert)
+          const isBlocked = handleClickBlock(dispatch, currentBlocked, currentAlert); if (isBlocked) return
           user ? $api.post<IMusic>("/music/like", { id: music._id }).then(res => setMusic(res.data)) : router.push("/login")
         }}>
           {music.liked.indexOf(user?._id || "") != -1 ? <FcDislike /> : <FcLike />}
