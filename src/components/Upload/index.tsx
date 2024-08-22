@@ -1,9 +1,11 @@
 "use client"
 
 import styles from "@/components/Upload/styles.module.scss"
+import { useTypedSelector } from "@/hooks/selector.hook"
 import { $api } from "@/http"
 import { IUpload } from "@/interfaces/upload.interface"
 import { IUser } from "@/interfaces/user.interface"
+import { handleClickBlock } from "@/service/handleClickBlock.service"
 import { AppDispatch } from "@/store/store"
 import { setUser } from "@/store/user/user.slice"
 import Image from "next/image"
@@ -19,6 +21,7 @@ interface IUploadComponent {
 const Upload: FC<IUploadComponent> = ({ setIsUploadForm, setFetchUser }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const dispatch = useDispatch<AppDispatch>()
+  const { alert, blocked } = useTypedSelector(selector => selector.siteSlice)
 
   const {
     register,
@@ -27,6 +30,8 @@ const Upload: FC<IUploadComponent> = ({ setIsUploadForm, setFetchUser }) => {
   } = useForm<IUpload>()
 
   const onSubmit: SubmitHandler<IUpload> = async data => {
+    const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
+
     setIsLoading(true)
     const formData = new FormData()
     formData.append("files", data.cover[0])
