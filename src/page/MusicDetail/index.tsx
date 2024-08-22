@@ -30,7 +30,7 @@ const MusicDetail: FC<IMusicDetail> = ({ id }) => {
 
   useEffect(() => { $api.get<IMusic>(`/music/${id}`).then(res => setMusic(res.data)) }, [])
 
-  return music != undefined && music != null ? (
+  return music ? (
     <div className={styles.musicDetail}>
       <div className={styles.banner}></div>
       <div className={styles.container}>
