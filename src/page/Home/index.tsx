@@ -7,8 +7,12 @@ import styles from "@/page/Home/styles.module.scss"
 import { getAllMusic } from "@/service/getAllMusic.service";
 import { useEffect, useState } from "react"
 
-const Home = async () => {
-  const music = await getAllMusic()
+const Home = () => {
+  const [music, setMusic] = useState<Array<IMusic>>([])
+
+  useEffect(() => {
+    const music = getAllMusic().then(res => setMusic(res))
+  }, [])
 
   return <div className={styles.home}>
     <h2>Most popular</h2>
