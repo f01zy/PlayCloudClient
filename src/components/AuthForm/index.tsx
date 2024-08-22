@@ -36,10 +36,10 @@ const AuthForm: FC<IAuthForm> = ({ onSubmit, inputs, buttonLabel }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>{buttonLabel} Here</h1>
         <p className={styles.error}>{error ? "An error occurred. Try again later" : ""}</p>
-        {inputs.map(input => (
+        {inputs.flatMap(input => (
           <div className={styles.input}>
             <input type={input.type} placeholder="" {...register(input.field, { required: true, })} />
-            <p>password</p>
+            <p>{input.label}</p>
           </div>
         ))}
         <p className={styles.link}>{pathname === "/register" && <>Don&apos;t</>} have an account yet? - <Link href={`/${buttonLink}`} className="text-cyan-600">{buttonLink}</Link></p>
