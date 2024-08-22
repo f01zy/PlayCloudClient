@@ -49,8 +49,8 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         ) : <>{children}</>
       }
       <Player />
-      <div className={`${styles.alert} ${alert.isShow ? styles.active : styles.disable} ${music ? "bottom-20" : "bottom-5"}`}>
-        <Alert className="text-transparent" severity="info">{alert.message}</Alert>
+      <div className={`${styles.alert} ${alert.isShow ? styles.active : styles.disable} ${music ? "bottom-24" : "bottom-5"}`}>
+        <h4>{alert.message}</h4>
       </div>
     </>
   )

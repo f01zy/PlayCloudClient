@@ -1,11 +1,9 @@
 "use client"
 
 import styles from "@/components/Upload/styles.module.scss"
-import { useTypedSelector } from "@/hooks/selector.hook"
 import { $api } from "@/http"
 import { IUpload } from "@/interfaces/upload.interface"
 import { IUser } from "@/interfaces/user.interface"
-import { handleClickBlock } from "@/service/handleClickBlock.service"
 import { AppDispatch } from "@/store/store"
 import { setUser } from "@/store/user/user.slice"
 import Image from "next/image"
@@ -20,8 +18,8 @@ interface IUploadComponent {
 
 const Upload: FC<IUploadComponent> = ({ setIsUploadForm, setFetchUser }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
   const dispatch = useDispatch<AppDispatch>()
-  const { alert, blocked } = useTypedSelector(selector => selector.siteSlice)
 
   const {
     register,
@@ -30,7 +28,7 @@ const Upload: FC<IUploadComponent> = ({ setIsUploadForm, setFetchUser }) => {
   } = useForm<IUpload>()
 
   const onSubmit: SubmitHandler<IUpload> = async data => {
-    const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
+    if (isLoading) return
 
     setIsLoading(true)
     const formData = new FormData()
@@ -42,7 +40,12 @@ const Upload: FC<IUploadComponent> = ({ setIsUploadForm, setFetchUser }) => {
         "Content-Type": "mulpipart/form-data"
       }
     })
-      .then(res => { setIsLoading(false); return res.data })
+      .then(res => res.data)
+      .catch(err => console.log(err))
+      .finally(() => setIsLoading(false))
+
+    if (!user) return
+
     dispatch(setUser(user))
     setFetchUser(user)
     setIsUploadForm(false)

@@ -7,19 +7,26 @@ import { useDispatch } from "react-redux";
 import { register as registerF } from "@/store/user/user.actions"
 import { useRouter } from "next/navigation";
 import AuthForm, { TInput } from "@/components/AuthForm";
-import { handleClickBlock } from "@/service/handleClickBlock.service";
 import { useTypedSelector } from "@/hooks/selector.hook";
+import { useState } from "react"
 
 const Register = () => {
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const { alert, blocked } = useTypedSelector(selector => selector.siteSlice)
+  const [isSenden, setIsSended] = useState<boolean>(false)
+  const error = useTypedSelector(selector => selector.userSlice.error)
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
-    const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
+    if (isSenden) return
+
+    setIsSended(true)
 
     const typedData = data as IRegister
-    dispatch(registerF(typedData)).then(() => router.push("/"))
+    dispatch(registerF(typedData)).then(() => {
+      setIsSended(false)
+      if (error) return
+      else router.push("/")
+    })
   }
 
   const inputs: Array<TInput> = [
