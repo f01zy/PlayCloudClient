@@ -23,14 +23,14 @@ interface IMusicDetail {
 
 const MusicDetail: FC<IMusicDetail> = ({ id }) => {
   const [music, setMusic] = useState<IMusic>()
-  const currentMusic = useTypedSelector(selector => selector.siteSlice.music)
+  const { music: currentMusic, blocked: currentBlocked, alert: currentAlert } = useTypedSelector(selector => selector.siteSlice)
   const user = useTypedSelector(selector => selector.userSlice.user)
-  const currentBlocked = useTypedSelector(selector => selector.siteSlice.blocked)
-  const currentAlert = useTypedSelector(selector => selector.siteSlice.alert)
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
 
-  useEffect(() => { $api.get<IMusic>(`/music/${id}`).then(res => setMusic(res.data)) }, [])
+  useEffect(() => { $api.get<IMusic>(`/music/${id}`).then(res => setMusic(res.data)).then(() => console.log(music)) }, [])
+
+  console.log(music)
 
   return music ? (
     <div className={styles.musicDetail}>

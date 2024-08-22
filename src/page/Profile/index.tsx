@@ -24,9 +24,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
   const [isUploadForm, setIsUploadForm] = useState<boolean>(false)
   const router = useRouter()
 
-  useEffect(() => {
-    $api.get<IUser>(`/users/${id}`).then(res => setFetchUser(res.data))
-  }, [])
+  useEffect(() => { $api.get<IUser>(`/users/${id}`).then(res => setFetchUser(res.data)) }, [])
 
   return fetchUser ? (
     <div className={styles.profile}>
