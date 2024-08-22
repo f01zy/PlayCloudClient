@@ -63,7 +63,7 @@ const MusicDetail: FC<IMusicDetail> = ({ id }) => {
         )) : <h3>Please auth</h3>}
       </div>
     </div>
-  ) : <h1>Music not found</h1>
+  ) : ""
 }
 
 export default MusicDetail;

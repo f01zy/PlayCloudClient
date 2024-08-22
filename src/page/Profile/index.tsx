@@ -51,7 +51,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
         </div>
       ) : ""}
     </div>
-  ) : <h1>User not found</h1>
+  ) : ""
 }
 
 export default Profile;
