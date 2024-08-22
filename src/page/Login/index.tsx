@@ -22,11 +22,10 @@ const Login = () => {
     setIsSended(true)
 
     const typedData = data as ILogin
-    dispatch(login(typedData)).then(() => {
-      setIsSended(false)
-      if (error) return
-      else router.push("/")
-    })
+    dispatch(login(typedData))
+      .then(() => router.push("/"))
+      .catch(() => { })
+      .finally(() => setIsSended(false))
   }
 
   const inputs: Array<TInput> = [

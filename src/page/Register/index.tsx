@@ -22,11 +22,10 @@ const Register = () => {
     setIsSended(true)
 
     const typedData = data as IRegister
-    dispatch(registerF(typedData)).then(() => {
-      setIsSended(false)
-      if (error) return
-      else router.push("/")
-    })
+    dispatch(registerF(typedData))
+      .then(() => router.push("/"))
+      .catch(() => { })
+      .finally(() => setIsSended(false))
   }
 
   const inputs: Array<TInput> = [

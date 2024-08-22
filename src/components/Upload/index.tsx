@@ -52,7 +52,7 @@ const Upload: FC<IUploadComponent> = ({ setIsUploadForm, setFetchUser }) => {
   }
 
   return <div className={styles.upload}>
-    {error ? <h3 className="text-center mb-2 mt-2 text-red-600 text-base">{error}</h3> : ""}
+    {error ? <h3 className="text-center mb-6 text-red-600 text-base">{error}</h3> : ""}
 
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.input_file}>
