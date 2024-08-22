@@ -28,11 +28,9 @@ const MusicDetail: FC<IMusicDetail> = ({ id }) => {
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
 
-  useEffect(() => { $api.get<IMusic>(`/music/${id}`).then(res => setMusic(res.data)).then(() => console.log(music)) }, [])
+  useEffect(() => { $api.get<IMusic>(`/music/${id}`).then(res => setMusic(res.data)) }, [])
 
-  console.log(music)
-
-  return music ? (
+  return music != undefined && music != null ? (
     <div className={styles.musicDetail}>
       <div className={styles.banner}></div>
       <div className={styles.container}>
