@@ -4,14 +4,11 @@ import Card from "@/components/Card";
 import { $api } from "@/http";
 import { IMusic } from "@/interfaces/music.interface";
 import styles from "@/page/Home/styles.module.scss"
+import { getAllMusic } from "@/service/getAllMusic.service";
 import { useEffect, useState } from "react"
 
-const Home = () => {
-  const [music, setMusic] = useState<Array<IMusic>>([])
-
-  useEffect(() => {
-    $api.get("/music").then(({ data }: { data: Array<IMusic> }) => setMusic(data))
-  }, [])
+const Home = async () => {
+  const music = await getAllMusic()
 
   return <div className={styles.home}>
     <h2>Most popular</h2>
