@@ -41,7 +41,7 @@ const Upload: FC<IUploadComponent> = ({ setIsUploadForm, setFetchUser }) => {
       }
     })
       .then(res => res.data)
-      .catch(err => console.log(err))
+      .catch(err => setError("An error occurred. Try again later"))
       .finally(() => setIsLoading(false))
 
     if (!user) return
@@ -52,6 +52,8 @@ const Upload: FC<IUploadComponent> = ({ setIsUploadForm, setFetchUser }) => {
   }
 
   return <div className={styles.upload}>
+    {error ? <h3 className="text-center mb-2 mt-2 text-red-600 text-base">{error}</h3> : ""}
+
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.input_file}>
         <input type="file" multiple={false} id="#cover-input" title="" accept="image/*" placeholder="" {...register("cover", {
