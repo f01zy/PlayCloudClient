@@ -1,7 +1,7 @@
 "use client"
 
 import styles from "@/components/Card/styles.module.scss"
-import { STATIC_URL } from "@/config";
+import { SERVER_URL } from "@/config";
 import Image from "next/image";
 import { FC } from "react";
 import { FaPlay, FaPause } from "react-icons/fa6"
@@ -21,7 +21,7 @@ const Card: FC<IMusic> = ({ author, name, listening, _id, liked }) => {
 
   return <div className={styles.card}>
     <div className={styles.cover}>
-      <Image src={`${STATIC_URL}/cover/${_id}.jpg`} alt={name} width={100} height={100} />
+      <Image src={`${SERVER_URL}/cover/${_id}.jpg`} alt={name} width={100} height={100} />
 
       <div className={styles.play}>
         <div onClick={() => {

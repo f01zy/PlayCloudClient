@@ -3,7 +3,7 @@
 import Card from "@/components/Card";
 import { $api } from "@/http";
 import { IMusic } from "@/interfaces/music.interface";
-import styles from "@/pagesComponents/Home/styles.module.scss"
+import styles from "@/page/Home/styles.module.scss"
 import { useEffect, useState } from "react"
 
 const Home = () => {

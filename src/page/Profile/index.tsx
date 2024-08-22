@@ -5,7 +5,7 @@ import Upload from "@/components/Upload"
 import { useTypedSelector } from "@/hooks/selector.hook"
 import { $api } from "@/http"
 import { IUser } from "@/interfaces/user.interface"
-import styles from "@/pagesComponents/Profile/styles.module.scss"
+import styles from "@/page/Profile/styles.module.scss"
 import { useRouter } from "next/navigation"
 import { FC, useEffect, useState } from "react"
 

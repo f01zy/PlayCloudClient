@@ -20,7 +20,6 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const pathname = usePathname()!
   const params = useParams()
   const alert = useTypedSelector(selector => selector.siteSlice.alert)
-  const alertMessage = useTypedSelector(selector => selector.siteSlice.alertSafeMessage)
 
   let id: string | null = null
 
@@ -45,8 +44,8 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         ) : <>{children}</>
       }
       <Player />
-      <div className={`${styles.alert} ${alert ? styles.active : styles.disable}`}>
-        <Alert style={{ color: "initial" }} severity="info">{alertMessage}</Alert>
+      <div className={`${styles.alert} ${alert.isShow ? styles.active : styles.disable}`}>
+        <Alert style={{ color: "initial" }} severity="info">{alert.message}</Alert>
       </div>
     </>
   )

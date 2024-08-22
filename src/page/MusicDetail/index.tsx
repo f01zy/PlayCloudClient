@@ -1,8 +1,8 @@
 "use client"
 
-import styles from "@/pagesComponents/MusicDetail/styles.module.scss"
+import styles from "@/page/MusicDetail/styles.module.scss"
 import Image from "next/image";
-import { STATIC_URL } from "@/config";
+import { SERVER_URL } from "@/config";
 import { FC, useState, useEffect } from "react"
 import { FaPlay, FaPause } from "react-icons/fa6"
 import { IMusic } from "@/interfaces/music.interface";
@@ -15,8 +15,6 @@ import { useRouter } from "next/navigation";
 import CardLittle from "@/components/CardLittle";
 import { FcLike, FcDislike } from "react-icons/fc";
 import Link from "next/link";
-import { alert } from "@/service/alert.service";
-import { blocked } from "@/service/blocked.service";
 import { handleClickBlock } from "@/service/handleClickBlock.service";
 
 interface IMusicDetail {
@@ -39,7 +37,7 @@ const MusicDetail: FC<IMusicDetail> = ({ id }) => {
       <div className={styles.banner}></div>
       <div className={styles.container}>
         <div className={styles.avatar}>
-          <Image src={`${STATIC_URL}/cover/${id}.jpg`} alt={music.name} width={100} height={100} />
+          <Image src={`${SERVER_URL}/cover/${id}.jpg`} alt={music.name} width={100} height={100} />
         </div>
         <div className={styles.info}>
           <Link href={`/music/${music._id}`}><h1>{music.name}</h1></Link>
@@ -52,19 +50,19 @@ const MusicDetail: FC<IMusicDetail> = ({ id }) => {
           {currentMusic ? currentMusic._id === music._id ? currentMusic.isPaused ? <FaPlay /> : <FaPause /> : <FaPlay /> : <FaPlay />}
         </div>
         <div className={styles.button} onClick={() => {
-          const isBlocked = handleClickBlock(dispatch, currentBlocked, currentAlert); if (isBlocked) return
+          const isBlocked = handleClickBlock(dispatch, currentBlocked, currentAlert.isShow); if (isBlocked) return
           user ? $api.post<IMusic>("/music/like", { id: music._id }).then(res => setMusic(res.data)) : router.push("/login")
         }}>
-          {music.liked.indexOf(user?._id || "") != -1 ? <FcDislike /> : <FcLike />}
+          {music.liked.indexOf(user ? user._id : "") != -1 ? <FcDislike /> : <FcLike />}
         </div>
       </div>
       <div className={styles.songs}>
         <h2>History</h2>
-        {user?.history.map(song => (
+        {user ? user.history.map(song => (
           <div className={styles.song}>
             <CardLittle {...song} />
           </div>
-        ))}
+        )) : <h3>Please auth</h3>}
       </div>
     </div>
   ) : <h1>Music not found</h1>

@@ -8,21 +8,23 @@ export interface IMusicStore extends IMusic {
 }
 
 export interface IAlert {
-  message: string
+  message: string,
+  isShow: boolean
 }
 
 interface ISite {
   music: IMusicStore | null,
-  alert: IAlert | null,
-  alertSafeMessage: string
+  alert: IAlert,
   blocked: boolean
 }
 
 const initialState: ISite = {
   music: null,
-  alert: null,
+  alert: {
+    isShow: false,
+    message: ""
+  },
   blocked: false,
-  alertSafeMessage: ""
 }
 
 export const siteSlice = createSlice({
@@ -41,20 +43,20 @@ export const siteSlice = createSlice({
       if (state.music) state.music.isPaused = payload
     },
 
-    setAlert(state, { payload }: { payload: IAlert | null }) {
-      state.alert = payload
+    setAlert(state, { payload }: { payload: string }) {
+      state.alert = { isShow: true, message: payload }
+    },
+
+    hideAlert(state) {
+      state.alert.isShow = false
     },
 
     setBlocked(state, { payload }: { payload: boolean }) {
       state.blocked = payload
     },
-
-    setAlertSafeMessage(state, { payload }: { payload: string }) {
-      state.alertSafeMessage = payload
-    }
   }
 })
 
-export const { setMusicDelay, setCurrentMusic, setIsPaused, setAlert, setBlocked, setAlertSafeMessage } = siteSlice.actions
+export const { setMusicDelay, setCurrentMusic, setIsPaused, setAlert, setBlocked, hideAlert } = siteSlice.actions
 
 export default siteSlice.reducer

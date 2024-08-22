@@ -1,16 +1,14 @@
 "use client"
 
 import styles from "@/components/Player/styles.module.scss"
-import { STATIC_URL } from "@/config"
+import { SERVER_URL } from "@/config"
 import { useTypedSelector } from "@/hooks/selector.hook"
 import Image from "next/image"
 import { FaForward, FaBackward } from "react-icons/fa"
 import { FaPlay, FaPause } from "react-icons/fa6"
-import { musicInterval, playerController } from "../Layout"
+import { playerController } from "../Layout"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store"
-import { setIsPaused } from "@/store/site/site.slice"
-import { startMusicInterval } from "@/service/startMusicInterval.service"
 import { handlePlayClick } from "@/service/handlePlayClick.service"
 import { formatTime } from "@/service/formatTime.service"
 import { useRouter } from "next/navigation"
@@ -25,7 +23,7 @@ const Player = () => {
     {music ? (
       <>
         <div className={styles.player}>
-          <Image className="rounded-md" src={`${STATIC_URL}/cover/${music._id}.jpg`} alt={music.name} width={40} height={40} />
+          <Image className="rounded-md" src={`${SERVER_URL}/cover/${music._id}.jpg`} alt={music.name} width={40} height={40} />
           <div className={`ml-3 flex flex-col items-center justify-center ${styles.title}`}>
             <h1>{music.name}</h1>
             <h5 className="mt-0.5">-{formatTime(music.maxDelay - music.delay)}</h5>

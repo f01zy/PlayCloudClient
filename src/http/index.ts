@@ -1,11 +1,11 @@
 "use client"
 
 import axios from 'axios';
-import { API_URL } from "@/config"
+import { SERVER_URL } from "@/config"
 
 export const $api = axios.create({
   withCredentials: true,
-  baseURL: API_URL
+  baseURL: SERVER_URL + "/api"
 })
 
 $api.interceptors.request.use(config => {
@@ -22,7 +22,7 @@ $api.interceptors.response.use(
     if (error.response && error.response.status === 401 && originalRequest && !originalRequest._isRetry) {
       try {
         originalRequest._isRetry = true
-        const res = await axios.get(`${API_URL}/auth/refresh`, { withCredentials: true })
+        const res = await axios.get(`${SERVER_URL}/api/auth/refresh`, { withCredentials: true })
         localStorage.setItem("token", res.data.accessToken)
         return $api.request(originalRequest)
       } catch (e) {
