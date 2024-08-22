@@ -14,6 +14,10 @@ export const playerController = new PlayerController()
 export let musicInterval: NodeJS.Timeout | null = null
 export const setMusicInterval = (newInterval: NodeJS.Timeout | null) => musicInterval = newInterval
 
+export type TFetchError = {
+  status: number
+}
+
 let i = 0
 
 const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {

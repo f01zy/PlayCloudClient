@@ -1,3 +1,4 @@
+import { TFetchError } from "@/components/Layout";
 import { IMusic } from "@/interfaces/music.interface";
 import MusicDetail from "@/page/MusicDetail";
 import { Metadata } from "next";
@@ -5,15 +6,13 @@ import { notFound } from "next/navigation";
 
 export const generateMetadata = async ({ params }: { params: { id: string } }): Promise<Metadata> => {
   const id = params.id
-  const music = await fetch(`http://147.45.160.178:5050/api/music/${id}`).then(res => res.json()).then(res => res as IMusic | null)
+  const res = await fetch(`http://147.45.160.178:5050/api/music/${id}`).then(res => res.json()).then(res => res as IMusic & TFetchError)
 
-  console.log(music)
-
-  if (!music) return notFound()
+  if (res.status === 404) return notFound()
 
   return {
-    title: music.name + " | PlayCloud",
-    description: `A separate music page called ${music.name}`,
+    title: res.name + " | PlayCloud",
+    description: `A separate music page called ${res.name}`,
   }
 }
 
