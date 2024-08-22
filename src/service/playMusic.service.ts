@@ -22,16 +22,8 @@ export const playMusic = ({ _id, author, listening, name, liked }: IMusic, dispa
 
   playerController.setOnEnded = () => {
     if (!user) return
-    const index = user.history.indexOf(user.history.find(musicFind => musicFind._id === _id)!)
 
-    let newIndex: number | undefined = undefined
-    let musicPlay: IMusic | undefined = undefined
-
-    do {
-      newIndex = Math.floor(Math.random() * user.history.length)
-    } while (newIndex === index)
-
-    musicPlay = user.history[newIndex]
+    let musicPlay = user.history[Math.floor(Math.random() * user.history.length)]
 
     if (!musicPlay) return
 
