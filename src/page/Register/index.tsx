@@ -23,8 +23,8 @@ const Register = () => {
 
     const typedData = data as IRegister
     dispatch(registerF(typedData))
+      .then(() => { setTimeout(() => { }, 1000) })
       .then(() => {
-        setTimeout(() => { }, 1000)
         setIsSended(false)
         if (error) return
         router.push("/")
