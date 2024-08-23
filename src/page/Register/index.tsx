@@ -5,16 +5,12 @@ import { AppDispatch } from "@/store/store";
 import { SubmitHandler, FieldValues } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { register as registerF } from "@/store/user/user.actions"
-import { useRouter } from "next/navigation";
 import AuthForm, { TInput } from "@/components/AuthForm";
-import { useTypedSelector } from "@/hooks/selector.hook";
 import { useState } from "react"
 
 const Register = () => {
-  const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
   const [isSenden, setIsSended] = useState<boolean>(false)
-  const error = useTypedSelector(selector => selector.userSlice.error)
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
     if (isSenden) return
@@ -22,13 +18,7 @@ const Register = () => {
     setIsSended(true)
 
     const typedData = data as IRegister
-    dispatch(registerF(typedData))
-      .then(() => {
-        setTimeout(() => {
-          setIsSended(false)
-          if (!error) router.push("/")
-        }, 1000)
-      })
+    dispatch(registerF(typedData)).then(() => setIsSended(false))
   }
 
   const inputs: Array<TInput> = [

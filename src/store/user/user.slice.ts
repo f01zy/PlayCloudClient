@@ -2,17 +2,9 @@ import { IUser } from "@/interfaces/user.interface"
 import { SerializedError, createSlice } from "@reduxjs/toolkit"
 import { login, register } from "./user.actions"
 
-interface IState {
-  error: SerializedError | null,
-  loading: boolean,
-  user: IUser | null
-}
+interface IState { message: { status: "success" | "error", message: string } | null, loading: boolean, user: IUser | null }
 
-const initialState: IState = {
-  error: null,
-  loading: false,
-  user: null
-} as IState
+const initialState: IState = { message: null, loading: false, user: null } as IState
 
 export const userSlice = createSlice({
   initialState,
@@ -25,12 +17,12 @@ export const userSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(register.pending, state => { state.loading = true })
-      .addCase(register.rejected, (state, action) => { state.error = action.error; state.loading = false })
-      .addCase(register.fulfilled, (state, action) => { state.user = action.payload!; state.error = null; state.loading = false })
+      .addCase(register.rejected, (state, action) => { state.message = { message: "An error occurred. Try again later", status: "error" }; state.loading = false })
+      .addCase(register.fulfilled, (state, action) => { state.user = action.payload!; state.message = { message: "Success auth. ", status: "success" }; state.loading = false })
 
       .addCase(login.pending, state => { state.loading = true })
-      .addCase(login.rejected, (state, action) => { state.error = action.error; state.loading = false })
-      .addCase(login.fulfilled, (state, action) => { state.user = action.payload!; state.error = null; state.loading = false })
+      .addCase(login.rejected, (state, action) => { state.message = { message: "An error occurred. Try again later", status: "error" }; state.loading = false })
+      .addCase(login.fulfilled, (state, action) => { state.user = action.payload!; state.message = { message: "Success auth. ", status: "success" }; state.loading = false })
   }
 })
 

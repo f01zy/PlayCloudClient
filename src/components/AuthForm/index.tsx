@@ -19,7 +19,7 @@ interface IAuthForm {
 }
 
 const AuthForm: FC<IAuthForm> = ({ onSubmit, inputs, buttonLabel }) => {
-  const { error, loading } = useTypedSelector(selector => selector.userSlice)
+  const { message, loading } = useTypedSelector(selector => selector.userSlice)
   const pathname = usePathname()
   const buttonLink = pathname === "/login" ? "register" : "login"
 
@@ -35,7 +35,7 @@ const AuthForm: FC<IAuthForm> = ({ onSubmit, inputs, buttonLabel }) => {
       <div className={styles.circle}></div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>{buttonLabel} Here</h1>
-        <p className={styles.error}>{error ? "An error occurred. Try again later" : ""}</p>
+        <p className={styles.error}>{message ? message.message + (message.status === "success" ? "Go to " + <Link href={"/"} className="!text-blue-500">home</Link> : "") : ""}</p>
         {inputs.flatMap(input => (
           <div className={styles.input}>
             <input type={input.type} placeholder="" {...register(input.field, { required: true, })} />
