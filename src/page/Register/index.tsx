@@ -26,8 +26,7 @@ const Register = () => {
       .then(() => {
         setTimeout(() => {
           setIsSended(false)
-          if (error) return
-          router.push("/")
+          if (!error) router.push("/")
         }, 1000)
       })
   }
