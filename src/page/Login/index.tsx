@@ -23,11 +23,12 @@ const Login = () => {
 
     const typedData = data as ILogin
     dispatch(login(typedData))
-      .then(() => { setTimeout(() => { }, 1000) })
       .then(() => {
-        setIsSended(false)
-        if (error) return
-        router.push("/")
+        setTimeout(() => {
+          setIsSended(false)
+          if (error) return
+          router.push("/")
+        }, 1000)
       })
   }
 
