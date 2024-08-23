@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import Link from "next/link";
-import { handlePlayClick } from "@/service/handlePlayClick.service";
+import { handlePlayClick } from "@/utils/handlePlayClick.service";
 
 const Card: FC<IMusic> = ({ author, name, listening, _id, liked }) => {
   const router = useRouter()

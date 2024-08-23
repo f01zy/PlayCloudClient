@@ -10,12 +10,12 @@ import { $api } from "@/http";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux"
-import { handlePlayClick } from "@/service/handlePlayClick.service";
+import { handlePlayClick } from "@/utils/handlePlayClick.service";
 import { useRouter } from "next/navigation";
 import CardLittle from "@/components/CardLittle";
 import { FcLike, FcDislike } from "react-icons/fc";
 import Link from "next/link";
-import { handleClickBlock } from "@/service/handleClickBlock.service";
+import { handleClickBlock } from "@/utils/handleClickBlock.service";
 
 interface IMusicDetail {
   id: string

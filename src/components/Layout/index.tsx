@@ -6,7 +6,7 @@ import Sidebar from "@/components/Sidebar";
 import styles from "@/components/Layout/styles.module.scss"
 import { useAuth } from "@/hooks/auth.hook";
 import Player from "../Player";
-import { PlayerController } from "@/service/playerController.service";
+import { PlayerController } from "@/utils/playerController.service";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { Alert } from "@mui/material";
 

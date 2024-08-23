@@ -4,7 +4,7 @@ import Card from "@/components/Card";
 import { $api } from "@/http";
 import { IMusic } from "@/interfaces/music.interface";
 import styles from "@/page/Home/styles.module.scss"
-import { getAllMusic } from "@/service/getAllMusic.service";
+import { getAllMusic } from "@/utils/getAllMusic.service";
 import { useEffect, useState } from "react"
 
 const Home = () => {
