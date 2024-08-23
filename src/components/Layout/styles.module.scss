@@ -1,6 +1,4 @@
 .alert {
-  width: 30%;
-  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,7 +7,7 @@
   left: 0;
   right: 0;
   margin: auto;
-  padding: 10px 0;
+  padding: 10px 10px;
   z-index: 300;
   background: rgb(201, 18, 18);
   border-radius: 5px;

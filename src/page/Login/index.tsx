@@ -23,9 +23,12 @@ const Login = () => {
 
     const typedData = data as ILogin
     dispatch(login(typedData))
-      .then(() => router.push("/"))
-      .catch(() => { })
-      .finally(() => setIsSended(false))
+      .then(() => {
+        setTimeout(() => { }, 1000)
+        setIsSended(false)
+        if (error) return
+        router.push("/")
+      })
   }
 
   const inputs: Array<TInput> = [

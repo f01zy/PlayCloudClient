@@ -9,8 +9,8 @@ import { FaPlay, FaPause } from "react-icons/fa6"
 import { playerController } from "../Layout"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store"
-import { handlePlayClick } from "@/utils/handlePlayClick.service"
-import { formatTime } from "@/utils/formatTime.service"
+import { handlePlayClick } from "@/utils/handlePlayClick.utils"
+import { formatTime } from "@/utils/formatTime.utils"
 import { useRouter } from "next/navigation"
 
 const Player = () => {

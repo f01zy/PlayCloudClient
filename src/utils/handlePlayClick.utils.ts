@@ -1,10 +1,10 @@
 "use client"
 
 import { musicInterval, playerController } from "@/components/Layout";
-import { startMusicInterval } from "./startMusicInterval.service";
+import { startMusicInterval } from "./startMusicInterval.utils";
 import { setIsPaused } from "@/store/site/site.slice";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit/react"
-import { playMusic } from "./playMusic.service";
+import { playMusic } from "./playMusic.utils";
 import { IMusic } from "@/interfaces/music.interface";
 import { IUser } from "@/interfaces/user.interface";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";

@@ -6,9 +6,8 @@ import Sidebar from "@/components/Sidebar";
 import styles from "@/components/Layout/styles.module.scss"
 import { useAuth } from "@/hooks/auth.hook";
 import Player from "../Player";
-import { PlayerController } from "@/utils/playerController.service";
+import { PlayerController } from "@/utils/playerController.utils";
 import { useTypedSelector } from "@/hooks/selector.hook";
-import { Alert } from "@mui/material";
 
 export const playerController = new PlayerController()
 export let musicInterval: NodeJS.Timeout | null = null
