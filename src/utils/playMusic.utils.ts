@@ -23,7 +23,7 @@ export const playMusic = ({ _id, author, listening, name, liked }: IMusic, dispa
   playerController.setOnEnded = () => {
     if (!user) return
 
-    let musicPlay = user.history[Math.floor(Math.random() * user.history.length)]
+    const musicPlay = user.history[user.history.length - 1]
 
     if (!musicPlay) return
 
