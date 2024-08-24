@@ -9,7 +9,6 @@ export class PlayerController {
 
   public play(id: string) {
     if (!this.player) return
-    if (!this.player.paused) this.player.pause()
     this.player.src = `${SERVER_URL}/music/${id}.mp3`
     this.player.play()
   }
