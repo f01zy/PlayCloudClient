@@ -14,23 +14,24 @@ export const playMusic = ({ _id, author, listening, name, liked }: IMusic, dispa
 
     playerController.playerSrc = _id
 
-    playerController.onEnded = () => {
-      if (!user) return
-
-      const musicPlay = user.history[user.history.length - 1]
-
-      console.log(musicPlay)
-
-      if (!musicPlay) return
-
-      playMusic({ ...musicPlay }, dispatch, user)
-    }
-
     playerController.onLoadedMetadata = () => {
       const setMusic: IMusicStore = { _id, listening, author, name, liked, delay: 0, maxDelay: playerController.getMaxDelay || 0, isPaused: false }
       dispatch(setCurrentMusic(setMusic))
       startMusicInterval(dispatch)
       playerController.play()
+      const nextMusic = user.history[user.history.length - 1]
+
+      console.log(nextMusic)
+
+      playerController.onEnded = () => {
+        if (!user) return
+
+        const musicPlay = nextMusic
+
+        if (!musicPlay) return
+
+        playMusic({ ...musicPlay }, dispatch, user)
+      }
     }
   })
 }
