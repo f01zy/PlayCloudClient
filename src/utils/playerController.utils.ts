@@ -12,7 +12,7 @@ export class PlayerController {
   public rewind(number: number, dispatch: Dispatch<UnknownAction>) {
     if (!this.player) return
     if (this.player.currentTime + number < 0) this.player.currentTime = 0
-    else if (this.player.currentTime + number > this.player.duration) this.player.currentTime = this.player.duration
+    else if (this.player.currentTime + number > this.player.duration) return
     else this.player.currentTime += number
     dispatch(setMusicDelay(Math.floor(this.player.currentTime)))
   }
@@ -27,7 +27,7 @@ export class PlayerController {
 
   get getMaxDelay() { if (!this.player) return; return Math.floor(this.player.duration) }
 
-  set playerSrc(id: string) { if (!this.player || this.player.src === `${SERVER_URL}/music/${id}.mp3`) return; this.player.src = `${SERVER_URL}/music/${id}.mp3` }
+  set playerSrc(id: string) { if (!this.player) return; this.player.src = `${SERVER_URL}/music/${id}.mp3` }
 
   set onLoadedMetadata(func: (this: GlobalEventHandlers) => any) { if (!this.player) return; this.player.onloadedmetadata = func }
 
