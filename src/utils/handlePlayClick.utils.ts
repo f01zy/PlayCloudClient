@@ -11,7 +11,14 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 
 export const handlePlayClick = (dispatch: Dispatch<UnknownAction>, { _id, author, listening, name, liked }: IMusic, user: IUser | null, musicName: string | undefined, router: AppRouterInstance) => {
   if (!user) return router.push("/login")
-  if (musicName != name) { playMusic({ _id, author, name, listening, liked }, dispatch, user); return }
+  if (musicName != name) {
+    playMusic({ _id, author, name, listening, liked }, dispatch, user)
+    playerController.onEnded = async () => {
+      const music = user.history[user.history.length - 1]
+      console.log(music)
+      playMusic({ ...music }, dispatch, user)
+    }
+  }
   if (playerController.getIsPaused) { startMusicInterval(dispatch); playerController.resume(); dispatch(setIsPaused(false)) }
   else { if (musicInterval) clearInterval(musicInterval); playerController.pause(); dispatch(setIsPaused(true)) }
 }

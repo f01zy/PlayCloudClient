@@ -19,19 +19,6 @@ export const playMusic = ({ _id, author, listening, name, liked }: IMusic, dispa
       dispatch(setCurrentMusic(setMusic))
       startMusicInterval(dispatch)
       playerController.play()
-      const nextMusic = user.history[user.history.length - 1]
-
-      console.log(nextMusic)
-
-      playerController.onEnded = () => {
-        if (!user) return
-
-        const musicPlay = nextMusic
-
-        if (!musicPlay) return
-
-        playMusic({ ...musicPlay }, dispatch, user)
-      }
     }
   })
 }
