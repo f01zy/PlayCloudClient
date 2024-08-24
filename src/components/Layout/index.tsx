@@ -29,7 +29,7 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 
   if (params && params.id) id = params.id as string
 
-  const dontSidebarsPages = ["/login", "/register", `/profile/${id}`]
+  const dontSidebarsPages = ["/login", "/register", `/profile/${id}`, "/shuffle"]
 
   i === 0 && useAuth()
   i++

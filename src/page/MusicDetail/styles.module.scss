@@ -1,7 +1,12 @@
 .musicDetail {
   $avatar: 90px;
-  width: 100%;
   height: max-content;
+  margin-left: 20vw;
+  width: 80vw;
+
+  @media (max-width: 800px) {
+    width: 70vw;
+  }
 
   .banner {
     width: 100%;
