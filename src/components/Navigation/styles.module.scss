@@ -60,6 +60,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    visibility: visible;
 
     svg {
       font-size: 18px;
@@ -80,7 +81,7 @@
     }
 
     @media(max-width: 800px) {
-      display: none;
+      visibility: hidden;
     }
   }
 

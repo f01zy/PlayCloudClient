@@ -1,24 +1,19 @@
 "use client"
 
-import { IMusic } from "@/interfaces/music.interface";
 import { getAllMusic } from "@/utils/getAllMusic.utils";
 import { NextPage } from "next";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const ShufflePage: NextPage = () => {
-  const [music, setMusic] = useState<IMusic>()
   const router = useRouter()
 
   useEffect(() => {
     getAllMusic()
-      .then(res => setMusic(res[Math.floor(Math.random() * (res.length - 0)) + 0]))
-      .then(() => {
-        if (music) return router.push("/music/" + music._id)
-      })
+      .then(res => router.push("/music/" + res[Math.floor(Math.random() * (res.length - 0)) + 0]._id))
   }, [])
 
-  return <div></div>
+  return <div className="w-full h-full flex items-center justify-center"><h3 className="text-base">loading</h3></div>
 }
 
 export default ShufflePage;
