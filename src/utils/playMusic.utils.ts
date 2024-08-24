@@ -9,25 +9,25 @@ import { IUser } from "@/interfaces/user.interface"
 import { listen } from "./listen.utils"
 
 export const playMusic = ({ _id, author, listening, name, liked }: IMusic, dispatch: Dispatch<UnknownAction>, user: IUser) => {
-  dispatch(setMusicDelay(0))
+  listen(_id, dispatch).then(() => {
+    dispatch(setMusicDelay(0))
 
-  playerController.play(_id)
+    playerController.play(_id)
 
-  playerController.setOnEnded = () => {
-    if (!user) return
+    playerController.setOnEnded = () => {
+      if (!user) return
 
-    const musicPlay = user.history[user.history.length - 1]
+      const musicPlay = user.history[user.history.length - 1]
 
-    if (!musicPlay) return
+      if (!musicPlay) return
 
-    playMusic({ ...musicPlay }, dispatch, user)
-  }
+      playMusic({ ...musicPlay }, dispatch, user)
+    }
 
-  playerController.setOnLoadedMetadata = () => {
-    const setMusic: IMusicStore = { _id, listening, author, name, liked, delay: 0, maxDelay: playerController.getMaxDelay || 0, isPaused: false }
-    dispatch(setCurrentMusic(setMusic))
-    startMusicInterval(dispatch)
-  }
-
-  listen(_id, dispatch)
+    playerController.setOnLoadedMetadata = () => {
+      const setMusic: IMusicStore = { _id, listening, author, name, liked, delay: 0, maxDelay: playerController.getMaxDelay || 0, isPaused: false }
+      dispatch(setCurrentMusic(setMusic))
+      startMusicInterval(dispatch)
+    }
+  })
 }
