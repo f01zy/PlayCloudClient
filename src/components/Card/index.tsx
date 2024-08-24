@@ -14,7 +14,6 @@ import Link from "next/link";
 import { handlePlayClick } from "@/utils/handlePlayClick.utils";
 
 const Card: FC<IMusic> = ({ author, name, listening, _id, liked }) => {
-  if (!author) return
   const router = useRouter()
   const music = useTypedSelector(selector => selector.siteSlice.music)
   const user = useTypedSelector(selector => selector.userSlice.user)
