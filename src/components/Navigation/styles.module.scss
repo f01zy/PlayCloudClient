@@ -1,5 +1,6 @@
 .navigation {
   width: 80%;
+  left: 20%;
   height: 70px;
   display: flex;
   align-items: center;
@@ -16,6 +17,7 @@
 
   @media (max-width: 800px) {
     width: 70%;
+    left: 30%;
   }
 
   @media (max-width: 650px) {
