@@ -8,11 +8,10 @@ import { playMusic } from "./playMusic.utils";
 import { IMusic } from "@/interfaces/music.interface";
 import { IUser } from "@/interfaces/user.interface";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { $api } from "@/http";
 
 export const handlePlayClick = (dispatch: Dispatch<UnknownAction>, { _id, author, listening, name, liked }: IMusic, user: IUser | null, musicName: string | undefined, router: AppRouterInstance) => {
   if (!user) return router.push("/login")
-  if (musicName != name) { playMusic({ _id, author, name, listening, liked }, dispatch, user); playerController.onEnded = () => playMusic({ _id, author, name, listening, liked }, dispatch, user); return }
+  if (musicName != name) { playMusic({ _id, author, name, listening, liked }, dispatch, user); playerController.onEnded = () => { playMusic({ _id, author, name, listening, liked }, dispatch, user); console.log(_id) }; return }
   if (playerController.getIsPaused) { startMusicInterval(dispatch); playerController.resume(); dispatch(setIsPaused(false)) }
   else { if (musicInterval) clearInterval(musicInterval); playerController.pause(); dispatch(setIsPaused(true)) }
 }

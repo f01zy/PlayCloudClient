@@ -27,7 +27,7 @@ export class PlayerController {
 
   get getMaxDelay() { if (!this.player) return; return Math.floor(this.player.duration) }
 
-  set playerSrc(id: string) { if (!this.player) return; this.player.src = `${SERVER_URL}/music/${id}.mp3` }
+  set playerSrc(id: string) { if (!this.player || this.player.src === `${SERVER_URL}/music/${id}.mp3`) return; this.player.src = `${SERVER_URL}/music/${id}.mp3` }
 
   set onLoadedMetadata(func: (this: GlobalEventHandlers) => any) { if (!this.player) return; this.player.onloadedmetadata = func }
 
