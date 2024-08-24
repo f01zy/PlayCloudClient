@@ -6,7 +6,6 @@ import { useTypedSelector } from "@/hooks/selector.hook"
 import { $api } from "@/http"
 import { IUser } from "@/interfaces/user.interface"
 import styles from "@/page/Profile/styles.module.scss"
-import { useRouter } from "next/navigation"
 import { FC, useEffect, useState } from "react"
 
 enum ESlide { "Треки" }
@@ -22,9 +21,8 @@ const Profile: FC<{ id: string }> = ({ id }) => {
   const user = useTypedSelector(selector => selector.userSlice.user)
   const [slide, setSlide] = useState<ESlide>(ESlide.Треки)
   const [isUploadForm, setIsUploadForm] = useState<boolean>(false)
-  const router = useRouter()
 
-  useEffect(() => { $api.get<IUser>(`/users/${id}`).then(res => setFetchUser(res.data)) }, [])
+  useEffect(() => { $api.get<IUser>(`/users/${id}`).then(res => { console.log(res.data); return res }).then(res => setFetchUser(res.data)) }, [])
 
   return fetchUser ? (
     <div className={styles.profile}>
