@@ -12,15 +12,7 @@ import { $api } from "@/http";
 
 export const handlePlayClick = (dispatch: Dispatch<UnknownAction>, { _id, author, listening, name, liked }: IMusic, user: IUser | null, musicName: string | undefined, router: AppRouterInstance) => {
   if (!user) return router.push("/login")
-  if (musicName != name) {
-    playMusic({ _id, author, name, listening, liked }, dispatch, user)
-    playerController.onEnded = async () => {
-      const music = await $api.get<IMusic>("/music/next").then(res => res.data)
-      if (!music) return
-      console.log(music)
-      playMusic({ ...music }, dispatch, user)
-    }
-  }
+  if (musicName != name) { playMusic({ _id, author, name, listening, liked }, dispatch, user); playerController.onEnded = () => playMusic({ _id, author, name, listening, liked }, dispatch, user); return }
   if (playerController.getIsPaused) { startMusicInterval(dispatch); playerController.resume(); dispatch(setIsPaused(false)) }
   else { if (musicInterval) clearInterval(musicInterval); playerController.pause(); dispatch(setIsPaused(true)) }
 }
