@@ -40,7 +40,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
           {values.map(el => (
             <li className={values.indexOf(el) === slide ? "border-b-2 border-white pb-2" : ""} key={el}>{el}</li>
           ))}
-          {user?._id || "" === fetchUser._id ? <li onClick={() => setIsUploadForm(!isUploadForm)}>Upload</li> : ""}
+          {user?._id === fetchUser._id ? <li onClick={() => setIsUploadForm(!isUploadForm)}>Upload</li> : ""}
         </ul>
       </nav>
       {slide === ESlide.Треки ? (
