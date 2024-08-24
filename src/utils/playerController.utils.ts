@@ -7,9 +7,7 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit"
 export class PlayerController {
   private readonly player = typeof window !== 'undefined' ? new window.Audio() : null
 
-  public play(id: string) { if (!this.player) return; this.player.src = `${SERVER_URL}/music/${id}.mp3` }
-
-  public playerPlay() { if (!this.player) return; this.player.play() }
+  public play() { if (!this.player) return; this.player.play() }
 
   public rewind(number: number, dispatch: Dispatch<UnknownAction>) {
     if (!this.player) return
@@ -29,7 +27,9 @@ export class PlayerController {
 
   get getMaxDelay() { if (!this.player) return; return Math.floor(this.player.duration) }
 
-  set setOnLoadedMetadata(func: (this: GlobalEventHandlers) => any) { if (!this.player) return; this.player.onloadedmetadata = func }
+  set playerSrc(id: string) { if (!this.player) return; this.player.src = `${SERVER_URL}/music/${id}.mp3` }
 
-  set setOnEnded(func: (this: GlobalEventHandlers) => any) { if (!this.player) return; this.player.addEventListener("ended", func) }
+  set onLoadedMetadata(func: (this: GlobalEventHandlers) => any) { if (!this.player) return; this.player.onloadedmetadata = func }
+
+  set onEnded(func: (this: GlobalEventHandlers) => any) { if (!this.player) return; this.player.onended = func }
 }
