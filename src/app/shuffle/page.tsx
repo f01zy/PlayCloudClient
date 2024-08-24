@@ -6,7 +6,7 @@ import { AppDispatch } from "@/store/store";
 import { getAllMusic } from "@/utils/getAllMusic.utils";
 import { playMusic } from "@/utils/playMusic.utils";
 import { NextPage } from "next";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
