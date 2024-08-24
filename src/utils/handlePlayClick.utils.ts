@@ -8,13 +8,15 @@ import { playMusic } from "./playMusic.utils";
 import { IMusic } from "@/interfaces/music.interface";
 import { IUser } from "@/interfaces/user.interface";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { $api } from "@/http";
 
 export const handlePlayClick = (dispatch: Dispatch<UnknownAction>, { _id, author, listening, name, liked }: IMusic, user: IUser | null, musicName: string | undefined, router: AppRouterInstance) => {
   if (!user) return router.push("/login")
   if (musicName != name) {
     playMusic({ _id, author, name, listening, liked }, dispatch, user)
     playerController.onEnded = async () => {
-      const music = user.history[user.history.length - 1]
+      const music = await $api.get<IMusic>("/music/next").then(res => res.data)
+      if (!music) return
       console.log(music)
       playMusic({ ...music }, dispatch, user)
     }
