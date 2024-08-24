@@ -18,6 +18,22 @@ body {
   display: flex;
 }
 
+.screen-block {
+  width: 80vw;
+  height: 100%;
+  margin-left: 20vw;
+
+  @media (max-width: 800px) {
+    width: 70vw;
+    margin-left: 30vw;
+  }
+
+  @media (max-width: 650px) {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   background: #666;
