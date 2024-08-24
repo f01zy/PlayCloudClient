@@ -27,7 +27,7 @@ const Card: FC<IMusic> = ({ author, name, listening, _id, liked }) => {
         <div onClick={() => {
           handlePlayClick(dispatch, { _id, author, listening, name, liked }, user, music?.name, router)
         }}>
-          {music?.name != name ? <FaPlay /> : music.isPaused ? <FaPlay /> : <FaPause />}
+          {music?.name != name ? <FaPlay /> : music?.isPaused ? <FaPlay /> : <FaPause />}
         </div>
       </div>
     </div>
