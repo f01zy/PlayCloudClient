@@ -11,5 +11,4 @@ export const useAuth = async () => {
   const res = await $api.get<IResponce>(`/auth/refresh`, { withCredentials: true })
   localStorage.setItem("token", res.data.accessToken)
   dispatch(setUser(res.data.user))
-  console.log(res.data.user)
 }
