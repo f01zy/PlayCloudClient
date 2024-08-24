@@ -11,7 +11,7 @@ const Home = () => {
   const [music, setMusic] = useState<Array<IMusic>>([])
 
   useEffect(() => {
-    const music = getAllMusic().then(res => setMusic(res.sort((a, b) => a.listening.length - b.listening.length).slice(0, 5).reverse()))
+    const music = getAllMusic().then(res => setMusic(res.sort((a, b) => a.listening.length - b.listening.length).slice(0, 5)))
   }, [])
 
   return <div className={styles.home}>
