@@ -28,6 +28,7 @@ export const playMusic = ({ _id, author, listening, name, liked }: IMusic, dispa
       const setMusic: IMusicStore = { _id, listening, author, name, liked, delay: 0, maxDelay: playerController.getMaxDelay || 0, isPaused: false }
       dispatch(setCurrentMusic(setMusic))
       startMusicInterval(dispatch)
+      playerController.playerPlay()
     }
   })
 }

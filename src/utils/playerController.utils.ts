@@ -7,12 +7,9 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit"
 export class PlayerController {
   private readonly player = typeof window !== 'undefined' ? new window.Audio() : null
 
-  public play(id: string) {
-    if (!this.player) return
-    this.player.src = `${SERVER_URL}/music/${id}.mp3`
-    this.player.play()
-  }
+  public play(id: string) { if (!this.player) return; this.player.src = `${SERVER_URL}/music/${id}.mp3` }
 
+  public playerPlay() { if (!this.player) return; this.player.play() }
 
   public rewind(number: number, dispatch: Dispatch<UnknownAction>) {
     if (!this.player) return
