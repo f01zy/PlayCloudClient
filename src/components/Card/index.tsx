@@ -14,7 +14,6 @@ import Link from "next/link";
 import { handlePlayClick } from "@/utils/handlePlayClick.utils";
 
 const Card: FC<IMusic> = ({ author, name, listening, _id, liked }) => {
-  if (!author || !name || !listening || !_id || !liked) return
   const router = useRouter()
   const music = useTypedSelector(selector => selector.siteSlice.music)
   const user = useTypedSelector(selector => selector.userSlice.user)
@@ -28,7 +27,7 @@ const Card: FC<IMusic> = ({ author, name, listening, _id, liked }) => {
         <div onClick={() => {
           handlePlayClick(dispatch, { _id, author, listening, name, liked }, user, music?.name, router)
         }}>
-          {music?.name != name ? <FaPlay /> : music?.isPaused ? <FaPlay /> : <FaPause />}
+          {music?.name != name ? <FaPlay /> : music.isPaused ? <FaPlay /> : <FaPause />}
         </div>
       </div>
     </div>
