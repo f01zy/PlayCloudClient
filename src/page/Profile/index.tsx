@@ -22,12 +22,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
   const [slide, setSlide] = useState<ESlide>(ESlide.Треки)
   const [isUploadForm, setIsUploadForm] = useState<boolean>(false)
 
-  useEffect(() => {
-    $api.get<IUser>(`/users/${id}`).then(res => {
-      console.log(res.data)
-      setFetchUser(res.data)
-    })
-  }, [])
+  useEffect(() => { $api.get<IUser>(`/users/${id}`).then(res => setFetchUser(res.data)) }, [])
 
   return fetchUser ? (
     <div className={styles.profile}>
