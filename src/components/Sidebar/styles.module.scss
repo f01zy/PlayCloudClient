@@ -15,7 +15,7 @@ $background: #121212;
   transition: margin-left .3s ease;
 
   &.close {
-    margin-left: calc(var(--sidebar-width) + 15px) !important;
+    margin-left: calc((var(--sidebar-width) + 15px) * -1) !important;
   }
 
   h2 {

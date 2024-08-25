@@ -4,13 +4,13 @@ import styles from "@/components/Navigation/styles.module.scss"
 import { links } from "@/config";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { $api } from "@/http";
-import { setCurrentMusic } from "@/store/site/site.slice";
+import { setCurrentMusic, setSidebar } from "@/store/site/site.slice";
 import { AppDispatch } from "@/store/store";
 import { setUser } from "@/store/user/user.slice";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { FiMenu } from "react-icons/fi";
+import { AiOutlineMenu } from "react-icons/ai";
 import { IoSearchSharp } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 
@@ -25,8 +25,14 @@ const Navigation = () => {
 
   return <nav className={styles.navigation}>
     <div className="flex items-center">
-      <div className={`${styles.sidebarToggle} ${sidebar ? styles.open : ""}`}><FiMenu /></div>
-      <p className={`${styles.logo} ${sidebar ? "" : "ml-2"}`}><b>Play</b>Cloud</p>
+      <div className={styles.sidebarToggle} onClick={() => dispatch(setSidebar(!sidebar))}>
+        <div className={`${styles.icon} ${sidebar ? styles.open : ""}`}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <p className={styles.logo}><b>Play</b>Cloud</p>
     </div>
     <ul className={styles.links}>
       <li><IoSearchSharp /></li>
