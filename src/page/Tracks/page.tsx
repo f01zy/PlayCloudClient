@@ -1,3 +1,5 @@
+"use client"
+
 import { IMusic } from "@/interfaces/music.interface"
 import styles from "@/page/Tracks/styles.module.scss"
 import { getAllMusic } from "@/utils/getAllMusic.utils"
