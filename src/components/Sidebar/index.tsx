@@ -15,24 +15,26 @@ const Sidebar = () => {
   const pathname = usePathname()
   const dispatch = useDispatch<AppDispatch>()
 
-  return <aside className={styles.sidebar}>
+  return <div>
     <div className={styles.button} onClick={() => dispatch(setSidebar(!isOpen))}>
       {isOpen ? <IoIosArrowBack /> : <IoIosArrowForward />}
     </div>
-    <h2>Browse Music</h2>
-    <ul>
-      {browseMusic.map(([Icon, label, path]) => (
-        <li key={label} className={pathname === path ? styles.active : ""}><Link href={path}><Icon /> {label}</Link></li>
-      ))}
-    </ul>
-    <h2>Library</h2>
-    <ul>
-      <li>Recent Played</li>
-      <li>Favorite Tracks</li>
-      <li>Charts</li>
-      <li>Radio</li>
-    </ul>
-  </aside>
+    <aside className={`${styles.sidebar} ${isOpen ? "" : styles.close}`}>
+      <h2>Browse Music</h2>
+      <ul>
+        {browseMusic.map(([Icon, label, path]) => (
+          <li key={label} className={pathname === path ? styles.active : ""}><Link href={path}><Icon /> {label}</Link></li>
+        ))}
+      </ul>
+      <h2>Library</h2>
+      <ul>
+        <li>Recent Played</li>
+        <li>Favorite Tracks</li>
+        <li>Charts</li>
+        <li>Radio</li>
+      </ul>
+    </aside>
+  </div>
 }
 
 export default Sidebar;
