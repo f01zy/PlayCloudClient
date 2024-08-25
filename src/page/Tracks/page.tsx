@@ -1,9 +1,9 @@
 "use client"
 
+import Card from "@/components/Card"
 import { IMusic } from "@/interfaces/music.interface"
 import styles from "@/page/Tracks/styles.module.scss"
 import { getAllMusic } from "@/utils/getAllMusic.utils"
-import { Card } from "@mui/material"
 import { useEffect, useState } from "react"
 
 const Tracks = () => {
