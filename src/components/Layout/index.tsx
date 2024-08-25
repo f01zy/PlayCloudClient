@@ -42,9 +42,7 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             <Sidebar />
             <div className={styles.column}>
               <Navigation />
-              <div className="children">
-                {children}
-              </div>
+              {children}
             </div>
           </>
         ) : <>{children}</>
