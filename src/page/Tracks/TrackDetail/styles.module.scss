@@ -47,6 +47,8 @@
 
     .buttons {
       margin-left: 15px;
+      display: flex;
+      align-items: center;
 
       .button {
         width: 40px;
