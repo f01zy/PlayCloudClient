@@ -20,22 +20,9 @@ const Navigation = () => {
   const pathnameBreadcrumbs = ("home" + pathname).split("/"); delete pathnameBreadcrumbs[pathnameBreadcrumbs.length - 1]
   const user = useTypedSelector(selector => selector.userSlice.user)
   const dispatch = useDispatch<AppDispatch>()
-  let i = 0;
 
   return <nav className={styles.navigation}>
     <p className={styles.logo}><b>Play</b>Cloud</p>
-    <div className={styles.breadcrumbs}>
-      {pathnameBreadcrumbs.map(path => {
-        i++
-
-        return (
-          <div key={path} className="flex items-center">
-            {i != 1 && <p className="ml-3">{">"}</p>}
-            <p>{path[0].toUpperCase() + path.toLowerCase().substring(1)}</p>
-          </div>
-        )
-      })}
-    </div>
     <ul className={styles.links}>
       <li><IoSearchSharp /></li>
       {links.map(link => (

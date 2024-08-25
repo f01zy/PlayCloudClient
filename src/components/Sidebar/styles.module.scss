@@ -1,26 +1,5 @@
 $background: #121212;
 
-.button {
-  position: absolute;
-  background: $background;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  right: -15px;
-  width: 15px;
-  height: 40px;
-  padding: 30px 8;
-
-  svg {
-    width: 20px;
-    height: auto;
-  }
-}
-
-
 .sidebar {
   width: 200px;
   height: calc(100vh - var(--navigation-height) - 15px);
@@ -35,6 +14,26 @@ $background: #121212;
 
   &.close {
     left: -215px !important;
+  }
+
+  .button {
+    position: absolute;
+    background: $background;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: -15px;
+    width: 15px;
+    height: 40px;
+    padding: 30px 8;
+
+    svg {
+      width: 20px;
+      height: auto;
+    }
   }
 
   h2 {
