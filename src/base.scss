@@ -18,15 +18,10 @@ body {
   display: flex;
 }
 
-.screen-block {
-  width: 80vw;
+.children {
+  width: 75vw;
   height: 100%;
-  margin-left: 20vw;
-
-  @media (max-width: 800px) {
-    width: 70vw;
-    margin-left: 30vw;
-  }
+  margin-left: 25vw;
 
   @media (max-width: 650px) {
     width: 100%;
