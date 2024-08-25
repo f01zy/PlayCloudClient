@@ -11,6 +11,8 @@ const Sidebar = () => {
   const pathname = usePathname()
 
   return <aside className={`${styles.sidebar} ${isOpen ? "" : styles.close}`}>
+    <h1><b>Play</b>Cloud</h1>
+
     <h2>Browse Music</h2>
     <ul>
       {browseMusic.map(([Icon, label, path]) => (

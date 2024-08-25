@@ -18,16 +18,14 @@ $background: #121212;
     margin-left: calc((var(--sidebar-width) + 15px) * -1) !important;
   }
 
+  h1 {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
   h2 {
     font-size: 18px;
-
-    &:not(:first-child) {
-      margin-top: 40px;
-    }
-
-    &:first-child {
-      margin-top: 20px;
-    }
+    margin-top: 40px;
   }
 
   ul {
