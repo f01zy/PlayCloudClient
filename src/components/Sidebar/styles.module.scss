@@ -1,7 +1,7 @@
 $background: #121212;
 
 .sidebar {
-  width: 200px;
+  width: var(--sidebar-width);
   height: calc(100vh - var(--navigation-height) - 15px);
   bottom: 15px;
   left: 15px;
@@ -15,28 +15,7 @@ $background: #121212;
   transition: margin-left .3s ease;
 
   &.close {
-    margin-left: -215px !important;
-  }
-
-  .button {
-    position: absolute;
-    background: $background;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    right: -30px;
-    width: 25px;
-    height: 60px;
-    border-radius: 5px;
-    padding: 30px 8;
-
-    svg {
-      width: 30px;
-      height: auto;
-    }
+    margin-left: calc(var(--sidebar-width) + 15px) !important;
   }
 
   h2 {

@@ -12,7 +12,7 @@
     border-radius: 5px;
 
     &:hover {
-      background: #1a1a1a;
+      background: var(--card-background);
     }
 
     h3 {

@@ -10,6 +10,7 @@ import { setUser } from "@/store/user/user.slice";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { FiMenu } from "react-icons/fi";
 import { IoSearchSharp } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 
@@ -20,9 +21,13 @@ const Navigation = () => {
   const pathnameBreadcrumbs = ("home" + pathname).split("/"); delete pathnameBreadcrumbs[pathnameBreadcrumbs.length - 1]
   const user = useTypedSelector(selector => selector.userSlice.user)
   const dispatch = useDispatch<AppDispatch>()
+  const sidebar = useTypedSelector(selector => selector.siteSlice.sidebar)
 
   return <nav className={styles.navigation}>
-    <p className={styles.logo}><b>Play</b>Cloud</p>
+    <div className="flex items-center">
+      <div className={`${styles.sidebarToggle} ${sidebar ? styles.open : ""}`}><FiMenu /></div>
+      <p className={`${styles.logo} ${sidebar ? "" : "ml-2"}`}><b>Play</b>Cloud</p>
+    </div>
     <ul className={styles.links}>
       <li><IoSearchSharp /></li>
       {links.map(link => (
