@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 const Tracks = () => {
   const [tracks, setTracks] = useState<Array<IMusic>>([])
 
-  useEffect(() => { getAllMusic().then(res => setTracks(res)) }, [])
+  useEffect(() => { getAllMusic().then(res => setTracks(res.sort((a, b) => b.listening.length - a.listening.length))) }, [])
 
   return <div className={styles.tracks}>
     <h2>Tracks</h2>
