@@ -1,5 +1,7 @@
+import Tracks from "@/page/Tracks/page";
+
 const TracksPage = () => {
-  return
+  return <Tracks />
 }
 
 export default TracksPage;
