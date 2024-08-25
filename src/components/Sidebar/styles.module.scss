@@ -1,17 +1,35 @@
 .sidebar {
   width: 20vw;
-  height: calc(100vw - var(--navigation-height) - 15px);
+  height: calc(100vh - var(--navigation-height) - 15px);
   bottom: 15px;
   left: 15px;
   padding: 20px 20px;
   border-radius: 5px;
-  background: #121212;
+  $background: #121212;
+  background: $background;
   padding: 0 20px;
   position: fixed;
-  z-index: 100;
+  z-index: 4;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  .button {
+    position: absolute;
+    background: $background;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    right: -30px;
+    width: max-content;
+    height: max-content;
+    padding: 30px 8;
+
+    svg {
+      width: 20px;
+      height: auto;
+    }
+  }
 
   h2 {
     font-size: 18px;

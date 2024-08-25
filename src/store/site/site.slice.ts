@@ -15,7 +15,8 @@ export interface IAlert {
 interface ISite {
   music: IMusicStore | null,
   alert: IAlert,
-  blocked: boolean
+  blocked: boolean,
+  sidebar: boolean
 }
 
 const initialState: ISite = {
@@ -25,6 +26,7 @@ const initialState: ISite = {
     message: ""
   },
   blocked: false,
+  sidebar: false
 }
 
 export const siteSlice = createSlice({
@@ -54,9 +56,13 @@ export const siteSlice = createSlice({
     setBlocked(state, { payload }: { payload: boolean }) {
       state.blocked = payload
     },
+
+    setSidebar(state, { payload }: { payload: boolean }) {
+      state.sidebar = payload
+    },
   }
 })
 
-export const { setMusicDelay, setCurrentMusic, setIsPaused, setAlert, setBlocked, hideAlert } = siteSlice.actions
+export const { setMusicDelay, setCurrentMusic, setIsPaused, setAlert, setBlocked, hideAlert, setSidebar } = siteSlice.actions
 
 export default siteSlice.reducer
