@@ -10,7 +10,7 @@ const ShufflePage: NextPage = () => {
 
   useEffect(() => {
     getAllMusic()
-      .then(res => router.push("/music/" + res[Math.floor(Math.random() * (res.length - 0)) + 0]._id))
+      .then(res => router.push("/tracks/" + res[Math.floor(Math.random() * (res.length - 0)) + 0]._id))
   }, [])
 
   return <div className="w-full h-full flex items-center justify-center"><h3 className="text-base">loading</h3></div>

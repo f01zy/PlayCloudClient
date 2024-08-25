@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "@/page/MusicDetail/styles.module.scss"
+import styles from "@/page/Tracks/TrackDetail/styles.module.scss"
 import Image from "next/image";
 import { SERVER_URL } from "@/config";
 import { FC, useState, useEffect } from "react"
@@ -17,11 +17,11 @@ import { FcLike, FcDislike } from "react-icons/fc";
 import Link from "next/link";
 import { handleClickBlock } from "@/utils/handleClickBlock.utils";
 
-interface IMusicDetail {
+interface ITrackDetail {
   id: string
 }
 
-const MusicDetail: FC<IMusicDetail> = ({ id }) => {
+const TrackDetail: FC<ITrackDetail> = ({ id }) => {
   const [music, setMusic] = useState<IMusic>()
   const { music: currentMusic, blocked: currentBlocked, alert: currentAlert } = useTypedSelector(selector => selector.siteSlice)
   const user = useTypedSelector(selector => selector.userSlice.user)
@@ -31,14 +31,14 @@ const MusicDetail: FC<IMusicDetail> = ({ id }) => {
   useEffect(() => { $api.get<IMusic>(`/music/${id}`).then(res => setMusic(res.data)) }, [])
 
   return music ? (
-    <div className={styles.musicDetail}>
+    <div className={styles.track}>
       <div className={styles.banner}></div>
       <div className={styles.container}>
         <div className={styles.avatar}>
           <Image src={`${SERVER_URL}/cover/${id}.jpg`} alt={music.name} width={100} height={100} />
         </div>
         <div className={styles.info}>
-          <Link href={`/music/${music._id}`}><h1>{music.name}</h1></Link>
+          <Link href={`/tracks/${music._id}`}><h1>{music.name}</h1></Link>
           <p>({music.listening.length} listening) ({music.liked.length} liked)</p>
           <Link href={`/profile/${music.author._id}`}><p>{music.author.username}</p></Link>
         </div>
@@ -66,4 +66,4 @@ const MusicDetail: FC<IMusicDetail> = ({ id }) => {
   ) : ""
 }
 
-export default MusicDetail;
+export default TrackDetail;

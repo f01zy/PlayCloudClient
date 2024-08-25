@@ -31,7 +31,7 @@ const Card: FC<IMusic> = ({ author, name, listening, _id, liked }) => {
         </div>
       </div>
     </div>
-    <Link href={`/music/${_id}`}><h3>{name}</h3></Link>
+    <Link href={`/tracks/${_id}`}><h3>{name}</h3></Link>
     <p>({listening.length} listening)</p>
     <Link href={`/profile/${author._id}`}><p>{author.username}</p></Link>
   </div>

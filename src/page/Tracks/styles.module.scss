@@ -1,4 +1,4 @@
-.home {
+.tracks {
   margin-top: 80px;
   height: auto;
   width: 100%;
@@ -8,7 +8,7 @@
     font-size: 25px;
   }
 
-  .songs {
+  .container {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);

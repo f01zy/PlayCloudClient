@@ -1,6 +1,6 @@
 import { TFetchError } from "@/components/Layout";
 import { IMusic } from "@/interfaces/music.interface";
-import MusicDetail from "@/page/MusicDetail";
+import TrackDetail from "@/page/Tracks/TrackDetail";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -16,8 +16,8 @@ export const generateMetadata = async ({ params }: { params: { id: string } }): 
   }
 }
 
-const MusicDetailPage = ({ params }: { params: { id: string } }) => {
-  return <MusicDetail {...params} />
+const TrackDetailPage = ({ params }: { params: { id: string } }) => {
+  return <TrackDetail {...params} />
 }
 
-export default MusicDetailPage;
+export default TrackDetailPage;

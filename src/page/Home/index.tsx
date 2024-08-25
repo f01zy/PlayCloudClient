@@ -10,9 +10,7 @@ import { useEffect, useState } from "react"
 const Home = () => {
   const [music, setMusic] = useState<Array<IMusic>>([])
 
-  useEffect(() => {
-    const music = getAllMusic().then(res => setMusic(res.sort((a, b) => b.listening.length - a.listening.length).slice(0, 5)))
-  }, [])
+  useEffect(() => { getAllMusic().then(res => setMusic(res.sort((a, b) => b.listening.length - a.listening.length).slice(0, 5))) }, [])
 
   return <div className={styles.home}>
     <h2>Most popular</h2>
