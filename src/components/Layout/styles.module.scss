@@ -23,8 +23,8 @@
 }
 
 .column {
-  width: 75%;
-  margin-left: 25%;
+  width: var(--column-width);
+  margin-left: var(--sidebar-width);
   position: relative;
 
   @media (max-width: 650px) {

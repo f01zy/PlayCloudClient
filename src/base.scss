@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --column-width: 75vw;
+  --sidebar-width: calc(100vw - var(--column-width))
+}
+
 * {
   padding: 0;
   margin: 0;
