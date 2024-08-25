@@ -11,9 +11,11 @@ $background: #121212;
   padding: 0 20px;
   position: fixed;
   z-index: 4;
+  margin-left: 0;
+  transition: margin-left .5s linear;
 
   &.close {
-    left: -215px !important;
+    margin-left: -215px !important;
   }
 
   .button {
@@ -25,13 +27,14 @@ $background: #121212;
     display: flex;
     align-items: center;
     justify-content: center;
-    right: -15px;
-    width: 15px;
-    height: 40px;
+    right: -25px;
+    width: 25px;
+    height: 100px;
+    border-radius: 5px;
     padding: 30px 8;
 
     svg {
-      width: 20px;
+      width: 30px;
       height: auto;
     }
   }
