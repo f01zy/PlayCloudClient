@@ -12,7 +12,7 @@ $background: #121212;
   position: fixed;
   z-index: 4;
   margin-left: 0;
-  transition: margin-left .5s linear;
+  transition: margin-left .3s ease;
 
   &.close {
     margin-left: -215px !important;
@@ -27,9 +27,9 @@ $background: #121212;
     display: flex;
     align-items: center;
     justify-content: center;
-    right: -25px;
+    right: -30px;
     width: 25px;
-    height: 100px;
+    height: 60px;
     border-radius: 5px;
     padding: 30px 8;
 
