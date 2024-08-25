@@ -4,7 +4,8 @@ import styles from "@/components/Card/styles.module.scss"
 import { SERVER_URL } from "@/config";
 import Image from "next/image";
 import { FC } from "react";
-import { FaPlay, FaPause } from "react-icons/fa6"
+import { FaPause } from "react-icons/fa6"
+import { IoIosPlay } from "react-icons/io";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { IMusic } from "@/interfaces/music.interface";
 import { useRouter } from "next/navigation";
@@ -27,7 +28,7 @@ const Card: FC<IMusic> = ({ author, name, listening, _id, liked }) => {
         <div onClick={() => {
           handlePlayClick(dispatch, { _id, author, listening, name, liked }, user, music?.name, router)
         }}>
-          {music?.name != name ? <FaPlay /> : music?.isPaused ? <FaPlay /> : <FaPause />}
+          {music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
         </div>
       </div>
     </div>

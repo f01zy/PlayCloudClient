@@ -5,7 +5,8 @@ import { SERVER_URL } from "@/config"
 import { useTypedSelector } from "@/hooks/selector.hook"
 import Image from "next/image"
 import { FaForward, FaBackward } from "react-icons/fa"
-import { FaPlay, FaPause } from "react-icons/fa6"
+import { FaPause } from "react-icons/fa6"
+import { IoIosPlay } from "react-icons/io";
 import { playerController } from "../Layout"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store"
@@ -35,7 +36,7 @@ const Player = () => {
             <div className={styles.button} onClick={() => {
               handlePlayClick(dispatch, music, user, music.name, router)
             }}>
-              {music.isPaused ? <FaPlay /> : <FaPause />}
+              {music.isPaused ? <IoIosPlay /> : <FaPause />}
             </div>
             <div className={styles.button} onClick={() => playerController.rewind(5, dispatch)}>
               <FaForward />

@@ -4,7 +4,8 @@ import styles from "@/page/Tracks/TrackDetail/styles.module.scss"
 import Image from "next/image";
 import { SERVER_URL } from "@/config";
 import { FC, useState, useEffect } from "react"
-import { FaPlay, FaPause } from "react-icons/fa6"
+import { FaPause } from "react-icons/fa6"
+import { IoIosPlay } from "react-icons/io";
 import { IMusic } from "@/interfaces/music.interface";
 import { $api } from "@/http";
 import { useTypedSelector } from "@/hooks/selector.hook";
@@ -48,7 +49,7 @@ const TrackDetail: FC<ITrackDetail> = ({ id }) => {
           <div className={styles.button} onClick={() => {
             handlePlayClick(dispatch, music, user, currentMusic?.name, router)
           }}>
-            {currentMusic ? currentMusic._id === music._id ? currentMusic.isPaused ? <FaPlay /> : <FaPause /> : <FaPlay /> : <FaPlay />}
+            {currentMusic ? currentMusic._id === music._id ? currentMusic.isPaused ? <IoIosPlay /> : <FaPause /> : <IoIosPlay /> : <IoIosPlay />}
           </div>
           <div className={styles.button} onClick={() => {
             const isBlocked = handleClickBlock(dispatch, currentBlocked, currentAlert.isShow); if (isBlocked) return

@@ -8,7 +8,7 @@
   background: var(--background);
 
   &:hover {
-    backdrop-filter: brightness(120%);
+    background: #1a1a1a;
   }
 
   h3 {
