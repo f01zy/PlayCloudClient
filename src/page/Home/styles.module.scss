@@ -9,7 +9,12 @@
   }
 
   @media (max-width: 850px) {
+    width: 90%;
+  }
+
+  @media (max-width: 650px) {
     padding: 40px 20px;
+    width: 100%;
   }
 
   .songs {

@@ -1,7 +1,6 @@
 "use client"
 
 import Card from "@/components/Card";
-import { $api } from "@/http";
 import { IMusic } from "@/interfaces/music.interface";
 import styles from "@/page/Home/styles.module.scss"
 import { getAllMusic } from "@/utils/getAllMusic.utils";
