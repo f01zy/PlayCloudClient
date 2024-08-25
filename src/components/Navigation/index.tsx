@@ -25,12 +25,10 @@ const Navigation = () => {
 
   return <nav className={styles.navigation}>
     <div className="flex items-center">
-      <div className={styles.sidebarToggle} onClick={() => dispatch(setSidebar(!sidebar))}>
-        <div className={`${styles.icon} ${sidebar ? styles.open : ""}`}>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+      <div className={`${styles.icon} ${sidebar ? styles.open : ""}`} onClick={() => dispatch(setSidebar(!sidebar))}>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
       <p className={`${styles.logo} ml-2`}><b>Play</b>Cloud</p>
     </div>
