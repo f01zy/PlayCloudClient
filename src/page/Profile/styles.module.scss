@@ -61,9 +61,12 @@
   .tracks {
     padding: 0px calc($avatar / 2);
     margin-top: 10px;
+    padding-bottom: 20px;
 
-    @media(max-width: 430px) {
-      padding: 0 15px;
+    .track {
+      &:not(:first-child) {
+        margin-top: 10px;
+      }
     }
   }
 }

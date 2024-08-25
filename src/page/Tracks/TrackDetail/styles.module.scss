@@ -78,7 +78,7 @@
   .songs {
     margin-left: calc($avatar / 2);
     margin-top: 30px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
 
     .song {
       &:not(:first-child) {

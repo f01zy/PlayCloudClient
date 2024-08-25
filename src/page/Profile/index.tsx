@@ -1,6 +1,7 @@
 "use client"
 
 import Card from "@/components/Card"
+import CardLittle from "@/components/CardLittle"
 import TracksGrid from "@/components/TracksGrid"
 import Upload from "@/components/Upload"
 import { useTypedSelector } from "@/hooks/selector.hook"
@@ -44,7 +45,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
           {user?._id === fetchUser._id ? <li onClick={() => setIsUploadForm(!isUploadForm)}>Upload</li> : ""}
         </ul>
       </nav>
-      {slide === ESlide.Треки ? <div className={styles.tracks}><TracksGrid tracks={fetchUser.music} /></div> : ""}
+      {slide === ESlide.Треки ? <div className={styles.tracks}>{fetchUser.music.map(music => <div className={styles.track}><CardLittle key={music._id} {...music} /></div>)}</div> : ""}
     </div>
   ) : ""
 }
