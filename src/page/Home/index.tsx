@@ -8,7 +8,7 @@ import styles from "@/page/Home/styles.module.scss"
 
 const Home = () => {
   return <div className={styles.home}>
-    <TracksGrid label="Most popular" quantity={5} sort="listening" />
+    <TracksGrid label="Most popular" quantity={6} sort="listening" />
   </div>
 }
 
