@@ -32,7 +32,7 @@ const Navigation = () => {
           <span></span>
         </div>
       </div>
-      <p className={styles.logo}><b>Play</b>Cloud</p>
+      <p className={`${styles.logo} ml-2`}><b>Play</b>Cloud</p>
     </div>
     <ul className={styles.links}>
       <li><IoSearchSharp /></li>

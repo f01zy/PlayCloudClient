@@ -24,6 +24,10 @@ $background: #121212;
     &:not(:first-child) {
       margin-top: 40px;
     }
+
+    &:first-child {
+      margin-top: 20px;
+    }
   }
 
   ul {
