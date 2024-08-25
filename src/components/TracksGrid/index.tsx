@@ -11,17 +11,17 @@ interface ITracksGrid {
   sort?: "liked" | "listening"
 }
 
-const TracksGrid: FC<ITracksGrid> = ({ quantity, label, sort, tracks }) => {
+const TracksGrid: FC<ITracksGrid> = ({ quantity, label, sort, tracks: tempTracks }) => {
   const [music, setMusic] = useState<Array<IMusic>>([])
 
   useEffect(() => {
-    (tracks ? new Promise(resolve => { }) : getAllMusic())
-      .then(res => {
-        let tracksArray = tracks ? tracks : res as Array<IMusic>
-        if (sort) tracksArray = tracksArray.sort((a, b) => b[sort].length - a[sort].length)
-        if (quantity) tracksArray = tracksArray.slice(0, quantity)
-        setMusic(tracksArray)
-      })
+    const setup = async () => {
+      let tracks = tempTracks ? tempTracks : await getAllMusic()
+      if (sort) tracks = tracks.sort((a, b) => b[sort].length - a[sort].length)
+      if (quantity) tracks = tracks.slice(0, quantity)
+      setMusic(tracks)
+    }
+    setup()
   }, [])
 
   return <div className={styles.tracks}>
