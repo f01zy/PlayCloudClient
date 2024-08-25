@@ -34,24 +34,28 @@ const TrackDetail: FC<ITrackDetail> = ({ id }) => {
     <div className={styles.track}>
       <div className={styles.banner}></div>
       <div className={styles.container}>
-        <div className={styles.avatar}>
-          <Image src={`${SERVER_URL}/cover/${id}.jpg`} alt={music.name} width={100} height={100} />
+        <div className={styles.trackInfo}>
+          <div className={styles.avatar}>
+            <Image src={`${SERVER_URL}/cover/${id}.jpg`} alt={music.name} width={100} height={100} />
+          </div>
+          <div className={styles.info}>
+            <Link href={`/tracks/${music._id}`}><h1>{music.name}</h1></Link>
+            <p>({music.listening.length} listening) ({music.liked.length} liked)</p>
+            <Link href={`/profile/${music.author._id}`}><p>{music.author.username}</p></Link>
+          </div>
         </div>
-        <div className={styles.info}>
-          <Link href={`/tracks/${music._id}`}><h1>{music.name}</h1></Link>
-          <p>({music.listening.length} listening) ({music.liked.length} liked)</p>
-          <Link href={`/profile/${music.author._id}`}><p>{music.author.username}</p></Link>
-        </div>
-        <div className={styles.button} onClick={() => {
-          handlePlayClick(dispatch, music, user, currentMusic?.name, router)
-        }}>
-          {currentMusic ? currentMusic._id === music._id ? currentMusic.isPaused ? <FaPlay /> : <FaPause /> : <FaPlay /> : <FaPlay />}
-        </div>
-        <div className={styles.button} onClick={() => {
-          const isBlocked = handleClickBlock(dispatch, currentBlocked, currentAlert.isShow); if (isBlocked) return
-          user ? $api.post<IMusic>("/music/like", { id: music._id }).then(res => setMusic(res.data)) : router.push("/login")
-        }}>
-          {music.liked.indexOf(user ? user._id : "") != -1 ? <FcDislike /> : <FcLike />}
+        <div className={styles.buttons}>
+          <div className={styles.button} onClick={() => {
+            handlePlayClick(dispatch, music, user, currentMusic?.name, router)
+          }}>
+            {currentMusic ? currentMusic._id === music._id ? currentMusic.isPaused ? <FaPlay /> : <FaPause /> : <FaPlay /> : <FaPlay />}
+          </div>
+          <div className={styles.button} onClick={() => {
+            const isBlocked = handleClickBlock(dispatch, currentBlocked, currentAlert.isShow); if (isBlocked) return
+            user ? $api.post<IMusic>("/music/like", { id: music._id }).then(res => setMusic(res.data)) : router.push("/login")
+          }}>
+            {music.liked.indexOf(user ? user._id : "") != -1 ? <FcDislike /> : <FcLike />}
+          </div>
         </div>
       </div>
       <div className={styles.songs}>

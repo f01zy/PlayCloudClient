@@ -16,38 +16,59 @@
     margin-left: calc($avatar / 2);
     align-items: center;
 
-    .avatar {
-      width: $avatar;
-      height: $avatar;
-
-      img {
-        width: 100%;
-        height: 100%;
-        border-radius: 5px;
-      }
+    @media(max-width: 500px) {
+      display: block;
     }
 
-    .info {
-      margin-left: 15px;
-
-      p {
-        font-size: 15px;
-        color: #9b9b9b;
-      }
-    }
-
-    .button {
-      margin-left: 15px;
-      width: 40px;
-      height: 40px;
-      border-radius: 100%;
+    .trackInfo {
       display: flex;
       align-items: center;
-      justify-content: center;
-      background: #fff;
 
-      svg {
-        fill: #000;
+      .avatar {
+        width: $avatar;
+        height: $avatar;
+
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 5px;
+        }
+      }
+
+      .info {
+        margin-left: 15px;
+
+        p {
+          font-size: 15px;
+          color: #9b9b9b;
+        }
+      }
+    }
+
+    .buttons {
+      margin-left: 15px;
+
+      .button {
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+
+        svg {
+          fill: #000;
+        }
+
+        &:not(:first-child) {
+          margin-left: 15px;
+        }
+      }
+
+      @media(max-width: 500px) {
+        margin-left: 0;
+        margin-top: 15px;
       }
     }
   }

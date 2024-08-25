@@ -26,6 +26,7 @@
   width: var(--column-width);
   margin-left: var(--sidebar-width);
   position: relative;
+  margin-bottom: 30px;
 
   @media (max-width: 900px) {
     width: calc(var(--column-width) - 7vw);
