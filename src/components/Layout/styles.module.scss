@@ -22,19 +22,8 @@
   }
 }
 
-.column {
-  width: var(--column-width);
-  margin-left: var(--sidebar-width);
+.children {
   position: relative;
   margin-bottom: 30px;
-
-  @media (max-width: 900px) {
-    width: calc(var(--column-width) - 7vw);
-    margin-left: calc(var(--sidebar-width) + 7vw);
-  }
-
-  @media (max-width: 650px) {
-    width: 100%;
-    margin-left: 0;
-  }
+  width: 100%;
 }

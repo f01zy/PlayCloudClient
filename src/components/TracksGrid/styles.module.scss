@@ -8,11 +8,7 @@
   .songs {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-
-    @media (max-width: 1050px) {
-      grid-template-columns: repeat(5, 1fr);
-    }
+    grid-template-columns: repeat(5, 1fr);
 
     @media (max-width: 950px) {
       grid-template-columns: repeat(4, 1fr);

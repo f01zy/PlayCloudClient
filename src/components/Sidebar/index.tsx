@@ -9,24 +9,19 @@ const Sidebar = () => {
   const pathname = usePathname()
 
   return <aside className={styles.sidebar}>
-    <div className={styles.logo}>
-      <p><b>Play</b>Cloud</p>
-    </div>
-    <div className={styles.content}>
-      <h2>Browse Music</h2>
-      <ul>
-        {browseMusic.map(([Icon, label, path]) => (
-          <li key={label} className={pathname === path ? styles.active : ""}><Link href={path}><Icon /> {label}</Link></li>
-        ))}
-      </ul>
-      <h2>Library</h2>
-      <ul>
-        <li>Recent Played</li>
-        <li>Favorite Tracks</li>
-        <li>Charts</li>
-        <li>Radio</li>
-      </ul>
-    </div>
+    <h2>Browse Music</h2>
+    <ul>
+      {browseMusic.map(([Icon, label, path]) => (
+        <li key={label} className={pathname === path ? styles.active : ""}><Link href={path}><Icon /> {label}</Link></li>
+      ))}
+    </ul>
+    <h2>Library</h2>
+    <ul>
+      <li>Recent Played</li>
+      <li>Favorite Tracks</li>
+      <li>Charts</li>
+      <li>Radio</li>
+    </ul>
   </aside>
 }
 

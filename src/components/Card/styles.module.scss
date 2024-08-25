@@ -3,11 +3,12 @@
   height: auto;
   margin-top: 20px;
   overflow: hidden;
-  padding: 5px 5px;
+  padding: 10px 10px;
   $width: 150px;
+  background: var(--background);
 
   &:hover {
-    filter: brightness(120%);
+    backdrop-filter: brightness(120%);
   }
 
   h3 {
@@ -39,9 +40,9 @@
       justify-content: center;
 
       div {
-        transform: translateY(-20px);
-        width: 40%;
-        height: 40%;
+        transform: translateY(-5px);
+        width: 30%;
+        height: 30%;
         border-radius: 100%;
         background: rgb(47, 194, 47);
         position: relative;
@@ -51,8 +52,7 @@
         transition: transform .4s ease;
 
         &:hover {
-          transform: scale(1.05);
-          filter: brightness(110%);
+          filter: brightness(150%);
         }
 
         svg {
@@ -69,7 +69,7 @@
         opacity: 1;
 
         div {
-          transform: translateY(0);
+          transform: translateY(0px);
         }
       }
     }

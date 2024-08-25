@@ -3,8 +3,6 @@
 @tailwind utilities;
 
 :root {
-  --column-width: 80vw;
-  --sidebar-width: calc(100vw - var(--column-width));
   --background: #010101;
 }
 

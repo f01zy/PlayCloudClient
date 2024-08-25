@@ -39,9 +39,9 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       {
         dontSidebarsPages.indexOf(pathname) === -1 ? (
           <>
+            <Navigation />
             <Sidebar />
-            <div className={styles.column}>
-              <Navigation />
+            <div className={styles.children}>
               {children}
             </div>
           </>
