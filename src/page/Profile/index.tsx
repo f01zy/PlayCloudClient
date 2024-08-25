@@ -44,7 +44,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
           {user?._id === fetchUser._id ? <li onClick={() => setIsUploadForm(!isUploadForm)}>Upload</li> : ""}
         </ul>
       </nav>
-      {slide === ESlide.Треки ? <TracksGrid tracks={fetchUser.music} /> : ""}
+      {slide === ESlide.Треки ? <div className={styles.tracks}><TracksGrid tracks={fetchUser.music} /></div> : ""}
     </div>
   ) : ""
 }

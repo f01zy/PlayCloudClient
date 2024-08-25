@@ -3,25 +3,31 @@
   height: auto;
   margin-top: 20px;
   overflow: hidden;
+  padding: 5px 5px;
+  $width: 150px;
+
+  &:hover {
+    filter: brightness(120%);
+  }
 
   h3 {
-    width: 100px;
+    width: $width;
   }
 
   p {
     font-size: 14px;
     color: #9b9b9b;
-    width: 100px;
+    width: $width;
   }
 
   .cover {
-    width: 100px;
-    height: 100px;
+    width: $width;
+    height: $width;
     position: relative;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 
     .play {
-      transition: all .4s ease;
+      transition: opacity .4s ease;
       visibility: hidden;
       opacity: 0;
       width: 100%;
@@ -33,19 +39,26 @@
       justify-content: center;
 
       div {
-        width: 30%;
-        height: 30%;
+        transform: translateY(-20px);
+        width: 40%;
+        height: 40%;
         border-radius: 100%;
-        background: #fff;
+        background: rgb(47, 194, 47);
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: transform .4s ease;
+
+        &:hover {
+          transform: scale(1.05);
+          filter: brightness(110%);
+        }
 
         svg {
           fill: black;
-          width: 60%;
-          height: 60%;
+          width: 50%;
+          height: 50%;
         }
       }
     }
@@ -54,6 +67,10 @@
       .play {
         visibility: visible;
         opacity: 1;
+
+        div {
+          transform: translateY(0);
+        }
       }
     }
 

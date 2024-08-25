@@ -4,7 +4,8 @@
 
 :root {
   --column-width: 80vw;
-  --sidebar-width: calc(100vw - var(--column-width))
+  --sidebar-width: calc(100vw - var(--column-width));
+  --background: #010101;
 }
 
 * {
@@ -15,7 +16,7 @@
 }
 
 body {
-  background: #010101;
+  background: var(--background);
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
