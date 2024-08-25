@@ -64,7 +64,7 @@ const Upload: FC<IUploadComponent> = ({ setIsUploadForm, setFetchUser }) => {
         </div>
       </div>
       <div className={styles.input_file}>
-        <input type="file" multiple={false} id="#music-input" title="" placeholder="" accept="audio/mpeg3" {...register("music", {
+        <input type="file" multiple={false} id="#music-input" title="" placeholder="" accept="audio/.mp3" {...register("music", {
           required: true,
         })} />
         <div>
