@@ -10,8 +10,8 @@
   background: #010101;
   padding-right: 50px;
 
-  @media (max-width: 650px) {
-    width: calc(var(--column-width) - 8vw);
+  @media (max-width: 900px) {
+    width: calc(var(--column-width) - 7vw);
   }
 
   @media (max-width: 650px) {
