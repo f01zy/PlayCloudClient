@@ -1,5 +1,5 @@
 .navigation {
-  width: 100%;
+  width: var(--column-width);
   height: 70px;
   display: flex;
   align-items: center;
@@ -9,10 +9,6 @@
   z-index: 100;
   background: #010101;
   padding-right: 50px;
-
-  @media (max-width: 1050px) {
-    padding-left: 20px;
-  }
 
   @media (max-width: 650px) {
     justify-content: space-between;
