@@ -1,28 +1,24 @@
 .banner {
   width: 100%;
-  height: max-content;
+  height: 35vh;
+  background: #c4c4c4;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: end;
   margin-bottom: 40px;
-  position: relative;
-
-  img {
-    position: absolute;
-    width: 100%;
-    height: auto;
-  }
 
   .content {
     padding: 20px;
 
     h2 {
       font-size: 25px;
+      color: #000;
     }
 
     p {
       font-size: 17px;
+      color: #000;
       margin-top: 10px;
       width: 100%;
     }
