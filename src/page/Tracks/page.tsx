@@ -5,7 +5,7 @@ import styles from "@/page/Tracks/styles.module.scss"
 
 const Tracks = () => {
   return <div className={styles.tracks}>
-    <TracksGrid quantity={"full"} label="Tracks" />
+    <TracksGrid label="Tracks" />
   </div>
 }
 
