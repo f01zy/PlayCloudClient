@@ -80,9 +80,11 @@
     margin-top: 30px;
 
     .song {
-      &:not(:first-child) {
+      &:first-child {
         margin-top: 10px;
       }
+
+      margin-bottom: 10px;
     }
   }
 }
