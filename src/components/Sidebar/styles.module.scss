@@ -1,3 +1,5 @@
+$background: #121212;
+
 .button {
   position: absolute;
   background: $background;
@@ -26,7 +28,6 @@
   left: 15px;
   padding: 20px 20px;
   border-radius: 5px;
-  $background: #121212;
   background: $background;
   padding: 0 20px;
   position: fixed;
