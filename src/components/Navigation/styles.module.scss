@@ -11,6 +11,10 @@
   padding-right: 50px;
 
   @media (max-width: 650px) {
+    width: calc(var(--column-width) - 8vw);
+  }
+
+  @media (max-width: 650px) {
     justify-content: space-between;
     padding: 10px 20px;
     width: 100%;
