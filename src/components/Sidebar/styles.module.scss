@@ -5,8 +5,7 @@ $background: #121212;
   height: calc(100vh - var(--navigation-height));
   bottom: 0;
   left: 0;
-  border-radius: 5px;
-  background: $background;
+  background: var(--background);
   padding: 0 30px;
   position: fixed;
   z-index: 4;
@@ -15,6 +14,7 @@ $background: #121212;
 
   &.close {
     @media(max-width: 600px) {
+      background: $background;
       margin-left: calc(var(--sidebar-width) * -1) !important;
     }
   }
@@ -22,6 +22,11 @@ $background: #121212;
   h1 {
     font-size: 18px;
     margin-top: 20px;
+    display: none;
+
+    @media(max-width: 600px) {
+      display: block;
+    }
   }
 
   h2 {
