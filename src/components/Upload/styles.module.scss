@@ -16,16 +16,15 @@
   left: 0;
   right: 0;
   margin: auto;
-  z-index: 1;
+  opacity: 0;
+  transform: translateY(0px);
   transition: opacity, transform 1s ease;
-
-  &.close {
-    opacity: 0;
-    transform: translateY(0px);
-  }
+  visibility: hidden;
+  z-index: 4;
 
   &.open {
     opacity: 1;
+    visibility: visible;
     transform: translateY(20px);
   }
 

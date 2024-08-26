@@ -46,7 +46,7 @@ const Upload: FC<IUploadComponent> = ({ setFetchUser }) => {
     dispatch(setTrackUploadForm(false))
   }
 
-  return <div className={`${styles.upload} ${trackUploadForm ? styles.open : styles.close}`}>
+  return <div className={`${styles.upload} ${trackUploadForm ? styles.open : ""}`}>
     {error ? <h3 className="text-center mb-6 text-red-600 text-base">{error}</h3> : ""}
 
     <form onSubmit={handleSubmit(onSubmit)}>
