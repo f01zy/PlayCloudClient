@@ -25,5 +25,11 @@
 .children {
   position: relative;
   margin-bottom: 30px;
-  width: 100%;
+  width: calc(100vw - var(--sidebar-width));
+  margin-left: var(--sidebar-width);
+
+  @media(max-width: 600px) {
+    width: 100%;
+    margin-left: 0;
+  }
 }

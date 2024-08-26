@@ -29,6 +29,7 @@ const Navigation = () => {
       <span></span>
       <span></span>
     </div>
+    <h1 className={styles.logo}><b>Play</b>Cloud</h1>
     <ul className={styles.links}>
       <li><IoSearchSharp /></li>
       {links.map(link => (

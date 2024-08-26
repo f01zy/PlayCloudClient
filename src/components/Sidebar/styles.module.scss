@@ -2,9 +2,9 @@ $background: #121212;
 
 .sidebar {
   width: var(--sidebar-width);
-  height: calc(100vh - var(--navigation-height) - 15px * 2);
-  bottom: 15px;
-  left: 15px;
+  height: calc(100vh - var(--navigation-height));
+  bottom: 0;
+  left: 0;
   border-radius: 5px;
   background: $background;
   padding: 0 30px;
@@ -14,7 +14,9 @@ $background: #121212;
   transition: margin-left .3s ease;
 
   &.close {
-    margin-left: calc((var(--sidebar-width) + 15px) * -1) !important;
+    @media(max-width: 600px) {
+      margin-left: calc(var(--sidebar-width) * -1) !important;
+    }
   }
 
   h1 {
