@@ -8,21 +8,17 @@
   .songs {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
 
-    @media (max-width: 1090px) {
+    @media (max-width: 1085px) {
       grid-template-columns: repeat(4, 1fr);
     }
 
-    @media (max-width: 850px) {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    @media (max-width: 750px) {
+    @media (max-width: 920px) {
       grid-template-columns: repeat(3, 1fr);
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 770px) {
       grid-template-columns: repeat(2, 1fr);
     }
   }

@@ -1,68 +1,47 @@
 "use client"
 
-import styles from "@/components/Upload/styles.module.scss"
 import { $api } from "@/http"
-import { IUpload } from "@/interfaces/upload.interface"
 import { IUser } from "@/interfaces/user.interface"
 import { AppDispatch } from "@/store/store"
 import { setUser } from "@/store/user/user.slice"
-import Image from "next/image"
 import { SetStateAction, useState, Dispatch, FC } from "react"
-import { SubmitHandler, useForm } from "react-hook-form"
+import { FieldValues, SubmitHandler } from "react-hook-form"
 import { useDispatch } from "react-redux"
-import Button from "../Button"
-import { setTrackUploadForm } from "@/store/site/site.slice"
+import { setLoading, setWindowForm } from "@/store/site/site.slice"
+import WindowForm from "../WindowForm"
+import { TFileInput, TInput } from "../AuthForm"
 import { useTypedSelector } from "@/hooks/selector.hook"
-import { IoMdClose } from "react-icons/io";
 
 interface IUploadComponent {
   setFetchUser: Dispatch<SetStateAction<IUser | undefined>>
 }
 
 const Upload: FC<IUploadComponent> = ({ setFetchUser }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string | null>(null)
   const dispatch = useDispatch<AppDispatch>()
-  const { trackUploadForm } = useTypedSelector(selector => selector.siteSlice)
+  const { loading } = useTypedSelector(selector => selector.siteSlice)
 
-  const { register, handleSubmit } = useForm<IUpload>()
+  const onSubmit: SubmitHandler<FieldValues> = async data => {
+    if (loading) return
 
-  const onSubmit: SubmitHandler<IUpload> = async data => {
-    if (isLoading) return
-
-    setIsLoading(true)
+    dispatch(setLoading(true))
 
     const formData = new FormData()
     formData.append("files", data.cover[0])
     formData.append("files", data.music[0])
     formData.append("name", data.name)
 
-    const user = await $api.post<IUser>("/music", formData, { headers: { "Content-Type": "mulpipart/form-data" } }).then(res => res.data).catch(() => setError("An error occurred. Try again later")).finally(() => setIsLoading(false))
+    const user = await $api.post<IUser>("/music", formData, { headers: { "Content-Type": "mulpipart/form-data" } }).then(res => res.data).finally(() => dispatch(setLoading(false)))
 
     if (!user) return
 
     dispatch(setUser(user))
     setFetchUser(user)
-    dispatch(setTrackUploadForm(false))
+    dispatch(setWindowForm(null))
   }
 
-  return <div className={`${styles.upload} ${trackUploadForm ? styles.open : ""}`}>
-    {error ? <h3 className="text-center mb-6 text-red-600 text-base">{error}</h3> : ""}
+  const inputs: Array<TInput | TInput & TFileInput> = [{ accept: "image/*", field: "cover", label: "Choice a cover", multiple: false, type: "file" }, { accept: ".mp3", field: "music", label: "Choice a music", multiple: false, type: "file" }, { field: "name", label: "name", type: "text" }]
 
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex justify-between items-center w-full mb-3">
-        <h1>Upload a track</h1>
-        <IoMdClose width={25} height={25} onClick={() => dispatch(setTrackUploadForm(false))} />
-      </div>
-
-      <div className={styles.input_file}><input type="file" multiple={false} id="#cover-input" title="" accept="image/*" placeholder="" {...register("cover", { required: true, })} /><div><p>Choice a cover</p></div></div>
-      <div className={styles.input_file}><input type="file" multiple={false} id="#music-input" title="" placeholder="" accept=".mp3" {...register("music", { required: true })} /><div><p>Choice a music</p></div></div>
-      <div className={styles.input}><input type="text" placeholder="" {...register("name", { required: true, })} /><p>name</p></div>
-      <div className="mt-4 mb-4 flex items-center"><input type="checkbox" className="w-4 h-4 mr-2" /><p className="text-xs">I agree with all the rules of publication</p></div>
-
-      <Button type="submit">{isLoading ? <Image src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Upload</p>}</Button>
-    </form>
-  </div>
+  return <WindowForm inputs={inputs} onSubmit={onSubmit} />
 }
 
 export default Upload;

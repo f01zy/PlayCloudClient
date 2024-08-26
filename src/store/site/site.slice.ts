@@ -17,18 +17,17 @@ interface ISite {
   alert: IAlert,
   blocked: boolean,
   sidebar: boolean,
-  trackUploadForm: boolean
+  windowForm: "uploadTrack" | null,
+  loading: boolean
 }
 
 const initialState: ISite = {
   music: null,
-  alert: {
-    isShow: false,
-    message: ""
-  },
+  alert: { isShow: false, message: "" },
   blocked: false,
   sidebar: false,
-  trackUploadForm: false
+  windowForm: null,
+  loading: false
 }
 
 export const siteSlice = createSlice({
@@ -49,10 +48,12 @@ export const siteSlice = createSlice({
 
     setSidebar(state, { payload }: { payload: boolean }) { state.sidebar = payload },
 
-    setTrackUploadForm(state, { payload }: { payload: boolean }) { state.trackUploadForm = payload },
+    setWindowForm(state, { payload }: { payload: null | "uploadTrack" }) { state.windowForm = payload },
+
+    setLoading(state, { payload }: { payload: boolean }) { state.loading = payload },
   }
 })
 
-export const { setMusicDelay, setCurrentMusic, setIsPaused, setAlert, setBlocked, hideAlert, setSidebar, setTrackUploadForm } = siteSlice.actions
+export const { setMusicDelay, setCurrentMusic, setIsPaused, setAlert, setBlocked, hideAlert, setSidebar, setWindowForm, setLoading } = siteSlice.actions
 
 export default siteSlice.reducer

@@ -7,6 +7,11 @@ import { FC, HTMLInputTypeAttribute } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import Button from "../Button"
 
+export type TFileInput = {
+  multiple: boolean,
+  accept: string
+}
+
 export type TInput = {
   type?: HTMLInputTypeAttribute,
   field: string,
