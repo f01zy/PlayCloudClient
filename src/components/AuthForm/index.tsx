@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { FC, HTMLInputTypeAttribute } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import Button from "../Button"
+import Input from "@/components/Input"
 
 export type TFileInput = {
   multiple: boolean,
@@ -38,12 +39,7 @@ const AuthForm: FC<IAuthForm> = ({ onSubmit, inputs, buttonLabel }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>{buttonLabel} Here</h1>
         {status && <p className={`w-4/5 text-base ${status === "error" ? "text-red-600" : "text-green-500"}`}>{status === "error" ? "An error has occurred" : `You can go to the `}{status === "success" && <Link href={"/"} className="!text-blue-500">home</Link>}</p>}
-        {inputs.flatMap(input => (
-          <div className={styles.input}>
-            <input type={input.type} placeholder="" {...register(input.field, { required: true, })} />
-            <p>{input.label}</p>
-          </div>
-        ))}
+        {inputs.flatMap(input => <Input {...input} register={register} required={true} />)}
         <p className={styles.link}>{pathname === "/register" && <>Don&apos;t</>} have an account yet? - <Link href={`/${buttonLink}`} className="text-cyan-600">{buttonLink}</Link></p>
         <Button type="submit">{loading ? <Image src={"loader.svg"} width={30} height={100} alt="loader" /> : <p>{buttonLabel}</p>}</Button>
       </form>

@@ -46,62 +46,6 @@
         font-weight: 600;
       }
 
-      .input {
-        width: 80%;
-        height: 40px;
-        position: relative;
-        display: flex;
-        align-items: center;
-
-        &:not(:first-child) {
-          margin-top: 15px;
-        }
-
-        input {
-          width: 100%;
-          border-radius: 5px;
-          padding: 0 10px;
-          height: 100%;
-          background-color: rgba(255, 255, 255, 0.07);
-
-          &:focus~p,
-          &:not(:placeholder-shown)~p {
-            visibility: hidden;
-            opacity: 0;
-          }
-
-          &:focus {
-            outline: none;
-          }
-        }
-
-        p {
-          position: absolute;
-          pointer-events: none;
-          left: 10px;
-          opacity: 1;
-          visibility: visible;
-          transition: all .2s ease;
-        }
-      }
-
-      button {
-        margin-top: 20px;
-        width: 80%;
-        background-color: #ffffff;
-        height: 40px;
-        border-radius: 5px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        p {
-          color: #080710;
-          font-weight: 600;
-        }
-      }
-
       .link {
         width: 80%;
         font-size: 14px;

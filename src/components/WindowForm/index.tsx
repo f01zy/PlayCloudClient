@@ -9,6 +9,7 @@ import Button from "../Button";
 import { useState, FC } from "react"
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { setWindowForm } from "@/store/site/site.slice";
+import Input from "@/components/Input";
 
 interface IWindowForm {
   onSubmit: SubmitHandler<FieldValues>,
@@ -28,12 +29,7 @@ const WindowForm: FC<IWindowForm> = ({ inputs, onSubmit }) => {
     </div>
 
     <form>
-      {inputs.flatMap(input => (
-        <div className={input.type === "file" ? styles.file : styles.input}>
-          <input type={input.type} placeholder="" multiple={(input as TInput & TFileInput).multiple} accept={(input as TInput & TFileInput).accept} {...register(input.field, { required: true, })} />
-          {input.type === "file" ? <div><p>{input.label}</p></div> : <p>{input.label}</p>}
-        </div>
-      ))}
+      {inputs.flatMap(input => <Input {...(input as TInput & TFileInput)} register={register} required={true} />)}
 
       <div className="mt-4 mb-4 flex items-center"><input type="checkbox" className="w-4 h-4 mr-2" /><p className="text-sm">I agree with all the rules of publication</p></div>
 
