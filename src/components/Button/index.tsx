@@ -11,7 +11,7 @@ const Button: FC<IButton> = ({ children, onSubmit, type }) => {
   return <button
     type={type}
     onSubmit={onSubmit}
-    className={styles.submit}
+    className={styles.button}
   >{children}</button>
 }
 

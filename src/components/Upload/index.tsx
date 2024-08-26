@@ -46,19 +46,19 @@ const Upload: FC<IUploadComponent> = ({ setFetchUser }) => {
     dispatch(setTrackUploadForm(false))
   }
 
-  return <div className={`${styles.upload} ${trackUploadForm ? "" : styles.close}`}>
+  return <div className={`${styles.upload} ${trackUploadForm ? styles.open : styles.close}`}>
     {error ? <h3 className="text-center mb-6 text-red-600 text-base">{error}</h3> : ""}
 
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex justify-between items-center w-full">
-        <h2>Upload a track</h2>
-        <IoMdClose onClick={() => dispatch(setTrackUploadForm(false))} />
+      <div className="flex justify-between items-center w-full mb-3">
+        <h1>Upload a track</h1>
+        <IoMdClose width={25} height={25} onClick={() => dispatch(setTrackUploadForm(false))} />
       </div>
 
       <div className={styles.input_file}><input type="file" multiple={false} id="#cover-input" title="" accept="image/*" placeholder="" {...register("cover", { required: true, })} /><div><p>Choice a cover</p></div></div>
       <div className={styles.input_file}><input type="file" multiple={false} id="#music-input" title="" placeholder="" accept=".mp3" {...register("music", { required: true })} /><div><p>Choice a music</p></div></div>
       <div className={styles.input}><input type="text" placeholder="" {...register("name", { required: true, })} /><p>name</p></div>
-      <div className="mt-4 flex"><input type="text" className="w-8 h-8 mr-2" /><p>I agree with all the rules of publication</p></div>
+      <div className="mt-4 mb-4 flex items-center"><input type="checkbox" className="w-5 h-5 mr-2" /><p>I agree with all the rules of publication</p></div>
 
       <Button type="submit">{isLoading ? <Image src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Upload</p>}</Button>
     </form>

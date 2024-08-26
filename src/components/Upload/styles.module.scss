@@ -17,13 +17,16 @@
   right: 0;
   margin: auto;
   z-index: 1;
-  opacity: 1;
-  transform: translateY(-20px);
-  transition: opacity, transform .5s ease;
+  transition: opacity, transform 1s ease;
 
   &.close {
     opacity: 0;
     transform: translateY(0px);
+  }
+
+  &.open {
+    opacity: 1;
+    transform: translateY(20px);
   }
 
   form {
