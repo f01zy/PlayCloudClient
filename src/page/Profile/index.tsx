@@ -21,7 +21,7 @@ for (let i = 0; i < length; i++) {
 
 const Profile: FC<{ id: string }> = ({ id }) => {
   const [fetchUser, setFetchUser] = useState<IUser>()
-  const [slide] = useState<ESlide>(ESlide.Tracks)
+  const [slide, setSlide] = useState<ESlide>(ESlide.Tracks)
   const user = useTypedSelector(selector => selector.userSlice.user)
   const dispatch = useDispatch<AppDispatch>()
 
@@ -41,7 +41,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
       <nav>
         <ul>
           {values.map(el => (
-            <li className={values.indexOf(el) === slide ? "border-b-2 border-white pb-2" : ""} key={el}>{el}</li>
+            <li onClick={() => setSlide(values.indexOf(el))} className={values.indexOf(el) === slide ? "border-b-2 border-white pb-2" : ""} key={el}>{el}</li>
           ))}
           {user?._id === fetchUser._id ? <li onClick={() => dispatch(setWindowForm("uploadTrack"))}>Upload</li> : ""}
         </ul>

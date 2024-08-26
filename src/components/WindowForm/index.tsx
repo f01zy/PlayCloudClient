@@ -13,16 +13,17 @@ import Input from "@/components/Input";
 
 interface IWindowForm {
   onSubmit: SubmitHandler<FieldValues>,
-  inputs: Array<TInput | TInput & TFileInput>
+  inputs: Array<TInput | TInput & TFileInput>,
+  windowName: string
 }
 
-const WindowForm: FC<IWindowForm> = ({ inputs, onSubmit }) => {
-  const { loading } = useTypedSelector(selector => selector.siteSlice)
+const WindowForm: FC<IWindowForm> = ({ inputs, onSubmit, windowName }) => {
+  const { loading, windowForm } = useTypedSelector(selector => selector.siteSlice)
   const dispatch = useDispatch<AppDispatch>()
 
   const { register, handleSubmit } = useForm()
 
-  return <div className={styles.form}>
+  return <div className={`${styles.form} ${windowForm === windowName ? styles.open : ""}`}>
     <div className="flex justify-between items-center w-full mb-5">
       <h1>Upload a track</h1>
       <IoMdClose width={25} height={25} onClick={() => dispatch(setWindowForm(null))} />

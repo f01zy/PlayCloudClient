@@ -41,7 +41,7 @@ const Upload: FC<IUploadComponent> = ({ setFetchUser }) => {
 
   const inputs: Array<TInput | TInput & TFileInput> = [{ accept: "image/*", field: "cover", label: "Choice a cover", multiple: false, type: "file" }, { accept: ".mp3", field: "music", label: "Choice a music", multiple: false, type: "file" }, { field: "name", label: "name", type: "text" }]
 
-  return <WindowForm inputs={inputs} onSubmit={onSubmit} />
+  return <WindowForm inputs={inputs} onSubmit={onSubmit} windowName="uploadTrack" />
 }
 
 export default Upload;

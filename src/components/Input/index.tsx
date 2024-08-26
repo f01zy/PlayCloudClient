@@ -13,7 +13,7 @@ interface IInput {
 
 const Input: FC<IInput> = ({ type, field, register, required, accept, multiple, label }) => {
   return <div className={type === "file" ? styles.file : styles.input}>
-    <input type={type} accept={accept} multiple={multiple} {...register(field, { required })} />
+    <input type={type} placeholder="" accept={accept} multiple={multiple} {...register(field, { required })} />
     {type === "file" ? <div><p>{label}</p></div> : <p>{label}</p>}
   </div>
 }
