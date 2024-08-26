@@ -1,14 +1,15 @@
 "use client"
 
-import Card from "@/components/Card"
 import CardLittle from "@/components/CardLittle"
-import TracksGrid from "@/components/TracksGrid"
 import Upload from "@/components/Upload"
 import { useTypedSelector } from "@/hooks/selector.hook"
 import { $api } from "@/http"
 import { IUser } from "@/interfaces/user.interface"
 import styles from "@/page/Profile/styles.module.scss"
+import { setTrackUploadForm } from "@/store/site/site.slice"
+import { AppDispatch } from "@/store/store"
 import { FC, useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 
 enum ESlide { "Треки" }
 const length = Object.keys(ESlide).length / 2
@@ -20,15 +21,15 @@ for (let i = 0; i < length; i++) {
 
 const Profile: FC<{ id: string }> = ({ id }) => {
   const [fetchUser, setFetchUser] = useState<IUser>()
-  const user = useTypedSelector(selector => selector.userSlice.user)
   const [slide, setSlide] = useState<ESlide>(ESlide.Треки)
-  const [isUploadForm, setIsUploadForm] = useState<boolean>(false)
+  const user = useTypedSelector(selector => selector.userSlice.user)
+  const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => { $api.get<IUser>(`/users/${id}`).then(res => setFetchUser(res.data)) }, [])
 
   return fetchUser ? (
     <div className={styles.profile}>
-      {isUploadForm ? <Upload setIsUploadForm={setIsUploadForm} setFetchUser={setFetchUser} /> : ""}
+      <Upload setFetchUser={setFetchUser} />
       <div className={styles.user}>
         <div className={styles.banner}></div>
         <div className={styles.user_info}>
@@ -42,7 +43,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
           {values.map(el => (
             <li className={values.indexOf(el) === slide ? "border-b-2 border-white pb-2" : ""} key={el}>{el}</li>
           ))}
-          {user?._id === fetchUser._id ? <li onClick={() => setIsUploadForm(!isUploadForm)}>Upload</li> : ""}
+          {user?._id === fetchUser._id ? <li onClick={() => dispatch(setTrackUploadForm(true))}>Upload</li> : ""}
         </ul>
       </nav>
       {slide === ESlide.Треки ? <div className={styles.tracks}>{fetchUser.music.map(music => <div className={styles.track}><CardLittle key={music._id} {...music} /></div>)}</div> : ""}

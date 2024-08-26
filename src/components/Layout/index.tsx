@@ -23,9 +23,7 @@ let i = 0
 const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const pathname = usePathname()!
   const params = useParams()
-  const alert = useTypedSelector(selector => selector.siteSlice.alert)
-  const music = useTypedSelector(selector => selector.siteSlice.music)
-  const sidebar = useTypedSelector(selector => selector.siteSlice.sidebar)
+  const { alert, music, sidebar } = useTypedSelector(selector => selector.siteSlice)
 
   let id: string | null = null
 

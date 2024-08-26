@@ -3,7 +3,7 @@
   height: fit-content;
   padding: 20px 20px;
   background-color: #202020;
-  border-radius: 3px;
+  border-radius: 10px;
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   display: flex;
@@ -17,6 +17,14 @@
   right: 0;
   margin: auto;
   z-index: 1;
+  opacity: 1;
+  transform: translateY(-20px);
+  transition: opacity, transform .5s ease;
+
+  &.close {
+    opacity: 0;
+    transform: translateY(0px);
+  }
 
   form {
     width: 100%;
@@ -87,23 +95,6 @@
         opacity: 1;
         visibility: visible;
         transition: all .2s ease;
-      }
-    }
-
-    button {
-      margin-top: 20px;
-      width: 100%;
-      background-color: #ffffff;
-      height: 40px;
-      border-radius: 5px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      p {
-        color: #080710;
-        font-weight: 600;
       }
     }
   }

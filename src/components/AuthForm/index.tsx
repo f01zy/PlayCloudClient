@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { FC, HTMLInputTypeAttribute } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
+import Button from "../Button"
 
 export type TInput = {
   type?: HTMLInputTypeAttribute,
@@ -23,11 +24,7 @@ const AuthForm: FC<IAuthForm> = ({ onSubmit, inputs, buttonLabel }) => {
   const pathname = usePathname()
   const buttonLink = pathname === "/login" ? "register" : "login"
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm()
+  const { register, handleSubmit, } = useForm()
 
   return <div className={styles.auth}>
     <div className={styles.container}>
@@ -43,9 +40,7 @@ const AuthForm: FC<IAuthForm> = ({ onSubmit, inputs, buttonLabel }) => {
           </div>
         ))}
         <p className={styles.link}>{pathname === "/register" && <>Don&apos;t</>} have an account yet? - <Link href={`/${buttonLink}`} className="text-cyan-600">{buttonLink}</Link></p>
-        <button type="submit">
-          {loading ? <Image src={"loader.svg"} width={30} height={100} alt="loader" /> : <p>{buttonLabel}</p>}
-        </button>
+        <Button type="submit">{loading ? <Image src={"loader.svg"} width={30} height={100} alt="loader" /> : <p>{buttonLabel}</p>}</Button>
       </form>
     </div>
   </div>

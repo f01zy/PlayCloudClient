@@ -16,7 +16,8 @@ interface ISite {
   music: IMusicStore | null,
   alert: IAlert,
   blocked: boolean,
-  sidebar: boolean
+  sidebar: boolean,
+  trackUploadForm: boolean
 }
 
 const initialState: ISite = {
@@ -26,43 +27,32 @@ const initialState: ISite = {
     message: ""
   },
   blocked: false,
-  sidebar: false
+  sidebar: false,
+  trackUploadForm: false
 }
 
 export const siteSlice = createSlice({
   initialState,
   name: "site",
   reducers: {
-    setCurrentMusic(state, { payload }: { payload: IMusicStore | null }) {
-      state.music = payload
-    },
+    setCurrentMusic(state, { payload }: { payload: IMusicStore | null }) { state.music = payload },
 
-    setMusicDelay(state, { payload }: { payload: number }) {
-      if (state.music) state.music.delay = payload
-    },
+    setMusicDelay(state, { payload }: { payload: number }) { if (state.music) state.music.delay = payload },
 
-    setIsPaused(state, { payload }: { payload: boolean }) {
-      if (state.music) state.music.isPaused = payload
-    },
+    setIsPaused(state, { payload }: { payload: boolean }) { if (state.music) state.music.isPaused = payload },
 
-    setAlert(state, { payload }: { payload: string }) {
-      state.alert = { isShow: true, message: payload }
-    },
+    setAlert(state, { payload }: { payload: string }) { state.alert = { isShow: true, message: payload } },
 
-    hideAlert(state) {
-      state.alert.isShow = false
-    },
+    hideAlert(state) { state.alert.isShow = false },
 
-    setBlocked(state, { payload }: { payload: boolean }) {
-      state.blocked = payload
-    },
+    setBlocked(state, { payload }: { payload: boolean }) { state.blocked = payload },
 
-    setSidebar(state, { payload }: { payload: boolean }) {
-      state.sidebar = payload
-    },
+    setSidebar(state, { payload }: { payload: boolean }) { state.sidebar = payload },
+
+    setTrackUploadForm(state, { payload }: { payload: boolean }) { state.trackUploadForm = payload },
   }
 })
 
-export const { setMusicDelay, setCurrentMusic, setIsPaused, setAlert, setBlocked, hideAlert, setSidebar } = siteSlice.actions
+export const { setMusicDelay, setCurrentMusic, setIsPaused, setAlert, setBlocked, hideAlert, setSidebar, setTrackUploadForm } = siteSlice.actions
 
 export default siteSlice.reducer

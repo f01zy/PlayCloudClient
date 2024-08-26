@@ -1,5 +1,3 @@
-$background: #121212;
-
 .sidebar {
   width: var(--sidebar-width);
   height: calc(100vh - var(--navigation-height));
@@ -14,7 +12,6 @@ $background: #121212;
 
   &.close {
     @media(max-width: 600px) {
-      background: $background;
       margin-left: calc(var(--sidebar-width) * -1) !important;
     }
   }
