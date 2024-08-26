@@ -58,7 +58,7 @@ const Upload: FC<IUploadComponent> = ({ setFetchUser }) => {
       <div className={styles.input_file}><input type="file" multiple={false} id="#cover-input" title="" accept="image/*" placeholder="" {...register("cover", { required: true, })} /><div><p>Choice a cover</p></div></div>
       <div className={styles.input_file}><input type="file" multiple={false} id="#music-input" title="" placeholder="" accept=".mp3" {...register("music", { required: true })} /><div><p>Choice a music</p></div></div>
       <div className={styles.input}><input type="text" placeholder="" {...register("name", { required: true, })} /><p>name</p></div>
-      <div className="mt-4 mb-4 flex items-center"><input type="checkbox" className="w-5 h-5 mr-2" /><p>I agree with all the rules of publication</p></div>
+      <div className="mt-4 mb-4 flex items-center"><input type="checkbox" className="w-4 h-4 mr-2" /><p className="text-xs">I agree with all the rules of publication</p></div>
 
       <Button type="submit">{isLoading ? <Image src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Upload</p>}</Button>
     </form>
