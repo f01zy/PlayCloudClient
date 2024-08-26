@@ -23,7 +23,7 @@ let i = 0
 const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const pathname = usePathname()!
   const params = useParams()
-  const { alert, music, sidebar, trackUploadForm } = useTypedSelector(selector => selector.siteSlice)
+  const { alert, music, sidebar, windowForm } = useTypedSelector(selector => selector.siteSlice)
 
   let id: string | null = null
 
@@ -48,7 +48,7 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         ) : <>{children}</>
       }
       <Player />
-      {sidebar || trackUploadForm && <Mask />}
+      {sidebar || windowForm && <Mask />}
       <div className={`${styles.alert} ${alert.isShow ? styles.active : styles.disable} ${music ? "bottom-24" : "bottom-5"}`}>
         <h4>{alert.message}</h4>
       </div>
