@@ -29,7 +29,7 @@ const WindowForm: FC<IWindowForm> = ({ inputs, onSubmit, windowName }) => {
       <IoMdClose width={25} height={25} onClick={() => dispatch(setWindowForm(null))} />
     </div>
 
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       {inputs.flatMap(input => <Input {...(input as TInput & TFileInput)} register={register} required={true} />)}
 
       <div className="mt-4 mb-4 flex items-center"><input type="checkbox" className="w-4 h-4 mr-2" /><p className="text-sm">I agree with all the rules of publication</p></div>
