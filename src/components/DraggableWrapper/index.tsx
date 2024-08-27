@@ -48,7 +48,7 @@ const DraggableWrapper = ({ children }: Readonly<{ children: React.ReactNode }>)
   }, [isHovering]);
 
   return (
-    <div ref={objectRef} style={{ display: 'inline-block', transition: 'transform 0.1s ease' }}>
+    <div ref={objectRef} style={{ display: 'inline-block', transition: 'transform 0.1s ease', willChange: "transform" }}>
       {children}
     </div>
   );
