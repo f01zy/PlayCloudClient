@@ -9,7 +9,6 @@ import Player from "../Player";
 import { PlayerController } from "@/utils/playerController.utils";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import Mask from "../Mask";
-import { useEffect } from "react";
 
 export const playerController = new PlayerController()
 export let musicInterval: NodeJS.Timeout | null = null
@@ -32,33 +31,6 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 
   const dontSidebarsPages = ["/login", "/register", `/profile/${id}`, "/shuffle"]
 
-  useEffect(() => {
-    const hoverEffectObjects = document.querySelectorAll(".traction-effect")
-
-    for (let i = 0; i < hoverEffectObjects.length; i++) {
-      const object = hoverEffectObjects[i] as HTMLElement
-
-      object.addEventListener('mouseenter', () => {
-        object.style.transform = 'scale(1.2)';
-      });
-
-      object.addEventListener('mouseleave', () => {
-        object.style.transform = 'scale(1)';
-      });
-
-      document.addEventListener('mousemove', (e) => {
-        const boxRect = object.getBoundingClientRect();
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
-
-        const offsetX = (mouseX - (boxRect.left + boxRect.width / 2)) / 5;
-        const offsetY = (mouseY - (boxRect.top + boxRect.height / 2)) / 5;
-
-        object.style.transform = `scale(1.2) translate(${offsetX}px, ${offsetY}px)`;
-      });
-    }
-  }, [])
-
   i === 0 && useAuth()
   i++
 
@@ -77,7 +49,7 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       }
       <Player />
       {sidebar || windowForm && <Mask />}
-      <div className={`traction-effect ${styles.alert} ${alert.isShow ? styles.active : styles.disable} ${music ? "bottom-24" : "bottom-5"}`}>
+      <div className={`${styles.alert} ${alert.isShow ? styles.active : styles.disable} ${music ? "bottom-24" : "bottom-5"}`}>
         <h4>{alert.message}</h4>
       </div>
     </>
