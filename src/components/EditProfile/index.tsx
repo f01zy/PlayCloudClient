@@ -27,9 +27,6 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     if (data.avatar) { const formData = new FormData(); formData.append("avatar", data.avatar[0]); $api.post("/auth/edit/avatar", formData) }
     if (data.banner) { const formData = new FormData(); formData.append("banner", data.banner[0]); $api.post("/auth/edit/banner", formData) }
     if (data.avatar) $api.post("/auth/edit/username", { username: data.username })
-
-    if (!data.avatar && !data.banner && !data.username) return
-    window.location.reload()
   }
 
   const { register, handleSubmit } = useForm<IProfile>()
