@@ -35,7 +35,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
         <div className={styles.user_info}>
           <div className={styles.avatar}></div>
           <h3>{fetchUser.username}</h3>
-          <p>{fetchUser.music.length} треков</p>
+          <p>{fetchUser.tracks.length} треков</p>
         </div>
       </div>
       <nav>
@@ -46,7 +46,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
           {user?._id === fetchUser._id ? <li onClick={() => dispatch(setWindowForm("uploadTrack"))}>Upload</li> : ""}
         </ul>
       </nav>
-      {slide === ESlide.Tracks ? <div className={styles.tracks}>{fetchUser.music.map(music => <div className={styles.track}><CardLittle key={music._id} {...music} /></div>)}</div> : ""}
+      {slide === ESlide.Tracks ? <div className={styles.tracks}>{fetchUser.tracks.map(track => <div className={styles.track}><CardLittle key={track._id} {...track} /></div>)}</div> : ""}
     </div>
   ) : ""
 }
