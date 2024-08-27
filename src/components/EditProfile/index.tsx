@@ -1,5 +1,5 @@
-import styles from "@/components/WindowForm/styles.module.scss"
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import styles from "@/components/EditProfile/styles.module.scss"
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store";
 import { FC } from "react"

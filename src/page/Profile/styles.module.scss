@@ -22,7 +22,6 @@
     .user_info {
       display: flex;
       margin-left: calc($avatar / 2);
-      align-items: center;
 
       .avatar {
         width: $avatar;
