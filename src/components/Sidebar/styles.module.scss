@@ -4,7 +4,7 @@
   bottom: 0;
   left: 0;
   background: var(--background);
-  padding: 0 30px;
+  padding: 0 var(--global-padding);
   position: fixed;
   z-index: 4;
   margin-left: 0;
