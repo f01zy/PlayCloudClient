@@ -17,6 +17,7 @@ import CardLittle from "@/components/CardLittle";
 import { FcLike, FcDislike } from "react-icons/fc";
 import Link from "next/link";
 import { handleClickBlock } from "@/utils/handleClickBlock.utils";
+import { filterListeningsByDate } from "@/utils/filterListeningsByDate.utils";
 
 interface ITrackDetail {
   id: string
@@ -41,7 +42,7 @@ const TrackDetail: FC<ITrackDetail> = ({ id }) => {
           </div>
           <div className={styles.info}>
             <Link href={`/tracks/${music._id}`}><h1>{music.name}</h1></Link>
-            <p>({music.listenings.length} listening on last week) ({music.likes.length} likes)</p>
+            <p>({filterListeningsByDate(music.listenings).length} listening on last week) ({music.likes.length} likes)</p>
             <Link href={`/profile/${music.author._id}`}><p>{music.author.username}</p></Link>
           </div>
         </div>

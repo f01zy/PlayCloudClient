@@ -26,6 +26,9 @@
       font-size: 14px;
       color: #9b9b9b;
       width: $width;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .cover {
