@@ -70,7 +70,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     {error && <p className="text-base text-center mt-2 mb-2 text-red-600">{error}</p>}
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.banner}>
-        {banner ? <Image src={banner.toString()} alt="banner" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
+        {banner ? <Image src={banner.toString()} alt="banner" height={100} width={100} className="w-full h-auto" /> : <FcAddImage width={40} className={styles.load} />}
         <input type="file" multiple={false} accept="image/*" {...register("banner", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "banner") })} />
       </div>
       <div className={styles.avatar}>
