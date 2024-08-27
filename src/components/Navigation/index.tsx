@@ -10,10 +10,8 @@ import { setUser } from "@/store/user/user.slice";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { AiOutlineMenu } from "react-icons/ai";
 import { IoSearchSharp } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import DraggableWrapper from "../DraggableWrapper";
 
 const Navigation = () => {
   const [userMenu, setUserMenu] = useState<boolean>(false)
@@ -38,24 +36,22 @@ const Navigation = () => {
       ))}
     </ul>
     {user ? (
-      <DraggableWrapper>
-        <div className={styles.user} onClick={() => {
-          setUserMenu(!userMenu)
-        }}>
-          <p>{user.username}</p>
-          <div className={styles.avatar}></div>
-          <div className={`${styles.menu} ${userMenu ? "visible opacity-100" : "invisible opacity-0"}`}>
-            <ul>
-              <Link href={`/profile/${user._id}`}><li>Profile</li></Link>
-              <li onClick={() => {
-                $api.get("/auth/logout")
-                dispatch(setUser(null))
-                dispatch(setCurrentMusic(null))
-              }}>Log out</li>
-            </ul>
-          </div>
+      <div className={styles.user} onClick={() => {
+        setUserMenu(!userMenu)
+      }}>
+        <p>{user.username}</p>
+        <div className={styles.avatar}></div>
+        <div className={`${styles.menu} ${userMenu ? "visible opacity-100" : "invisible opacity-0"}`}>
+          <ul>
+            <Link href={`/profile/${user._id}`}><li>Profile</li></Link>
+            <li onClick={() => {
+              $api.get("/auth/logout")
+              dispatch(setUser(null))
+              dispatch(setCurrentMusic(null))
+            }}>Log out</li>
+          </ul>
         </div>
-      </DraggableWrapper>
+      </div>
     ) : (
       <div className={styles.auth}>
         <button><Link href={"/login"}>Log in</Link></button>

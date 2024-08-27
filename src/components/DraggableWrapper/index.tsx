@@ -13,7 +13,7 @@ const DraggableWrapper = ({ children }: Readonly<{ children: React.ReactNode }>)
 
     const handleMouseLeave = () => {
       setIsHovering(false);
-      object.style.transform = 'scale(1)';
+      object.style.transform = 'none';
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -27,7 +27,7 @@ const DraggableWrapper = ({ children }: Readonly<{ children: React.ReactNode }>)
       const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
       if (distance > 100) {
-        return;
+        return object.style.transform = 'none';
       }
 
       const offsetX = distanceX / 5;
