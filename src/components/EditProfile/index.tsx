@@ -2,14 +2,14 @@ import styles from "@/components/EditProfile/styles.module.scss"
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store";
-import { FC } from "react"
+import { ChangeEvent, FC, useState } from "react"
 import { useTypedSelector } from "@/hooks/selector.hook";
 import Input from "../Input";
 import { IProfile } from "@/interfaces/profile.interface";
 import Button from "../Button";
 import Image from "next/image";
 import { IoMdClose } from "react-icons/io";
-import { setWindowForm } from "@/store/site/site.slice";
+import { setLoading, setWindowForm } from "@/store/site/site.slice";
 import { FcAddImage } from "react-icons/fc";
 import { $api } from "@/http";
 
@@ -18,17 +18,31 @@ interface IEditProfile {
 }
 
 const EditProfile: FC<IEditProfile> = ({ windowName }) => {
+  const [avatar, setAvatar] = useState<string | ArrayBuffer | null>(null)
+  const [banner, setBanner] = useState<string | ArrayBuffer | null>(null)
   const { loading, windowForm } = useTypedSelector(selector => selector.siteSlice)
   const dispatch = useDispatch<AppDispatch>()
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
-    console.log(data)
+    dispatch(setLoading(true))
 
     if (data.avatar.length > 0) { const formData = new FormData(); formData.append("avatar", data.avatar[0]); $api.post("/auth/edit/avatar", formData) }
     if (data.banner.length > 0) { const formData = new FormData(); formData.append("banner", data.banner[0]); $api.post("/auth/edit/banner", formData) }
     if (data.username.length > 0) $api.post("/auth/edit/username", { username: data.username })
 
-    // if (data.avatar.length > 0 || data.username.length > 0 || data.banner.length > 0) window.location.reload()
+    dispatch(setLoading(false))
+  }
+
+  const fileChange = (e: ChangeEvent<HTMLInputElement>, field: "avatar" | "banner") => {
+    const file = e.target.files ? e.target.files[0] : null
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (field === "avatar") setAvatar(reader.result);
+        else if (field === "banner") setBanner(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   const { register, handleSubmit } = useForm<IProfile>()
@@ -40,12 +54,12 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     </div>
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.banner}>
-        <input type="file" multiple={false} accept="image/*" {...register("banner", { required: false })} />
-        <FcAddImage width={40} className={styles.load} />
+        {banner ? <Image src={banner.toString()} alt="banner" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
+        <input type="file" multiple={false} accept="image/*" {...register("banner", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "banner") })} />
       </div>
       <div className={styles.avatar}>
-        <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: false })} />
-        <FcAddImage width={40} className={styles.load} />
+        {avatar ? <Image src={avatar.toString()} alt="avatar" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
+        <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "avatar") })} />
       </div>
       <Input field="username" label="username" required={false} type="text" register={register} />
       <Button type="submit">{loading ? <Image src={"loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
