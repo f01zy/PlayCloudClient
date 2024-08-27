@@ -41,7 +41,7 @@ const TrackDetail: FC<ITrackDetail> = ({ id }) => {
           </div>
           <div className={styles.info}>
             <Link href={`/tracks/${music._id}`}><h1>{music.name}</h1></Link>
-            <p>({music.listening.length} listening) ({music.liked.length} liked)</p>
+            <p>({music.listenings.length} listening) ({music.likes.length} likes)</p>
             <Link href={`/profile/${music.author._id}`}><p>{music.author.username}</p></Link>
           </div>
         </div>
@@ -55,7 +55,7 @@ const TrackDetail: FC<ITrackDetail> = ({ id }) => {
             const isBlocked = handleClickBlock(dispatch, currentBlocked, currentAlert.isShow); if (isBlocked) return
             user ? $api.post<IMusic>("/music/like", { id: music._id }).then(res => setMusic(res.data)) : router.push("/login")
           }}>
-            {music.liked.indexOf(user ? user._id : "") != -1 ? <FcDislike /> : <FcLike />}
+            {music.likes.indexOf(user ? user._id : "") != -1 ? <FcDislike /> : <FcLike />}
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ interface ITracksGrid {
   label?: string,
   tracks?: Array<IMusic>
   quantity?: number,
-  sort?: "liked" | "listening"
+  sort?: "likes" | "listenings"
 }
 
 const TracksGrid: FC<ITracksGrid> = ({ quantity, label, sort, tracks: tempTracks }) => {

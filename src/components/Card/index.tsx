@@ -13,8 +13,9 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import Link from "next/link";
 import { handlePlayClick } from "@/utils/handlePlayClick.utils";
+import { filterListeningsByDate } from "@/utils/filterListeningsByDate.utils";
 
-const Card: FC<IMusic> = ({ author, name, listening, _id, liked }) => {
+const Card: FC<IMusic> = ({ author, name, listenings, _id, likes, date, type }) => {
   const router = useRouter()
   const music = useTypedSelector(selector => selector.siteSlice.music)
   const user = useTypedSelector(selector => selector.userSlice.user)
@@ -27,14 +28,14 @@ const Card: FC<IMusic> = ({ author, name, listening, _id, liked }) => {
 
         <div className={styles.play}>
           <div onClick={() => {
-            handlePlayClick(dispatch, { _id, author, listening, name, liked }, user, music?.name, router)
+            handlePlayClick(dispatch, { _id, author, listenings, name, likes, date, type }, user, music?.name, router)
           }}>
             {music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
           </div>
         </div>
       </div>
       <Link href={`/tracks/${_id}`}><h3>{name}</h3></Link>
-      <p>({listening.length} listening)</p>
+      <p>({filterListeningsByDate(listenings).length} listening on last week)</p>
       <Link href={`/profile/${author._id}`}><p>{author.username}</p></Link>
     </div>
   </div>
