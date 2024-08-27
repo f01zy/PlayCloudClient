@@ -35,7 +35,7 @@ const Card: FC<IMusic> = ({ author, name, listenings, _id, likes, date, type }) 
         </div>
       </div>
       <Link href={`/tracks/${_id}`}><h3>{name}</h3></Link>
-      <p>({filterListeningsByDate(listenings).length} listening on last week)</p>
+      <p>({listenings.length} listening on last week)</p>
       <Link href={`/profile/${author._id}`}><p>{author.username}</p></Link>
     </div>
   </div>
