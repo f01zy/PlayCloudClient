@@ -39,7 +39,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
           <div className={styles.avatar}></div>
           <h3>{fetchUser.username}</h3>
           <p>{fetchUser.tracks.length} треков</p>
-          <RiEdit2Fill width={30} onClick={() => dispatch(setWindowForm("editProfile"))} />
+          {user?._id === fetchUser._id && <RiEdit2Fill width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="mt-4 ml-3" />}
         </div>
       </div>
       <nav>

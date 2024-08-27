@@ -36,11 +36,18 @@
     align-items: center;
     justify-content: center;
 
+    input[type=file] {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+
     .banner {
       width: 100%;
       height: 200px;
       background: var(--card-background);
       border-radius: 5px;
+      position: relative;
     }
 
     .avatar {
@@ -50,6 +57,7 @@
       margin-top: 20px;
       background: var(--card-background);
       margin-bottom: 10px;
+      position: relative;
     }
   }
 }
