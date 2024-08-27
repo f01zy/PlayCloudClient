@@ -32,20 +32,23 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
       const formData = new FormData();
       formData.append("avatar", data.avatar[0]);
       $api.post("/auth/edit/avatar", formData)
-        .then(res => { const tempLoading = loading; tempLoading.avatar = false; setLoading(tempLoading); !Object.values(loading).some(e => e === true) && dispatch(setWindowForm(null)) })
+        .then(res => { const tempLoading = loading; tempLoading.avatar = false; setLoading(tempLoading) })
         .catch(() => setError("An error has occurred"))
+        .finally(() => !error && !Object.values(loading).some(e => e === true) && dispatch(setWindowForm(null)))
     }
     if (data.banner.length > 0) {
       const formData = new FormData();
       formData.append("banner", data.banner[0]);
       $api.post("/auth/edit/banner", formData)
-        .then(res => { const tempLoading = loading; tempLoading.banner = false; setLoading(tempLoading); !Object.values(loading).some(e => e === true) && dispatch(setWindowForm(null)) })
+        .then(res => { const tempLoading = loading; tempLoading.banner = false; setLoading(tempLoading) })
         .catch(() => setError("An error has occurred"))
+        .finally(() => !error && !Object.values(loading).some(e => e === true) && dispatch(setWindowForm(null)))
     }
     if (data.username.length > 0)
       $api.post("/auth/edit/username", { username: data.username })
-        .then(res => { const tempLoading = loading; tempLoading.username = false; setLoading(tempLoading); !Object.values(loading).some(e => e === true) && dispatch(setWindowForm(null)) })
+        .then(res => { const tempLoading = loading; tempLoading.username = false; setLoading(tempLoading) })
         .catch(() => setError("An error has occurred"))
+        .finally(() => !error && !Object.values(loading).some(e => e === true) && dispatch(setWindowForm(null)))
   }
 
   const fileChange = (e: ChangeEvent<HTMLInputElement>, field: "avatar" | "banner") => {
@@ -70,7 +73,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     {error && <p className="text-base text-center mt-2 mb-2 text-red-600">{error}</p>}
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.banner}>
-        {banner ? <Image src={banner.toString()} alt="banner" height={100} width={100} className="w-full h-auto" /> : <FcAddImage width={40} className={styles.load} />}
+        {banner ? <Image src={banner.toString()} alt="banner" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
         <input type="file" multiple={false} accept="image/*" {...register("banner", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "banner") })} />
       </div>
       <div className={styles.avatar}>
