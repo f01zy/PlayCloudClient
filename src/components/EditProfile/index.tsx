@@ -9,7 +9,7 @@ import { IProfile } from "@/interfaces/profile.interface";
 import Button from "../Button";
 import Image from "next/image";
 import { IoMdClose } from "react-icons/io";
-import { setLoading, setWindowForm } from "@/store/site/site.slice";
+import { setWindowForm } from "@/store/site/site.slice";
 import { FcAddImage } from "react-icons/fc";
 import { $api } from "@/http";
 
@@ -20,17 +20,32 @@ interface IEditProfile {
 const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const [avatar, setAvatar] = useState<string | ArrayBuffer | null>(null)
   const [banner, setBanner] = useState<string | ArrayBuffer | null>(null)
-  const { loading, windowForm } = useTypedSelector(selector => selector.siteSlice)
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState({ username: false, avatar: false, banner: false })
+  const { windowForm } = useTypedSelector(selector => selector.siteSlice)
   const dispatch = useDispatch<AppDispatch>()
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
-    dispatch(setLoading(true))
+    setLoading({ username: true, avatar: true, banner: true })
 
-    if (data.avatar.length > 0) { const formData = new FormData(); formData.append("avatar", data.avatar[0]); $api.post("/auth/edit/avatar", formData) }
-    if (data.banner.length > 0) { const formData = new FormData(); formData.append("banner", data.banner[0]); $api.post("/auth/edit/banner", formData) }
-    if (data.username.length > 0) $api.post("/auth/edit/username", { username: data.username })
-
-    dispatch(setLoading(false))
+    if (data.avatar.length > 0) {
+      const formData = new FormData();
+      formData.append("avatar", data.avatar[0]);
+      $api.post("/auth/edit/avatar", formData)
+        .then(res => { const tempLoading = loading; tempLoading.avatar = false; setLoading(tempLoading); !Object.values(loading).some(e => e === true) && dispatch(setWindowForm(null)) })
+        .catch(() => setError("An error has occurred"))
+    }
+    if (data.banner.length > 0) {
+      const formData = new FormData();
+      formData.append("banner", data.banner[0]);
+      $api.post("/auth/edit/banner", formData)
+        .then(res => { const tempLoading = loading; tempLoading.banner = false; setLoading(tempLoading); !Object.values(loading).some(e => e === true) && dispatch(setWindowForm(null)) })
+        .catch(() => setError("An error has occurred"))
+    }
+    if (data.username.length > 0)
+      $api.post("/auth/edit/username", { username: data.username })
+        .then(res => { const tempLoading = loading; tempLoading.username = false; setLoading(tempLoading); !Object.values(loading).some(e => e === true) && dispatch(setWindowForm(null)) })
+        .catch(() => setError("An error has occurred"))
   }
 
   const fileChange = (e: ChangeEvent<HTMLInputElement>, field: "avatar" | "banner") => {
@@ -52,6 +67,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
       <h1>Edit profile</h1>
       <IoMdClose width={25} height={25} onClick={() => dispatch(setWindowForm(null))} />
     </div>
+    {error && <p className="text-base text-center mt-2 mb-2 text-red-600">{error}</p>}
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.banner}>
         {banner ? <Image src={banner.toString()} alt="banner" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
@@ -62,7 +78,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
         <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "avatar") })} />
       </div>
       <Input field="username" label="username" required={false} type="text" register={register} />
-      <Button type="submit">{loading ? <Image src={"loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
+      <Button type="submit">{!Object.values(loading).some(e => e === false) ? <Image src={"loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>
   </div>
 }
