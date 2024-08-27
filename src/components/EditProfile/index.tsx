@@ -78,7 +78,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
         <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "avatar") })} />
       </div>
       <Input field="username" label="username" required={false} type="text" register={register} />
-      <Button type="submit">{!Object.values(loading).some(e => e === false) ? <Image src={"loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
+      <Button type="submit">{!Object.values(loading).some(e => e === false) ? <Image src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>
   </div>
 }
