@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store";
 import Image from "next/image";
 import Button from "../Button";
-import { useState, FC } from "react"
+import { FC } from "react"
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { setWindowForm } from "@/store/site/site.slice";
 import Input from "@/components/Input";

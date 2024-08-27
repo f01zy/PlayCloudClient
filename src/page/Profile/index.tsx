@@ -1,6 +1,7 @@
 "use client"
 
 import CardLittle from "@/components/CardLittle"
+import EditProfile from "@/components/EditProfile"
 import Upload from "@/components/Upload"
 import { useTypedSelector } from "@/hooks/selector.hook"
 import { $api } from "@/http"
@@ -9,6 +10,7 @@ import styles from "@/page/Profile/styles.module.scss"
 import { setWindowForm } from "@/store/site/site.slice"
 import { AppDispatch } from "@/store/store"
 import { FC, useEffect, useState } from "react"
+import { RiEdit2Fill } from "react-icons/ri"
 import { useDispatch } from "react-redux"
 
 enum ESlide { "Tracks", "Playlists" }
@@ -30,12 +32,14 @@ const Profile: FC<{ id: string }> = ({ id }) => {
   return fetchUser ? (
     <div className={styles.profile}>
       <Upload setFetchUser={setFetchUser} />
+      <EditProfile id={fetchUser._id} windowName="editProfile" />
       <div className={styles.user}>
         <div className={styles.banner}></div>
         <div className={styles.user_info}>
           <div className={styles.avatar}></div>
           <h3>{fetchUser.username}</h3>
           <p>{fetchUser.tracks.length} треков</p>
+          <RiEdit2Fill width={30} onClick={() => dispatch(setWindowForm("editProfile"))} />
         </div>
       </div>
       <nav>

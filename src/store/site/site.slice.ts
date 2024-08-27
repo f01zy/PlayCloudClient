@@ -17,7 +17,7 @@ interface ISite {
   alert: IAlert,
   blocked: boolean,
   sidebar: boolean,
-  windowForm: "uploadTrack" | null,
+  windowForm: "uploadTrack" | "editProfile" | null,
   loading: boolean
 }
 
@@ -48,7 +48,7 @@ export const siteSlice = createSlice({
 
     setSidebar(state, { payload }: { payload: boolean }) { state.sidebar = payload },
 
-    setWindowForm(state, { payload }: { payload: null | "uploadTrack" }) { state.windowForm = payload },
+    setWindowForm(state, { payload }: { payload: "uploadTrack" | "editProfile" | null }) { state.windowForm = payload },
 
     setLoading(state, { payload }: { payload: boolean }) { state.loading = payload },
   }

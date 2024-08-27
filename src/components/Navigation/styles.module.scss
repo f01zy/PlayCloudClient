@@ -88,14 +88,8 @@
     }
 
     li {
-      transition: transform .4s ease;
-
       &:not(:first-child) {
         margin-left: 15px;
-      }
-
-      &:hover {
-        transform: scale(1.05);
       }
 
       a {
