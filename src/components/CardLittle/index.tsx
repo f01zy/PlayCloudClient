@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react"
 
-const CardLittle: FC<IMusic> = ({ _id, author, listening, name }) => {
+const CardLittle: FC<IMusic> = ({ _id, author, listenings, name }) => {
   return <div className={styles.cardLittle}>
     <Image className="rounded-md" src={`${SERVER_URL}/cover/${_id}.jpg`} alt={name} width={40} height={40} />
     <div className="ml-3">
