@@ -32,7 +32,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
   return fetchUser ? (
     <div className={styles.profile}>
       <Upload setFetchUser={setFetchUser} />
-      <EditProfile id={fetchUser._id} windowName="editProfile" />
+      <EditProfile windowName="editProfile" />
       <div className={styles.user}>
         <div className={styles.banner}></div>
         <div className={styles.user_info}>
