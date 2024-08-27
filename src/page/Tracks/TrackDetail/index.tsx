@@ -41,7 +41,7 @@ const TrackDetail: FC<ITrackDetail> = ({ id }) => {
           </div>
           <div className={styles.info}>
             <Link href={`/tracks/${music._id}`}><h1>{music.name}</h1></Link>
-            <p>({music.listenings.length} listening) ({music.likes.length} likes)</p>
+            <p>({music.listenings.length} listening on last week) ({music.likes.length} likes)</p>
             <Link href={`/profile/${music.author._id}`}><p>{music.author.username}</p></Link>
           </div>
         </div>
