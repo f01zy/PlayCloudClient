@@ -26,29 +26,37 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const dispatch = useDispatch<AppDispatch>()
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
-    setLoading({ username: true, avatar: true, banner: true })
+    setLoading({ username: data.username.length > 0 ? true : false, avatar: data.avatar.length > 0 ? true : false, banner: data.banner.length > 0 ? true : false })
 
     if (data.avatar.length > 0) {
       const formData = new FormData();
       formData.append("avatar", data.avatar[0]);
-      $api.post("/auth/edit/avatar", formData)
+      await $api.post("/auth/edit/avatar", formData)
         .then(res => { const tempLoading = loading; tempLoading.avatar = false; setLoading(tempLoading) })
         .catch(() => setError("An error has occurred"))
-        .finally(() => !error && !Object.values(loading).some(e => e === true) && dispatch(setWindowForm(null)))
+        .finally(() => !error && !Object.values(loading).find(e => e === true) && close())
     }
     if (data.banner.length > 0) {
       const formData = new FormData();
       formData.append("banner", data.banner[0]);
-      $api.post("/auth/edit/banner", formData)
+      await $api.post("/auth/edit/banner", formData)
         .then(res => { const tempLoading = loading; tempLoading.banner = false; setLoading(tempLoading) })
         .catch(() => setError("An error has occurred"))
-        .finally(() => !error && !Object.values(loading).some(e => e === true) && dispatch(setWindowForm(null)))
+        .finally(() => !error && !Object.values(loading).find(e => e === true) && close())
     }
     if (data.username.length > 0)
-      $api.post("/auth/edit/username", { username: data.username })
+      await $api.post("/auth/edit/username", { username: data.username })
         .then(res => { const tempLoading = loading; tempLoading.username = false; setLoading(tempLoading) })
         .catch(() => setError("An error has occurred"))
-        .finally(() => !error && !Object.values(loading).some(e => e === true) && dispatch(setWindowForm(null)))
+        .finally(() => !error && !Object.values(loading).find(e => e === true) && close())
+  }
+
+  const close = () => {
+    setLoading({ username: false, avatar: false, banner: false })
+    setError(null)
+    setBanner(null)
+    setAvatar(null)
+    dispatch(setWindowForm(null))
   }
 
   const fileChange = (e: ChangeEvent<HTMLInputElement>, field: "avatar" | "banner") => {
@@ -68,7 +76,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   return <div className={`${styles.form} ${windowForm === windowName ? styles.open : ""}`}>
     <div className="flex justify-between items-center w-full mb-5">
       <h1>Edit profile</h1>
-      <IoMdClose width={25} height={25} onClick={() => dispatch(setWindowForm(null))} />
+      <IoMdClose width={25} height={25} onClick={() => close()} />
     </div>
     {error && <p className="text-base text-center mt-2 mb-2 text-red-600">{error}</p>}
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -81,7 +89,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
         <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "avatar") })} />
       </div>
       <Input field="username" label="username" required={false} type="text" register={register} />
-      <Button type="submit">{!Object.values(loading).some(e => e === false) ? <Image src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
+      <Button type="submit">{Object.values(loading).find(e => e === true) ? <Image src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>
   </div>
 }
