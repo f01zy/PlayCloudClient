@@ -36,7 +36,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
       <Upload setFetchUser={setFetchUser} />
       <EditProfile windowName="editProfile" />
       <div className={styles.user}>
-        <div className={styles.banner}>{fetchUser.banner && <Image unoptimized src={`${SERVER_URL}/banner/${fetchUser._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" />}</div>
+        <div className={styles.banner}>{fetchUser.banner && <Image unoptimized src={`${SERVER_URL}/banner/${fetchUser._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-auto" />}</div>
         <div className={styles.user_info}>
           <div className={styles.avatar}>
             {fetchUser.avatar && <Image src={`${SERVER_URL}/avatar/${fetchUser._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" />}
