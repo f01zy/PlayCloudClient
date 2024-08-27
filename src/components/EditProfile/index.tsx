@@ -22,12 +22,13 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const dispatch = useDispatch<AppDispatch>()
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
-    if (!data.avatar && !data.banner && !data.username) return
+    console.log(data)
 
     if (data.avatar) { const formData = new FormData(); formData.append("avatar", data.avatar[0]); $api.post("/auth/edit/avatar", formData) }
     if (data.banner) { const formData = new FormData(); formData.append("banner", data.banner[0]); $api.post("/auth/edit/banner", formData) }
     if (data.avatar) $api.post("/auth/edit/username", { username: data.username })
 
+    if (!data.avatar && !data.banner && !data.username) return
     window.location.reload()
   }
 
