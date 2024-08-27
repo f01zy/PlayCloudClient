@@ -10,18 +10,25 @@ import Button from "../Button";
 import Image from "next/image";
 import { IoMdClose } from "react-icons/io";
 import { setWindowForm } from "@/store/site/site.slice";
+import { FcAddImage } from "react-icons/fc";
+import { $api } from "@/http";
 
 interface IEditProfile {
   windowName: string,
-  id: string
 }
 
-const EditProfile: FC<IEditProfile> = ({ windowName, id }) => {
+const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const { loading, windowForm } = useTypedSelector(selector => selector.siteSlice)
   const dispatch = useDispatch<AppDispatch>()
 
-  const onSubmit: SubmitHandler<IProfile> = data => {
-    console.log(data)
+  const onSubmit: SubmitHandler<IProfile> = async data => {
+    if (!data.avatar && !data.banner && !data.username) return
+
+    if (data.avatar) { const formData = new FormData(); formData.append("avatar", data.avatar[0]); $api.post("/auth/edit/avatar", formData) }
+    if (data.banner) { const formData = new FormData(); formData.append("banner", data.banner[0]); $api.post("/auth/edit/banner", formData) }
+    if (data.avatar) $api.post("/auth/edit/username", { username: data.username })
+
+    window.location.reload()
   }
 
   const { register, handleSubmit } = useForm<IProfile>()
@@ -33,12 +40,14 @@ const EditProfile: FC<IEditProfile> = ({ windowName, id }) => {
     </div>
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.banner}>
-        <input type="file" multiple={false} accept="image/*" {...register("banner", { required: true })} />
+        <input type="file" multiple={false} accept="image/*" {...register("banner", { required: false })} />
+        <FcAddImage width={40} className={styles.load} />
       </div>
       <div className={styles.avatar}>
-        <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: true })} />
+        <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: false })} />
+        <FcAddImage width={40} className={styles.load} />
       </div>
-      <Input field="username" label="username" required={true} type="text" register={register} />
+      <Input field="username" label="username" required={false} type="text" register={register} />
       <Button type="submit">{loading ? <Image src={"loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>
   </div>
