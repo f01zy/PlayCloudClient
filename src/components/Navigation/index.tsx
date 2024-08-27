@@ -37,7 +37,7 @@ const Navigation = () => {
       ))}
     </ul>
     {user ? (
-      <div className={styles.user} onClick={() => {
+      <div className={`${styles.user} traction-effect`} onClick={() => {
         setUserMenu(!userMenu)
       }}>
         <p>{user.username}</p>
