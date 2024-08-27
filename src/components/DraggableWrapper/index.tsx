@@ -1,28 +1,39 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const DraggableWrapper = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const objectRef = useRef<HTMLDivElement | null>(null);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     const object = objectRef.current!
 
     const handleMouseEnter = () => {
-      object.style.transform = 'scale(1.2)';
+      setIsHovering(true);
     };
 
     const handleMouseLeave = () => {
+      setIsHovering(false);
       object.style.transform = 'scale(1)';
     };
 
     const handleMouseMove = (e: MouseEvent) => {
+      if (!isHovering) return;
       const boxRect = object.getBoundingClientRect();
       const mouseX = e.clientX;
       const mouseY = e.clientY;
 
-      const offsetX = (mouseX - (boxRect.left + boxRect.width / 2)) / 5;
-      const offsetY = (mouseY - (boxRect.top + boxRect.height / 2)) / 5;
+      const distanceX = mouseX - (boxRect.left + boxRect.width / 2);
+      const distanceY = mouseY - (boxRect.top + boxRect.height / 2);
+      const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
-      object.style.transform = `scale(1.2) translate(${offsetX}px, ${offsetY}px)`;
+      if (distance > 100) {
+        return;
+      }
+
+      const offsetX = distanceX / 5;
+      const offsetY = distanceY / 5;
+
+      object.style.transform = `scale(1.05) translate(${offsetX}px, ${offsetY}px)`;
     };
 
     object.addEventListener('mouseenter', handleMouseEnter);
@@ -34,7 +45,7 @@ const DraggableWrapper = ({ children }: Readonly<{ children: React.ReactNode }>)
       object.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [isHovering]);
 
   return (
     <div ref={objectRef} style={{ display: 'inline-block', transition: 'transform 0.1s ease' }}>
