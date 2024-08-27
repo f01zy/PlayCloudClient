@@ -3,12 +3,14 @@
 import CardLittle from "@/components/CardLittle"
 import EditProfile from "@/components/EditProfile"
 import Upload from "@/components/Upload"
+import { SERVER_URL } from "@/config"
 import { useTypedSelector } from "@/hooks/selector.hook"
 import { $api } from "@/http"
 import { IUser } from "@/interfaces/user.interface"
 import styles from "@/page/Profile/styles.module.scss"
 import { setWindowForm } from "@/store/site/site.slice"
 import { AppDispatch } from "@/store/store"
+import Image from "next/image"
 import { FC, useEffect, useState } from "react"
 import { RiEdit2Fill } from "react-icons/ri"
 import { useDispatch } from "react-redux"
@@ -36,7 +38,9 @@ const Profile: FC<{ id: string }> = ({ id }) => {
       <div className={styles.user}>
         <div className={styles.banner}></div>
         <div className={styles.user_info}>
-          <div className={styles.avatar}></div>
+          <div className={styles.avatar}>
+            {fetchUser.avatar && <Image src={`${SERVER_URL}/avatar/${fetchUser._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" />}
+          </div>
           <h3>{fetchUser.username}</h3>
           <p>{fetchUser.tracks.length} треков</p>
           {user?._id === fetchUser._id && <RiEdit2Fill width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="mt-4 ml-3" />}
