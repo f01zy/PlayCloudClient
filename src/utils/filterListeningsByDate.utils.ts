@@ -9,7 +9,5 @@ export const filterListeningsByDate = (listenings: Array<IListening>) => {
 
   recentDates.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  console.log(recentDates, listenings);
-
   return recentDates;
 }
