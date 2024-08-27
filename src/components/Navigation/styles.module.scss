@@ -88,21 +88,21 @@
     }
 
     li {
-      color: #9b9b9b;
+      transition: transform .4s ease;
 
       &:not(:first-child) {
         margin-left: 15px;
       }
 
+      &:hover {
+        transform: scale(1.05);
+      }
+
       a {
-        transition: transform .4s ease;
+        color: #9b9b9b;
 
         &.active {
           color: #fafafa;
-        }
-
-        &:hover {
-          transform: scale(1.05);
         }
       }
     }

@@ -22,8 +22,8 @@ const Card: FC<IMusic> = ({ author, name, listenings, _id, likes, date, type }) 
 	const user = useTypedSelector(selector => selector.userSlice.user)
 	const dispatch = useDispatch<AppDispatch>()
 
-	return <DraggableWrapper>
-		<div className={styles.card}>
+	return <div className={styles.card}>
+		<DraggableWrapper>
 			<div className={styles.container}>
 				<div className={styles.cover}>
 					<Image src={`${SERVER_URL}/cover/${_id}.jpg`} alt={name} width={100} height={100} />
@@ -40,8 +40,8 @@ const Card: FC<IMusic> = ({ author, name, listenings, _id, likes, date, type }) 
 				<p>({filterListeningsByDate(listenings).length} listening on last week)</p>
 				<Link href={`/profile/${author._id}`}><p>{author.username}</p></Link>
 			</div>
-		</div>
-	</DraggableWrapper>
+		</DraggableWrapper>
+	</div>
 }
 
 export default Card;
