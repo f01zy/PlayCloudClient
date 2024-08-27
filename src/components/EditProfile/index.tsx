@@ -22,11 +22,13 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const dispatch = useDispatch<AppDispatch>()
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
+    console.log(data)
+
     if (data.avatar.length > 0) { const formData = new FormData(); formData.append("avatar", data.avatar[0]); $api.post("/auth/edit/avatar", formData) }
     if (data.banner.length > 0) { const formData = new FormData(); formData.append("banner", data.banner[0]); $api.post("/auth/edit/banner", formData) }
     if (data.username.length > 0) $api.post("/auth/edit/username", { username: data.username })
 
-    if (data.avatar.length > 0 || data.username.length > 0 || data.banner.length > 0) window.location.reload()
+    // if (data.avatar.length > 0 || data.username.length > 0 || data.banner.length > 0) window.location.reload()
   }
 
   const { register, handleSubmit } = useForm<IProfile>()
