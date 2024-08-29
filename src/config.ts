@@ -21,9 +21,9 @@ export const browseMusic: [IconType, string, string][] = [
 
 export const libraryLinks: [string, string][] = [
   ["/library/recent", "Recent Played"],
-  ["/", "Favorite Tracks"],
-  ["/", "Charts"],
-  ["/", "Radio"]
+  ["/library/favorite", "Favorite Tracks"],
+  ["/library/charts", "Charts"],
+  ["/library/radio", "Radio"]
 ]
 
 export const MODE: string = "production"
