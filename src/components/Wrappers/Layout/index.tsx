@@ -30,7 +30,6 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   if (params && params.id) id = params.id as string
 
   const dontSidebarsPages = ["/login", "/register", `/profile/${id}`, "/shuffle"]
-  const dontBasePageStyles = [`/tracks/${id}`]
 
   i === 0 && useAuth()
   i++
@@ -42,7 +41,7 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <>
             <Navigation />
             <Sidebar />
-            <div className={`${styles.children} ${!dontBasePageStyles.includes(pathname) ? styles.base : ""}`}>
+            <div className={styles.children}>
               {children}
             </div>
           </>

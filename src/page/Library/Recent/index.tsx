@@ -5,7 +5,7 @@ import styles from "@/page/Library/Recent/styles.module.scss"
 
 const Recent = () => {
   return <div className={styles.recent}>
-    <h1 className="text-base">Recent played</h1>
+    <h1 className="text-xl mb-4">Recent played</h1>
     <TracksList tracks="recent" />
   </div>
 }
