@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "@/components/Sidebar/styles.module.scss"
+import styles from "@/components/UI/Sidebar/styles.module.scss"
 import { browseMusic, libraryLinks } from "@/config";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import Link from "next/link";

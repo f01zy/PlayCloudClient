@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "@/components/Player/styles.module.scss"
+import styles from "@/components/UI/Player/styles.module.scss"
 import { SERVER_URL } from "@/config"
 import { useTypedSelector } from "@/hooks/selector.hook"
 import Image from "next/image"

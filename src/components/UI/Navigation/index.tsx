@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "@/components/Navigation/styles.module.scss"
+import styles from "@/components/UI/Navigation/styles.module.scss"
 import { links } from "@/config";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { $api } from "@/http";
