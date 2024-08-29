@@ -48,6 +48,8 @@
       display: flex;
 
       li {
+        cursor: pointer;
+
         &:not(:first-child) {
           margin-left: 15px;
         }

@@ -20,6 +20,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      cursor: pointer;
     }
 
     p {
@@ -51,6 +52,7 @@
 
         div {
           transform: translateY(-5px);
+          cursor: pointer;
           width: 30%;
           height: 30%;
           border-radius: 100%;

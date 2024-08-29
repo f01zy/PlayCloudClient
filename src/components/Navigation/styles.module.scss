@@ -88,6 +88,8 @@
     }
 
     li {
+      cursor: pointer;
+
       &:not(:first-child) {
         margin-left: 15px;
       }
@@ -111,6 +113,7 @@
   }
 
   .user {
+    cursor: pointer;
     display: flex;
     align-items: center;
 

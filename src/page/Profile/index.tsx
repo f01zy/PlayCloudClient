@@ -44,7 +44,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
           <Avatar user={fetchUser} width={avatar} height={avatar} />
           <h3>{fetchUser.username}</h3>
           <p>{fetchUser.tracks.length} треков</p>
-          {user?._id === fetchUser._id && <RiEdit2Fill width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="mt-4 ml-3" />}
+          {user?._id === fetchUser._id && <RiEdit2Fill width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="mt-4 ml-3 cursor-pointer" />}
         </div>
       </div>
       <nav>
