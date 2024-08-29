@@ -1,3 +1,5 @@
+"use client"
+
 import TracksList from "@/components/Tracks/TracksList";
 import styles from "@/page/Library/Recent/styles.module.scss"
 
