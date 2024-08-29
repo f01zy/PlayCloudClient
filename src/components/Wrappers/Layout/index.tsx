@@ -3,7 +3,7 @@
 import { useParams, usePathname } from "next/navigation";
 import Navigation from "@/components/UI/Navigation";
 import Sidebar from "@/components/UI/Sidebar";
-import styles from "@/components/UI/Layout/styles.module.scss"
+import styles from "@/components/Wrappers/Layout/styles.module.scss"
 import { useAuth } from "@/hooks/auth.hook";
 import Player from "../../UI/Player";
 import { PlayerController } from "@/utils/playerController.utils";
