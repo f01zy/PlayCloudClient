@@ -1,6 +1,6 @@
 "use client"
 
-import { musicInterval, playerController } from "@/components/Layout";
+import { musicInterval, playerController } from "@/components/Wrappers/Layout";
 import { startMusicInterval } from "./startMusicInterval.utils";
 import { setIsPaused } from "@/store/site/site.slice";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit/react"

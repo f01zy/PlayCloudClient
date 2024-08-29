@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store";
 import { ChangeEvent, FC, useState } from "react"
 import { useTypedSelector } from "@/hooks/selector.hook";
-import Input from "../Input";
+import Input from "../../UI/Input";
 import { IProfile } from "@/interfaces/profile.interface";
-import Button from "../Button";
+import Button from "../../UI/Button";
 import Image from "next/image";
 import { IoMdClose } from "react-icons/io";
 import { setWindowForm } from "@/store/site/site.slice";

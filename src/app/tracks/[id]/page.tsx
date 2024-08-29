@@ -1,4 +1,4 @@
-import { TFetchError } from "@/components/Layout";
+import { TFetchError } from "@/components/Wrappers/Layout";
 import { IMusic } from "@/interfaces/music.interface";
 import TrackDetail from "@/page/Tracks/TrackDetail";
 import { Metadata } from "next";

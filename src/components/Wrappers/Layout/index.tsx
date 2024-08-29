@@ -1,14 +1,14 @@
 "use client"
 
 import { useParams, usePathname } from "next/navigation";
-import Navigation from "@/components/Navigation";
-import Sidebar from "@/components/Sidebar";
+import Navigation from "@/components/UI/Navigation";
+import Sidebar from "@/components/UI/Sidebar";
 import styles from "@/components/Layout/styles.module.scss"
 import { useAuth } from "@/hooks/auth.hook";
-import Player from "../Player";
+import Player from "../../UI/Player";
 import { PlayerController } from "@/utils/playerController.utils";
 import { useTypedSelector } from "@/hooks/selector.hook";
-import Mask from "../Mask";
+import Mask from "../../UI/Mask";
 
 export const playerController = new PlayerController()
 export let musicInterval: NodeJS.Timeout | null = null
@@ -30,6 +30,7 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   if (params && params.id) id = params.id as string
 
   const dontSidebarsPages = ["/login", "/register", `/profile/${id}`, "/shuffle"]
+  const dontBasePageStyles = [`/tracks/${id}`]
 
   i === 0 && useAuth()
   i++
@@ -41,7 +42,7 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <>
             <Navigation />
             <Sidebar />
-            <div className={styles.children}>
+            <div className={`${styles.children} ${!dontBasePageStyles.includes(pathname) ? styles.base : ""}`}>
               {children}
             </div>
           </>

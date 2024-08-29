@@ -19,5 +19,12 @@ export const browseMusic: [IconType, string, string][] = [
   [FaItunesNote, "Genres", "/genres"]
 ]
 
+export const libraryLinks: [string, string][] = [
+  ["/library/recent", "Recent Played"],
+  ["/", "Favorite Tracks"],
+  ["/", "Charts"],
+  ["/", "Radio"]
+]
+
 export const MODE: string = "production"
 export const SERVER_URL = MODE === "development" ? "http://localhost:5050" : "http://147.45.160.178:5050"

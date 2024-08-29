@@ -5,7 +5,7 @@ import { AppDispatch } from "@/store/store";
 import { SubmitHandler, FieldValues } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { register as registerF } from "@/store/user/user.actions"
-import AuthForm, { TInput } from "@/components/AuthForm";
+import AuthForm, { TInput } from "@/components/Forms/AuthForm";
 import { useState } from "react"
 
 const Register = () => {

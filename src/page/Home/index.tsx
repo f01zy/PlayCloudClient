@@ -1,7 +1,7 @@
 "use client"
 
-import Banner from "@/components/Banner";
-import TracksGrid from "@/components/TracksGrid";
+import Banner from "@/components/UI/Banner";
+import TracksGrid from "@/components/Tracks/TracksGrid";
 import styles from "@/page/Home/styles.module.scss"
 
 

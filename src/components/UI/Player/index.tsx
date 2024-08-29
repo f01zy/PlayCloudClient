@@ -7,7 +7,7 @@ import Image from "next/image"
 import { FaForward, FaBackward } from "react-icons/fa"
 import { FaPause } from "react-icons/fa6"
 import { IoIosPlay } from "react-icons/io";
-import { playerController } from "../Layout"
+import { playerController } from "../../Wrappers/Layout"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store"
 import { handlePlayClick } from "@/utils/handlePlayClick.utils"

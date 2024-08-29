@@ -1,9 +1,9 @@
 "use client"
 
-import Avatar from "@/components/Avatar"
-import CardLittle from "@/components/CardLittle"
-import EditProfile from "@/components/EditProfile"
-import Upload from "@/components/Upload"
+import Avatar from "@/components/UI/Avatar"
+import CardLittle from "@/components/UI/CardLittle"
+import EditProfile from "@/components/Forms/EditProfile"
+import Upload from "@/components/Forms/Upload"
 import { SERVER_URL } from "@/config"
 import { useTypedSelector } from "@/hooks/selector.hook"
 import { $api } from "@/http"

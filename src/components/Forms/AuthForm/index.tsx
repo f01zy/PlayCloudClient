@@ -5,8 +5,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { FC, HTMLInputTypeAttribute } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
-import Button from "../Button"
-import Input from "@/components/Input"
+import Button from "../../UI/Button"
+import Input from "@/components/UI/Input"
 
 export type TFileInput = {
   multiple: boolean,

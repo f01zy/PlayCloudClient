@@ -1,7 +1,7 @@
 "use client"
 
 import styles from "@/components/Sidebar/styles.module.scss"
-import { browseMusic } from "@/config";
+import { browseMusic, libraryLinks } from "@/config";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -21,10 +21,9 @@ const Sidebar = () => {
     </ul>
     <h2>Library</h2>
     <ul>
-      <li>Recent Played</li>
-      <li>Favorite Tracks</li>
-      <li>Charts</li>
-      <li>Radio</li>
+      {libraryLinks.map(([path, label]) => (
+        <li key={label} className={pathname === path ? styles.active : ""}><Link href={path}>{label}</Link></li>
+      ))}
     </ul>
   </aside>
 }

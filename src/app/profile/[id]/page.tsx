@@ -1,4 +1,4 @@
-import { TFetchError } from "@/components/Layout";
+import { TFetchError } from "@/components/Wrappers/Layout";
 import { IUser } from "@/interfaces/user.interface";
 import Profile from "@/page/Profile";
 import { Metadata } from "next";

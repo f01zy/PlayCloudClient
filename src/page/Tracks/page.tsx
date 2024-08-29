@@ -1,6 +1,6 @@
 "use client"
 
-import TracksGrid from "@/components/TracksGrid";
+import TracksGrid from "@/components/Tracks/TracksGrid";
 import styles from "@/page/Tracks/styles.module.scss"
 
 const Tracks = () => {

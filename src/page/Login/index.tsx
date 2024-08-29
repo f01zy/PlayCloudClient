@@ -1,6 +1,6 @@
 "use client"
 
-import AuthForm, { TInput } from "@/components/AuthForm"
+import AuthForm, { TInput } from "@/components/Forms/AuthForm"
 import { ILogin } from "@/interfaces/login.interface"
 import { AppDispatch } from "@/store/store"
 import { login } from "@/store/user/user.actions"

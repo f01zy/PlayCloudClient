@@ -14,7 +14,7 @@ import { AppDispatch } from "@/store/store";
 import Link from "next/link";
 import { handlePlayClick } from "@/utils/handlePlayClick.utils";
 import { filterListeningsByDate } from "@/utils/filterListeningsByDate.utils";
-import DraggableWrapper from "../DraggableWrapper";
+import DraggableWrapper from "../../Wrappers/DraggableWrapper";
 
 const Card: FC<IMusic> = ({ author, name, listenings, _id, likes, date, type }) => {
 	const router = useRouter()

@@ -13,11 +13,12 @@ import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux"
 import { handlePlayClick } from "@/utils/handlePlayClick.utils";
 import { useRouter } from "next/navigation";
-import CardLittle from "@/components/CardLittle";
+import CardLittle from "@/components/UI/CardLittle";
 import { FcLike, FcDislike } from "react-icons/fc";
 import Link from "next/link";
 import { handleClickBlock } from "@/utils/handleClickBlock.utils";
 import { filterListeningsByDate } from "@/utils/filterListeningsByDate.utils";
+import TracksList from "@/components/Tracks/TracksList";
 
 interface ITrackDetail {
   id: string
@@ -62,11 +63,7 @@ const TrackDetail: FC<ITrackDetail> = ({ id }) => {
       </div>
       <div className={styles.songs}>
         <h2>History</h2>
-        {user ? user.history.map(song => (
-          <div className={styles.song}>
-            <CardLittle {...song} />
-          </div>
-        )) : <h3>Please auth</h3>}
+        <TracksList tracks="recent" />
       </div>
     </div>
   ) : ""

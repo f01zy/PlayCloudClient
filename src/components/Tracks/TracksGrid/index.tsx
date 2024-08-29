@@ -2,7 +2,7 @@ import styles from "@/components/TracksGrid/styles.module.scss"
 import { IMusic } from "@/interfaces/music.interface";
 import { getAllMusic } from "@/utils/getAllMusic.utils";
 import { useEffect, useState, FC } from "react"
-import Card from "../Card";
+import Card from "../../UI/Card";
 
 interface ITracksGrid {
   label?: string,

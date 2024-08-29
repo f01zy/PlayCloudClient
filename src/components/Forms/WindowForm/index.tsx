@@ -5,11 +5,11 @@ import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store";
 import Image from "next/image";
-import Button from "../Button";
+import Button from "../../UI/Button";
 import { FC } from "react"
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { setWindowForm } from "@/store/site/site.slice";
-import Input from "@/components/Input";
+import Input from "@/components/UI/Input";
 
 interface IWindowForm {
   onSubmit: SubmitHandler<FieldValues>,

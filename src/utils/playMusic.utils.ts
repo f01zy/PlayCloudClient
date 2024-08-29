@@ -1,6 +1,6 @@
 "use client"
 
-import { playerController } from "@/components/Layout"
+import { playerController } from "@/components/Wrappers/Layout"
 import { IMusic } from "@/interfaces/music.interface"
 import { IMusicStore, setCurrentMusic, setMusicDelay } from "@/store/site/site.slice"
 import { startMusicInterval } from "./startMusicInterval.utils"
