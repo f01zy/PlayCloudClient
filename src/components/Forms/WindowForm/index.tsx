@@ -1,4 +1,4 @@
-import styles from "@/components/WindowForm/styles.module.scss"
+import styles from "@/components/Forms/WindowForm/styles.module.scss"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { TFileInput, TInput } from "../AuthForm";
 import { IoMdClose } from "react-icons/io";

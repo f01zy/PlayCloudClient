@@ -1,4 +1,4 @@
-import styles from "@/components/Avatar/styles.module.scss"
+import styles from "@/components/UI/Avatar/styles.module.scss"
 import { SERVER_URL } from "@/config";
 import { IUser } from "@/interfaces/user.interface";
 import Image from "next/image";

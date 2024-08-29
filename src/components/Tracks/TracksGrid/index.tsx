@@ -1,4 +1,4 @@
-import styles from "@/components/TracksGrid/styles.module.scss"
+import styles from "@/components/Tracks/TracksGrid/styles.module.scss"
 import { IMusic } from "@/interfaces/music.interface";
 import { getAllMusic } from "@/utils/getAllMusic.utils";
 import { useEffect, useState, FC } from "react"

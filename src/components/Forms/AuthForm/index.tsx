@@ -1,4 +1,4 @@
-import styles from "@/components/AuthForm/styles.module.scss"
+import styles from "@/components/Forms/AuthForm/styles.module.scss"
 import { useTypedSelector } from "@/hooks/selector.hook"
 import Image from "next/image"
 import Link from "next/link"

@@ -1,4 +1,4 @@
-import styles from "@/components/EditProfile/styles.module.scss"
+import styles from "@/components/Forms/EditProfile/styles.module.scss"
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store";
