@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "@/components/CardLittle/styles.module.scss"
+import styles from "@/components/UI/CardLittle/styles.module.scss"
 import { SERVER_URL } from "@/config";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { IMusic } from "@/interfaces/music.interface";

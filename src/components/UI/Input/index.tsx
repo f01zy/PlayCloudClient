@@ -1,4 +1,4 @@
-import styles from "@/components/Input/styles.module.scss"
+import styles from "@/components/UI/Input/styles.module.scss"
 import { HTMLInputTypeAttribute, FC } from "react"
 
 interface IInput {

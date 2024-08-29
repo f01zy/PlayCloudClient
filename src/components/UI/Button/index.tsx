@@ -1,4 +1,4 @@
-import styles from "@/components/Button/styles.module.scss"
+import styles from "@/components/UI/Button/styles.module.scss"
 import { FC } from "react"
 
 interface IButton {

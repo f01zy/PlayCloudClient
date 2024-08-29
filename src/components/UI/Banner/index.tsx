@@ -1,4 +1,4 @@
-import styles from "@/components/Banner/styles.module.scss"
+import styles from "@/components/UI/Banner/styles.module.scss"
 import { FC } from "react";
 
 interface IBanner {

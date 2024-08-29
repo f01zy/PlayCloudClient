@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "@/components/Card/styles.module.scss"
+import styles from "@/components/UI/Card/styles.module.scss"
 import { SERVER_URL } from "@/config";
 import Image from "next/image";
 import { FC } from "react";
