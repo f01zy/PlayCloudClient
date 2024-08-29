@@ -22,26 +22,24 @@ const Card: FC<IMusic> = ({ author, name, listenings, _id, likes, date, type }) 
 	const user = useTypedSelector(selector => selector.userSlice.user)
 	const dispatch = useDispatch<AppDispatch>()
 
-	return <DraggableWrapper>
-		<div className={styles.card}>
-			<div className={styles.container}>
-				<div className={styles.cover}>
-					<Image src={`${SERVER_URL}/cover/${_id}.jpg`} alt={name} width={100} height={100} />
+	return <div className={styles.card}>
+		<div className={styles.container}>
+			<div className={styles.cover}>
+				<Image src={`${SERVER_URL}/cover/${_id}.jpg`} alt={name} width={100} height={100} />
 
-					<div className={styles.play}>
-						<div onClick={() => {
-							handlePlayClick(dispatch, { _id, author, listenings, name, likes, date, type }, user, music?.name, router)
-						}}>
-							{music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
-						</div>
+				<div className={styles.play}>
+					<div onClick={() => {
+						handlePlayClick(dispatch, { _id, author, listenings, name, likes, date, type }, user, music?.name, router)
+					}}>
+						{music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
 					</div>
 				</div>
-				<Link href={`/tracks/${_id}`}><h3>{name}</h3></Link>
-				<p>({filterListeningsByDate(listenings).length} listening on last week)</p>
-				<Link href={`/profile/${author._id}`}><p>{author.username}</p></Link>
 			</div>
+			<Link href={`/tracks/${_id}`}><h3>{name}</h3></Link>
+			<p>({filterListeningsByDate(listenings).length} listening on last week)</p>
+			<Link href={`/profile/${author._id}`}><p>{author.username}</p></Link>
 		</div>
-	</DraggableWrapper>
+	</div>
 }
 
 export default Card;

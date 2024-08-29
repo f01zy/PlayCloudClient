@@ -12,6 +12,7 @@ import { IoMdClose } from "react-icons/io";
 import { setWindowForm } from "@/store/site/site.slice";
 import { FcAddImage } from "react-icons/fc";
 import { $api } from "@/http";
+import { SERVER_URL } from "@/config";
 
 interface IEditProfile {
   windowName: string,
@@ -22,46 +23,24 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const [banner, setBanner] = useState<string | ArrayBuffer | null>(null)
   const [loading, setLoading] = useState({ username: false, avatar: false, banner: false })
   const { windowForm } = useTypedSelector(selector => selector.siteSlice)
+  const { user } = useTypedSelector(selector => selector.userSlice)
   const dispatch = useDispatch<AppDispatch>()
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
     setLoading({ username: data.username.length > 0 ? true : false, avatar: data.avatar.length > 0 ? true : false, banner: data.banner.length > 0 ? true : false })
 
-    if (data.avatar.length > 0) {
-      const formData = new FormData();
-      formData.append("avatar", data.avatar[0]);
-      await $api.post("/auth/edit/avatar", formData)
-        .then(res => { const tempLoading = loading; tempLoading.avatar = false; setLoading(tempLoading) })
-        .finally(() => !Object.values(loading).find(e => e === true) && close())
-    }
-    if (data.banner.length > 0) {
-      const formData = new FormData();
-      formData.append("banner", data.banner[0]);
-      await $api.post("/auth/edit/banner", formData)
-        .then(res => { const tempLoading = loading; tempLoading.banner = false; setLoading(tempLoading) })
-        .finally(() => !Object.values(loading).find(e => e === true) && close())
-    }
-    if (data.username.length > 0)
-      await $api.post("/auth/edit/username", { username: data.username })
-        .then(res => { const tempLoading = loading; tempLoading.username = false; setLoading(tempLoading) })
-        .finally(() => !Object.values(loading).find(e => e === true) && close())
+    const imagesLoad: Array<"avatar" | "banner"> = ["avatar", "banner"]
+    imagesLoad.map(async el => { if (data[el].length > 0) { const formData = new FormData(); formData.append(el, data[el][0]); await $api.post(`/auth/edit/${el}`, formData).then(res => { const tempLoading = loading; tempLoading[el] = false; setLoading(tempLoading) }).finally(() => !Object.values(loading).find(e => e === true) && close()) } })
+    if (data.username.length > 0) await $api.post("/auth/edit/username", { username: data.username }).then(res => { const tempLoading = loading; tempLoading.username = false; setLoading(tempLoading) }).finally(() => !Object.values(loading).find(e => e === true) && close())
   }
 
-  const close = () => {
-    setLoading({ username: false, avatar: false, banner: false })
-    setBanner(null)
-    setAvatar(null)
-    dispatch(setWindowForm(null))
-  }
+  const close = () => { setLoading({ username: false, avatar: false, banner: false }); setBanner(null); setAvatar(null); dispatch(setWindowForm(null)) }
 
   const fileChange = (e: ChangeEvent<HTMLInputElement>, field: "avatar" | "banner") => {
     const file = e.target.files ? e.target.files[0] : null
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        if (field === "avatar") setAvatar(reader.result);
-        else if (field === "banner") setBanner(reader.result);
-      };
+      reader.onloadend = () => { if (field === "avatar") setAvatar(reader.result); else if (field === "banner") setBanner(reader.result); };
       reader.readAsDataURL(file);
     }
   }
@@ -75,11 +54,11 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     </div>
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.banner}>
-        {banner ? <Image src={banner.toString()} alt="banner" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
+        {user?.banner ? <Image unoptimized src={`${SERVER_URL}/banner/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" /> : banner ? <Image src={banner.toString()} alt="banner" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
         <input type="file" multiple={false} accept="image/*" {...register("banner", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "banner") })} />
       </div>
       <div className={styles.avatar}>
-        {avatar ? <Image src={avatar.toString()} alt="avatar" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
+        {user?.avatar ? <Image unoptimized src={`${SERVER_URL}/avatar/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" /> : avatar ? <Image src={avatar.toString()} alt="avatar" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
         <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "avatar") })} />
       </div>
       <Input min={3} max={25} field="username" label="username" required={false} type="text" register={register} />
