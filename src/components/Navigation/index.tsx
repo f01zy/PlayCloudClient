@@ -1,18 +1,18 @@
 "use client"
 
 import styles from "@/components/Navigation/styles.module.scss"
-import { SERVER_URL, links } from "@/config";
+import { links } from "@/config";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { $api } from "@/http";
 import { setCurrentMusic, setSidebar } from "@/store/site/site.slice";
 import { AppDispatch } from "@/store/store";
 import { setUser } from "@/store/user/user.slice";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
 import { useDispatch } from "react-redux";
+import Avatar from "../Avatar";
 
 const Navigation = () => {
   const [userMenu, setUserMenu] = useState<boolean>(false)
@@ -22,6 +22,8 @@ const Navigation = () => {
   const user = useTypedSelector(selector => selector.userSlice.user)
   const dispatch = useDispatch<AppDispatch>()
   const sidebar = useTypedSelector(selector => selector.siteSlice.sidebar)
+
+  const avatar = 35
 
   return <nav className={styles.navigation}>
     <div className={`${styles.icon} ${sidebar ? styles.open : ""}`} onClick={() => dispatch(setSidebar(!sidebar))}>
@@ -41,7 +43,7 @@ const Navigation = () => {
         setUserMenu(!userMenu)
       }}>
         <p>{user.username}</p>
-        <div className={styles.avatar}>{user.avatar ? <Image unoptimized src={`${SERVER_URL}/avatar/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full rounded-full" /> : ""}</div>
+        <Avatar user={user} width={avatar} height={avatar} />
         <div className={`${styles.menu} ${userMenu ? "visible opacity-100" : "invisible opacity-0"}`}>
           <ul>
             <Link href={`/profile/${user._id}`}><li>Profile</li></Link>

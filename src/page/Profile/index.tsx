@@ -1,5 +1,6 @@
 "use client"
 
+import Avatar from "@/components/Avatar"
 import CardLittle from "@/components/CardLittle"
 import EditProfile from "@/components/EditProfile"
 import Upload from "@/components/Upload"
@@ -29,6 +30,8 @@ const Profile: FC<{ id: string }> = ({ id }) => {
   const user = useTypedSelector(selector => selector.userSlice.user)
   const dispatch = useDispatch<AppDispatch>()
 
+  const avatar = 90
+
   useEffect(() => { $api.get<IUser>(`/users/${id}`).then(res => setFetchUser(res.data)) }, [])
 
   return fetchUser ? (
@@ -38,9 +41,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
       <div className={styles.user}>
         <div className={styles.banner}>{fetchUser.banner && <Image unoptimized src={`${SERVER_URL}/banner/${fetchUser._id}.jpg`} alt="banner" width={100} height={100} className="w-full h-full" />}</div>
         <div className={styles.user_info}>
-          <div className={styles.avatar}>
-            {fetchUser.avatar && <Image src={`${SERVER_URL}/avatar/${fetchUser._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full rounded" />}
-          </div>
+          <Avatar user={fetchUser} width={avatar} height={avatar} />
           <h3>{fetchUser.username}</h3>
           <p>{fetchUser.tracks.length} треков</p>
           {user?._id === fetchUser._id && <RiEdit2Fill width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="mt-4 ml-3" />}

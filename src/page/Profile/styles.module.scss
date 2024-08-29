@@ -27,14 +27,6 @@
       display: flex;
       margin-left: calc($avatar / 2);
 
-      .avatar {
-        width: $avatar;
-        height: $avatar;
-        border-radius: 100%;
-        background: #bababa;
-        margin-right: 10px;
-      }
-
       h3 {
         margin-right: 10px;
         font-size: 19px;
