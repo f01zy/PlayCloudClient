@@ -41,7 +41,7 @@ const Navigation = () => {
         setUserMenu(!userMenu)
       }}>
         <p>{user.username}</p>
-        <div className={styles.avatar}>{user.avatar ? <Image unoptimized src={`${SERVER_URL}/banner/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full rounded-full" /> : ""}</div>
+        <div className={styles.avatar}>{user.avatar ? <Image unoptimized src={`${SERVER_URL}/avatar/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full rounded-full" /> : ""}</div>
         <div className={`${styles.menu} ${userMenu ? "visible opacity-100" : "invisible opacity-0"}`}>
           <ul>
             <Link href={`/profile/${user._id}`}><li>Profile</li></Link>
