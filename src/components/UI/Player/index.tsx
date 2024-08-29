@@ -24,7 +24,7 @@ const Player = () => {
     {music ? (
       <>
         <div className={styles.player}>
-          <Image className="rounded-md" src={`${SERVER_URL}/cover/${music._id}.jpg`} alt={music.name} width={40} height={40} />
+          <Image unoptimized className="rounded-md" src={`${SERVER_URL}/cover/${music._id}.jpg`} alt={music.name} width={40} height={40} />
           <div className={`ml-3 flex flex-col items-center justify-center ${styles.title}`}>
             <h1>{music.name}</h1>
             <h5 className="mt-0.5">-{formatTime(music.maxDelay - music.delay)}</h5>

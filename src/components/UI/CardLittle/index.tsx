@@ -22,7 +22,7 @@ const CardLittle: FC<IMusic> = ({ _id, author, listenings, name, date, likes, ty
 
   return <div className={styles.cardLittle}>
     <div className={styles.cover}>
-      <Image src={`${SERVER_URL}/cover/${_id}.jpg`} alt={name} width={100} height={100} />
+      <Image unoptimized src={`${SERVER_URL}/cover/${_id}.jpg`} alt={name} width={100} height={100} />
 
       <div className={styles.play}>
         <div onClick={() => {

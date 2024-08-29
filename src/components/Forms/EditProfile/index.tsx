@@ -54,15 +54,15 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     </div>
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.banner}>
-        {user?.banner ? <Image unoptimized src={`${SERVER_URL}/banner/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" /> : banner ? <Image src={banner.toString()} alt="banner" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
+        {user?.banner ? <Image unoptimized src={`${SERVER_URL}/banner/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" /> : banner ? <Image unoptimized src={banner.toString()} alt="banner" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
         <input type="file" multiple={false} accept="image/*" {...register("banner", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "banner") })} />
       </div>
       <div className={styles.avatar}>
-        {user?.avatar ? <Image unoptimized src={`${SERVER_URL}/avatar/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" /> : avatar ? <Image src={avatar.toString()} alt="avatar" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
+        {user?.avatar ? <Image unoptimized src={`${SERVER_URL}/avatar/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" /> : avatar ? <Image unoptimized src={avatar.toString()} alt="avatar" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
         <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "avatar") })} />
       </div>
       <Input min={3} max={25} field="username" label="username" required={false} type="text" register={register} />
-      <Button type="submit">{Object.values(loading).find(e => e === true) ? <Image src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
+      <Button type="submit">{Object.values(loading).find(e => e === true) ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>
   </div>
 }

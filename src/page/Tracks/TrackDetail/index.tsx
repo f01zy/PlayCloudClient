@@ -39,7 +39,7 @@ const TrackDetail: FC<ITrackDetail> = ({ id }) => {
       <div className={styles.container}>
         <div className={styles.trackInfo}>
           <div className={styles.avatar}>
-            <Image src={`${SERVER_URL}/cover/${id}.jpg`} alt={music.name} width={100} height={100} />
+            <Image unoptimized src={`${SERVER_URL}/cover/${id}.jpg`} alt={music.name} width={100} height={100} />
           </div>
           <div className={styles.info}>
             <Link href={`/tracks/${music._id}`}><h1>{music.name}</h1></Link>
@@ -62,7 +62,7 @@ const TrackDetail: FC<ITrackDetail> = ({ id }) => {
         </div>
       </div>
       <div className={styles.songs}>
-        <h2>History</h2>
+        <h2 className="mb-4">History</h2>
         <TracksList tracks="recent" />
       </div>
     </div>

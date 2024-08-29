@@ -25,7 +25,7 @@ const Card: FC<IMusic> = ({ author, name, listenings, _id, likes, date, type }) 
 	return <div className={styles.card}>
 		<div className={styles.container}>
 			<div className={styles.cover}>
-				<Image src={`${SERVER_URL}/cover/${_id}.jpg`} alt={name} width={100} height={100} />
+				<Image unoptimized src={`${SERVER_URL}/cover/${_id}.jpg`} alt={name} width={100} height={100} />
 
 				<div className={styles.play}>
 					<div onClick={() => {

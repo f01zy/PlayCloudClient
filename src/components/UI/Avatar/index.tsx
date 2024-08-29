@@ -13,7 +13,7 @@ interface IAvatar {
 
 const Avatar: FC<IAvatar> = ({ user, height, width }) => {
   return <div className={styles.avatar} style={{ width: width + "px", height: height + "px" }}>
-    {user.avatar ? <Image src={`${SERVER_URL}/avatar/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full rounded" /> : <FaUser />}
+    {user.avatar ? <Image unoptimized src={`${SERVER_URL}/avatar/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full rounded" /> : <FaUser />}
   </div>
 }
 
