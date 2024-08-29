@@ -25,8 +25,9 @@ const DraggableWrapper = ({ children }: Readonly<{ children: React.ReactNode }>)
       const distanceX = mouseX - (boxRect.left + boxRect.width / 2);
       const distanceY = mouseY - (boxRect.top + boxRect.height / 2);
       const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+      const thresholdDistance = boxRect.width;
 
-      if (distance > 100) {
+      if (distance > thresholdDistance) {
         return object.style.transform = 'none';
       }
 
