@@ -21,8 +21,8 @@ const Player = () => {
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
 
-  return <DraggableWrapper>
-    <div className={styles.playerContainer}>
+  return <div className={styles.playerContainer}>
+    <DraggableWrapper>
       {music ? (
         <>
           <div className={styles.player}>
@@ -47,8 +47,8 @@ const Player = () => {
           </div>
         </>
       ) : ""}
-    </div>
-  </DraggableWrapper>
+    </DraggableWrapper>
+  </div>
 }
 
 export default Player;

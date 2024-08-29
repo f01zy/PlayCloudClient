@@ -44,7 +44,7 @@ const Navigation = () => {
       }}>
         <p>{user.username}</p>
         <Avatar user={user} width={avatar} height={avatar} />
-        <div className={`${styles.menu} ${userMenu ? "visible opacity-100" : "invisible opacity-0"}`}>
+        <div className={`${styles.menu} ${userMenu ? "visible opacity-100" : "invisible opacity-0"} mr-2`}>
           <ul>
             <Link href={`/profile/${user._id}`}><li>Profile</li></Link>
             <li onClick={() => {
