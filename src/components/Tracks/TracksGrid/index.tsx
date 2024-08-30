@@ -14,7 +14,7 @@ interface ITracksGrid {
 
 const TracksGrid: FC<ITracksGrid> = ({ quantity, label, sort, tracks: tempTracks }) => {
   const [music, setMusic] = useState<Array<IMusic>>([])
-  const quantitySkeletons = new Array(8)
+  const quantitySkeletons = ["", "", "", "", "", "", "", ""]
 
   useEffect(() => {
     const setup = async () => {
