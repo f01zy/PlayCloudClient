@@ -21,7 +21,6 @@ const Card: FC<IMusic> = ({ author, name, listenings, _id, likes, date, type }) 
 	const { music, loading } = useTypedSelector(selector => selector.musicSlice)
 	const user = useTypedSelector(selector => selector.userSlice.user)
 	const dispatch = useDispatch<AppDispatch>()
-	console.log(loading, _id)
 
 	return <div className={styles.card}>
 		<div className={styles.container}>
@@ -32,7 +31,7 @@ const Card: FC<IMusic> = ({ author, name, listenings, _id, likes, date, type }) 
 					<div onClick={() => {
 						handlePlayClick(dispatch, { _id, author, listenings, name, likes, date, type }, user, music?.name, router)
 					}}>
-						{loading === music?._id ? <Image src={"/circle-loading.svg"} alt="loading" width={100} height={100} /> : music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
+						{loading === music?._id ? <Image src={"/circle-loader.svg"} alt="loading" width={100} height={100} /> : music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
 					</div>
 				</div>
 			</div>
