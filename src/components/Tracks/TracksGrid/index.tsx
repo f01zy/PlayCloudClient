@@ -14,14 +14,14 @@ interface ITracksGrid {
 
 const TracksGrid: FC<ITracksGrid> = ({ quantity, label, sort, tracks: tempTracks }) => {
   const [music, setMusic] = useState<Array<IMusic>>([])
-  const quantitySkeletons = new Array(8)
+  const quantitySkeletons = ["", "", "", "", "", "", "", ""]
 
   useEffect(() => {
     const setup = async () => {
       let tracks = tempTracks ? tempTracks : await getAllMusic()
       if (sort) tracks = tracks.sort((a, b) => b[sort].length - a[sort].length)
       if (quantity) tracks = tracks.slice(0, quantity)
-      setMusic(tracks)
+      setTimeout(() => setMusic(tracks), 4000)
     }
     setup()
   }, [])
@@ -32,7 +32,7 @@ const TracksGrid: FC<ITracksGrid> = ({ quantity, label, sort, tracks: tempTracks
       {
         music ?
           music.map(song => <Card key={song._id} {...song} />) :
-          quantitySkeletons.map(skeleton => <Skeleton className="w-full h-auto" />)
+          quantitySkeletons.map(skeleton => <Skeleton />)
       }
     </div>
   </div>
