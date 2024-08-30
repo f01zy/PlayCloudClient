@@ -4,7 +4,7 @@ import styles from "@/components/UI/Card/styles.module.scss"
 import { SERVER_URL } from "@/config";
 import Image from "next/image";
 import { FC } from "react";
-import { FaPause } from "react-icons/fa6"
+import { FaPause, FaAngleUp } from "react-icons/fa6"
 import { IoIosPlay } from "react-icons/io";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { IMusic } from "@/interfaces/music.interface";
@@ -31,7 +31,7 @@ const Card: FC<IMusic> = ({ author, name, listenings, _id, likes, date, type }) 
 					<div onClick={() => {
 						handlePlayClick(dispatch, { _id, author, listenings, name, likes, date, type }, user, music?.name, router)
 					}}>
-						{loading === music?._id ? <Image src={"/circle-loader.svg"} alt="loading" width={100} height={100} /> : music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
+						{loading === music?._id ? <FaAngleUp /> : music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
 					</div>
 				</div>
 			</div>
