@@ -2,7 +2,6 @@
   $avatar: 90px;
   width: 100%;
   height: auto;
-  padding-bottom: 100px;
 
   .user {
     width: 100%;
@@ -59,7 +58,7 @@
   .tracks {
     padding: 0px calc($avatar / 2);
     margin-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 100px;
 
     .track {
       &:not(:first-child) {
