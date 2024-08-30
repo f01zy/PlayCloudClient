@@ -21,6 +21,7 @@ const Card: FC<IMusic> = ({ author, name, listenings, _id, likes, date, type }) 
 	const { music, loading } = useTypedSelector(selector => selector.musicSlice)
 	const user = useTypedSelector(selector => selector.userSlice.user)
 	const dispatch = useDispatch<AppDispatch>()
+	console.log(loading, _id)
 
 	return <div className={styles.card}>
 		<div className={styles.container}>
