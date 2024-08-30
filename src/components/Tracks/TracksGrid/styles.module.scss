@@ -10,6 +10,12 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
 
+    .skeleton {
+      width: 100%;
+      height: 240px;
+      margin-top: 20px;
+    }
+
     @media (max-width: 1085px) {
       grid-template-columns: repeat(4, 1fr);
     }
