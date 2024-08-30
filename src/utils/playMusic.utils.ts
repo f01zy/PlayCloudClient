@@ -10,7 +10,7 @@ import { listen } from "./listen.utils"
 
 export const playMusic = ({ _id, author, listenings, name, likes, date, type }: IMusic, dispatch: Dispatch<UnknownAction>, user: IUser) => {
   dispatch(setLoading(_id))
-  console.log("loading", name)
+
   listen(_id, dispatch).then(() => {
     dispatch(setMusicDelay(0))
 

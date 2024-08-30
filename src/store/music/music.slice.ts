@@ -24,7 +24,7 @@ export const musicSlice = createSlice({
     setCurrentMusic(state, { payload }: { payload: IExtendsMusic | null }) { state.music = payload },
     setMusicDelay(state, { payload }: { payload: number }) { if (state.music) state.music.delay = payload },
     setIsPaused(state, { payload }: { payload: boolean }) { if (state.music) state.music.isPaused = payload },
-    setLoading(state, { payload }: { payload: string | null }) { if (state.music) state.loading = payload },
+    setLoading(state, { payload }: { payload: string | null }) { state.loading = payload },
   }
 })
 
