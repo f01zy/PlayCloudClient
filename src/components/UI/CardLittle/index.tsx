@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 const CardLittle: FC<IMusic> = ({ _id, author, listenings, name, date, likes, type }) => {
   const dispatch = useDispatch<AppDispatch>()
   const user = useTypedSelector(selector => selector.userSlice.user)
-  const music = useTypedSelector(selector => selector.siteSlice.music)
+  const { music, loading } = useTypedSelector(selector => selector.musicSlice)
   const router = useRouter()
 
   return <div className={styles.cardLittle}>
@@ -28,7 +28,7 @@ const CardLittle: FC<IMusic> = ({ _id, author, listenings, name, date, likes, ty
         <div onClick={() => {
           handlePlayClick(dispatch, { _id, author, listenings, name, likes, date, type }, user, music?.name, router)
         }}>
-          {music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
+          {loading === music?._id ? <Image src={"/circle-loading.svg"} alt="loading" width={100} height={100} /> : music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
         </div>
       </div>
     </div>

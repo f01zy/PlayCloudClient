@@ -4,7 +4,8 @@ import styles from "@/components/UI/Navigation/styles.module.scss"
 import { links } from "@/config";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { $api } from "@/http";
-import { setCurrentMusic, setSidebar } from "@/store/site/site.slice";
+import { setSidebar } from "@/store/site/site.slice";
+import { setCurrentMusic } from "@/store/music/music.slice";
 import { AppDispatch } from "@/store/store";
 import { setUser } from "@/store/user/user.slice";
 import Link from "next/link";

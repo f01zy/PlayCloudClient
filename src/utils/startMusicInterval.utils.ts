@@ -1,7 +1,7 @@
 "use client"
 
 import { musicInterval, playerController, setMusicInterval } from "@/components/Wrappers/Layout"
-import { setMusicDelay } from "@/store/site/site.slice"
+import { setMusicDelay } from "@/store/music/music.slice"
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit"
 
 export const startMusicInterval = (dispatch: Dispatch<UnknownAction>) => {

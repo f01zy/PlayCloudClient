@@ -1,7 +1,7 @@
 "use client"
 
 import { SERVER_URL } from "@/config"
-import { setMusicDelay } from "@/store/site/site.slice"
+import { setMusicDelay } from "@/store/music/music.slice"
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit"
 
 export class PlayerController {

@@ -15,7 +15,7 @@ import { formatTime } from "@/utils/formatTime.utils"
 import { useRouter } from "next/navigation"
 
 const Player = () => {
-  const music = useTypedSelector(selector => selector.siteSlice.music)
+  const { music } = useTypedSelector(selector => selector.musicSlice)
   const user = useTypedSelector(selector => selector.userSlice.user)!
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()

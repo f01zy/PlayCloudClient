@@ -26,7 +26,9 @@ interface ITrackDetail {
 
 const TrackDetail: FC<ITrackDetail> = ({ id }) => {
   const [music, setMusic] = useState<IMusic>()
-  const { music: currentMusic, blocked: currentBlocked, alert: currentAlert } = useTypedSelector(selector => selector.siteSlice)
+  const { music: currentMusic } = useTypedSelector(selector => selector.musicSlice)
+  const { alert: currentAlert } = useTypedSelector(selector => selector.alertSlice)
+  const { blocked: currentBlocked } = useTypedSelector(selector => selector.siteSlice)
   const user = useTypedSelector(selector => selector.userSlice.user)
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()

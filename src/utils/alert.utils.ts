@@ -1,4 +1,4 @@
-import { hideAlert, setAlert } from '@/store/site/site.slice';
+import { hideAlert, setAlert } from '@/store/alert/alert.slice';
 import { UnknownAction } from '@reduxjs/toolkit';
 import { Dispatch } from "react";
 
