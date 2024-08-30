@@ -3,7 +3,7 @@ import { IMusic } from "@/interfaces/music.interface";
 import { getAllMusic } from "@/utils/getAllMusic.utils";
 import { useEffect, useState, FC } from "react"
 import Card from "../../UI/Card";
-import Skeleton from "react-loading-skeleton";
+import { Skeleton } from "@mui/material";
 
 interface ITracksGrid {
   label?: string,
@@ -32,7 +32,7 @@ const TracksGrid: FC<ITracksGrid> = ({ quantity, label, sort, tracks: tempTracks
       {
         music.length != 0 ?
           music.map(song => <Card key={song._id} {...song} />) :
-          quantitySkeletons.map(() => <Skeleton className={styles.skeleton} />)
+          quantitySkeletons.map(() => <Skeleton variant="rounded" className="w-full h-auto" />)
       }
     </div>
   </div>
