@@ -32,7 +32,7 @@ const TracksGrid: FC<ITracksGrid> = ({ quantity, label, sort, tracks: tempTracks
       {
         music.length != 0 ?
           music.map(song => <Card key={song._id} {...song} />) :
-          quantitySkeletons.map(skeleton => <Skeleton />)
+          quantitySkeletons.map(skeleton => <Skeleton width={"100%"} height={"auto"} />)
       }
     </div>
   </div>
