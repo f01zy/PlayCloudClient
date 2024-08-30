@@ -28,7 +28,7 @@ const CardLittle: FC<IMusic> = ({ _id, author, listenings, name, date, likes, ty
         <div onClick={() => {
           handlePlayClick(dispatch, { _id, author, listenings, name, likes, date, type }, user, music?.name, router)
         }}>
-          {loading === music?._id ? <Image src={"/circle-loading.svg"} alt="loading" width={100} height={100} /> : music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
+          {loading === _id ? <Image src={"/circle-loader.svg"} alt="loading" width={100} height={100} /> : music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
         </div>
       </div>
     </div>
