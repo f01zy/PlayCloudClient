@@ -35,7 +35,7 @@ const Navigation = () => {
     </div>
     <h1 className={styles.logo}><b>Play</b>Cloud</h1>
     <ul className={styles.links}>
-      <li><div className={`${styles.input} ${searchInput ? styles.open : ""}`}><IoSearchSharp onClick={() => setSearchInput(true)} /><input type="text" /></div></li>
+      <li><div className={`${styles.input} ${searchInput ? styles.open : ""}`}><input type="text" /><IoSearchSharp onClick={() => setSearchInput(true)} /></div></li>
       {links.map(link => (
         <li key={link[1]}><Link href={link[1]} className={pathname === link[1] ? styles.active : ""}>{link[0]}</Link></li>
       ))}

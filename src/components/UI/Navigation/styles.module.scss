@@ -1,3 +1,6 @@
+$input-width: 170px;
+$input-height: 40px;
+
 .navigation {
   width: 100%;
   height: var(--navigation-height);
@@ -89,7 +92,7 @@
 
     .input {
       width: max-content;
-      height: max-content;
+      height: $input-height;
       display: flex;
       align-items: center;
 
@@ -103,15 +106,20 @@
         top: 0;
         padding: 0 30px;
         transition: width .3s ease;
+        border: 0;
+        border-radius: 3px;
+        background: var(--card-background);
       }
 
       &.open {
+        width: $input-width;
+
         svg {
           margin-left: 5px;
         }
 
         input {
-          width: 170px;
+          width: $input-width;
         }
       }
     }
