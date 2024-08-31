@@ -110,6 +110,7 @@ $input-height: 40px;
         border: 0;
         border-radius: 3px;
         background: var(--card-background);
+        z-index: -1;
       }
 
       &.open {
