@@ -30,6 +30,12 @@ button {
   cursor: pointer;
 }
 
+input {
+  &:focus {
+    outline: none;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   background: #666;
