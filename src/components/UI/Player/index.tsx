@@ -13,38 +13,41 @@ import { AppDispatch } from "@/store/store"
 import { handlePlayClick } from "@/utils/handlePlayClick.utils"
 import { formatTime } from "@/utils/formatTime.utils"
 import { useRouter } from "next/navigation"
+import Skeleton from "../Skeleton"
 
 const Player = () => {
-  const { music } = useTypedSelector(selector => selector.musicSlice)
+  const { music, loading } = useTypedSelector(selector => selector.musicSlice)
   const user = useTypedSelector(selector => selector.userSlice.user)!
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
 
   return <div className={styles.playerContainer}>
-    {music ? (
-      <>
-        <div className={styles.player}>
-          <Image unoptimized className="rounded-md" src={`${SERVER_URL}/cover/${music._id}.jpg`} alt={music.name} width={40} height={40} />
-          <div className={`ml-3 flex flex-col items-center justify-center ${styles.title}`}>
-            <h1>{music.name}</h1>
-            <h5 className="mt-0.5">-{formatTime(music.maxDelay - music.delay)}</h5>
+    {
+      loading ? <Skeleton width="300px" height="100%" /> : music ? (
+        <>
+          <div className={styles.player}>
+            <Image unoptimized className="rounded-md" src={`${SERVER_URL}/cover/${music._id}.jpg`} alt={music.name} width={40} height={40} />
+            <div className={`ml-3 flex flex-col items-center justify-center ${styles.title}`}>
+              <h1>{music.name}</h1>
+              <h5 className="mt-0.5">-{formatTime(music.maxDelay - music.delay)}</h5>
+            </div>
+            <div className={styles.buttons}>
+              <div className={styles.button} onClick={() => playerController.rewind(-5, dispatch)}>
+                <FaBackward />
+              </div>
+              <div className={styles.button} onClick={() => {
+                handlePlayClick(dispatch, music, user, music.name, router)
+              }}>
+                {music.isPaused ? <IoIosPlay /> : <FaPause />}
+              </div>
+              <div className={styles.button} onClick={() => playerController.rewind(5, dispatch)}>
+                <FaForward />
+              </div>
+            </div>
           </div>
-          <div className={styles.buttons}>
-            <div className={styles.button} onClick={() => playerController.rewind(-5, dispatch)}>
-              <FaBackward />
-            </div>
-            <div className={styles.button} onClick={() => {
-              handlePlayClick(dispatch, music, user, music.name, router)
-            }}>
-              {music.isPaused ? <IoIosPlay /> : <FaPause />}
-            </div>
-            <div className={styles.button} onClick={() => playerController.rewind(5, dispatch)}>
-              <FaForward />
-            </div>
-          </div>
-        </div>
-      </>
-    ) : ""}
+        </>
+      ) : ""
+    }
   </div>
 }
 

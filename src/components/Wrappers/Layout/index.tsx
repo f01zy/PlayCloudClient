@@ -51,7 +51,7 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       }
       <Player />
       {sidebar || windowForm && <Mask />}
-      <div className={`${styles.alert} ${alert.isShow ? styles.active : styles.disable} ${music ? "bottom-24" : "bottom-5"}`}>
+      <div className={`${styles.alert} ${alert.isShow ? styles.active : styles.disable} ${music ? styles.activePlayer : "bottom-5"}`}>
         <h4>{alert.message}</h4>
       </div>
     </>

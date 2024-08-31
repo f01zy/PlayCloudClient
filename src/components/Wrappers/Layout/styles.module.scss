@@ -20,6 +20,10 @@
   &.disable {
     opacity: 0;
   }
+
+  &.activePlayer {
+    bottom: calc(var(--player-height) + 20px);
+  }
 }
 
 .children {
