@@ -2,7 +2,7 @@
   left: 0;
   top: var(--navigation-height);
   position: absolute;
-  width: var(--input-width);
+  width: calc(var(--input-width) * 2);
   height: max-content;
   padding: 10px 10px;
   background: var(--card-background);

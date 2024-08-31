@@ -46,7 +46,7 @@ const Navigation = () => {
     <div className={`${styles.icon} ${sidebar ? styles.open : ""}`} onClick={() => dispatch(setSidebar(!sidebar))}><span></span><span></span><span></span></div>
     <h1 className={styles.logo}><b>Play</b>Cloud</h1>
     <ul className={styles.links}>
-      <li><div className={`${styles.input} ${searchInput ? styles.open : ""}`}><input type="text" onChange={onSearchChange} /><IoSearchSharp onClick={() => setSearchInput(true)} /></div><SearchResults /></li>
+      <li><div className={`${styles.input} ${searchInput ? styles.open : ""}`}><input type="text" onChange={onSearchChange} /><IoSearchSharp onClick={() => setSearchInput(!searchInput)} /></div><SearchResults /></li>
       {links.map(link => (
         <li key={link[1]}><Link href={link[1]} className={pathname === link[1] ? styles.active : ""}>{link[0]}</Link></li>
       ))}
