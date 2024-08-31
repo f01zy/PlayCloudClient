@@ -16,11 +16,11 @@ import { useDispatch } from "react-redux";
 import Avatar from "../Avatar";
 import { IMusic } from "@/interfaces/music.interface";
 import SearchResults from "../SearchResults";
+import { setMusicResult } from "@/store/search/search.slice";
 
 const Navigation = () => {
   const [userMenu, setUserMenu] = useState<boolean>(false)
   const [searchInput, setSearchInput] = useState<boolean>(false)
-  const [searchResponce, setSearchResponce] = useState<Array<IMusic> | null>(null)
 
   let searchTimeout: NodeJS.Timeout
 
@@ -34,13 +34,11 @@ const Navigation = () => {
   const inputTimeoutTime = 300
 
   const onSearchChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
     clearTimeout(searchTimeout)
     searchTimeout = setTimeout(async () => {
-      const q = e.target.value; if (q.length === 0) return setSearchResponce(null)
+      const q = e.target.value; if (q.length === 0) return dispatch(setMusicResult([]))
       const res = await $api.get<Array<IMusic>>(`/search?q=${q}`).then(res => res.data)
-      console.log(q, res)
-      setSearchResponce(res)
+      dispatch(setMusicResult(res))
     }, inputTimeoutTime)
   }
 
@@ -48,7 +46,7 @@ const Navigation = () => {
     <div className={`${styles.icon} ${sidebar ? styles.open : ""}`} onClick={() => dispatch(setSidebar(!sidebar))}><span></span><span></span><span></span></div>
     <h1 className={styles.logo}><b>Play</b>Cloud</h1>
     <ul className={styles.links}>
-      <li><div className={`${styles.input} ${searchInput ? styles.open : ""}`}><input type="text" onChange={onSearchChange} /><IoSearchSharp onClick={() => setSearchInput(true)} /></div><SearchResults array={searchResponce} /></li>
+      <li><div className={`${styles.input} ${searchInput ? styles.open : ""}`}><input type="text" onChange={onSearchChange} /><IoSearchSharp onClick={() => setSearchInput(true)} /></div><SearchResults /></li>
       {links.map(link => (
         <li key={link[1]}><Link href={link[1]} className={pathname === link[1] ? styles.active : ""}>{link[0]}</Link></li>
       ))}
