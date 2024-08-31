@@ -4,7 +4,7 @@
   position: absolute;
   width: calc(var(--input-width) * 2);
   height: max-content;
-  max-height: calc(100vh - var(--player-height) - var(--navigation-height) - 20px);
+  max-height: calc(100vh - var(--player-height) - var(--navigation-height) - 30px);
   padding: 10px 10px;
   overflow-y: auto;
   background: var(--card-background);
