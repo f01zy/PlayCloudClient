@@ -17,6 +17,7 @@ import Avatar from "../Avatar";
 
 const Navigation = () => {
   const [userMenu, setUserMenu] = useState<boolean>(false)
+  const [searchInput, setSearchInput] = useState<boolean>(false)
 
   const pathname = usePathname()!
   const pathnameBreadcrumbs = ("home" + pathname).split("/"); delete pathnameBreadcrumbs[pathnameBreadcrumbs.length - 1]
@@ -34,7 +35,7 @@ const Navigation = () => {
     </div>
     <h1 className={styles.logo}><b>Play</b>Cloud</h1>
     <ul className={styles.links}>
-      <li><IoSearchSharp /></li>
+      <li><div className={`${styles.input} ${searchInput ? styles.open : ""}`}><IoSearchSharp onClick={() => setSearchInput(true)} /><input type="text" /></div></li>
       {links.map(link => (
         <li key={link[1]}><Link href={link[1]} className={pathname === link[1] ? styles.active : ""}>{link[0]}</Link></li>
       ))}

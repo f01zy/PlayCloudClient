@@ -87,6 +87,35 @@
       font-size: 18px;
     }
 
+    .input {
+      width: max-content;
+      height: max-content;
+      display: flex;
+      align-items: center;
+
+      svg {}
+
+      input {
+        width: 0;
+        height: 40px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 0 30px;
+        transition: width .3s ease;
+      }
+
+      &.open {
+        svg {
+          margin-left: 5px;
+        }
+
+        input {
+          width: 170px;
+        }
+      }
+    }
+
     li {
       &:not(:first-child) {
         margin-left: 15px;
