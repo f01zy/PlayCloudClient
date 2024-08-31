@@ -1,6 +1,8 @@
 import { IMusic } from "@/interfaces/music.interface"
 import { createSlice } from "@reduxjs/toolkit"
 
+export type TMode = "one" | "all"
+
 export interface IExtendsMusic extends IMusic {
   delay: number,
   maxDelay: number,
@@ -10,11 +12,13 @@ export interface IExtendsMusic extends IMusic {
 interface IMusicStore {
   music: IExtendsMusic | null,
   loading: string | null
+  mode: TMode
 }
 
 const initialState: IMusicStore = {
   music: null,
-  loading: null
+  loading: null,
+  mode: "all"
 }
 
 export const musicSlice = createSlice({
@@ -25,9 +29,10 @@ export const musicSlice = createSlice({
     setMusicDelay(state, { payload }: { payload: number }) { if (state.music) state.music.delay = payload },
     setIsPaused(state, { payload }: { payload: boolean }) { if (state.music) state.music.isPaused = payload },
     setLoading(state, { payload }: { payload: string | null }) { state.loading = payload },
+    setMode(state, { payload }: { payload: TMode }) { state.mode = payload },
   }
 })
 
-export const { setMusicDelay, setCurrentMusic, setIsPaused, setLoading } = musicSlice.actions
+export const { setMusicDelay, setCurrentMusic, setIsPaused, setLoading, setMode } = musicSlice.actions
 
 export default musicSlice.reducer

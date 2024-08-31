@@ -14,6 +14,8 @@ import { handlePlayClick } from "@/utils/handlePlayClick.utils"
 import { formatTime } from "@/utils/formatTime.utils"
 import { useRouter } from "next/navigation"
 import Skeleton from "../Skeleton"
+import { RiRepeat2Line, RiRepeatOneLine } from "react-icons/ri";
+import { setMode } from "@/store/music/music.slice"
 
 const Player = () => {
   const { music, loading } = useTypedSelector(selector => selector.musicSlice)
@@ -42,6 +44,12 @@ const Player = () => {
               </div>
               <div className={styles.button} onClick={() => playerController.rewind(5, dispatch)}>
                 <FaForward />
+              </div>
+              <div className={styles.button} onClick={() => dispatch(setMode("all"))}>
+                <RiRepeat2Line />
+              </div>
+              <div className={styles.button} onClick={() => dispatch(setMode("one"))}>
+                <RiRepeatOneLine />
               </div>
             </div>
           </div>
