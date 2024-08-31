@@ -7,7 +7,7 @@ import Image from "next/image"
 import { FaForward, FaBackward } from "react-icons/fa"
 import { FaPause } from "react-icons/fa6"
 import { IoIosPlay } from "react-icons/io";
-import { getMusicMode, playerController, setMusicMode } from "../../Wrappers/Layout"
+import { TMusicMode, getMusicMode, playerController, setMusicMode } from "../../Wrappers/Layout"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store"
 import { handlePlayClick } from "@/utils/handlePlayClick.utils"
@@ -15,12 +15,19 @@ import { formatTime } from "@/utils/formatTime.utils"
 import { useRouter } from "next/navigation"
 import Skeleton from "../Skeleton"
 import { RiRepeat2Line, RiRepeatOneLine } from "react-icons/ri";
+import { playMusic } from "@/utils/playMusic.utils"
 
 const Player = () => {
   const { music, loading } = useTypedSelector(selector => selector.musicSlice)
   const user = useTypedSelector(selector => selector.userSlice.user)!
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
+
+  const setMusicModeAndOnLoad = (mode: TMusicMode) => {
+    setMusicMode(mode)
+    const newMusic = getMusicMode() === "all" ? user.history[Math.floor(Math.random() * (user.history.length - 1 - 0) + 0)] : music!
+    playerController.onEnded = () => { playMusic(newMusic, dispatch, user) };
+  }
 
   return <div className={styles.playerContainer}>
     {
@@ -44,7 +51,7 @@ const Player = () => {
               <div className={styles.button} onClick={() => playerController.rewind(5, dispatch)}>
                 <FaForward />
               </div>
-              <div className={styles.button} onClick={() => setMusicMode(getMusicMode() === "all" ? "one" : "all")}>
+              <div className={styles.button} onClick={() => setMusicModeAndOnLoad(getMusicMode() === "all" ? "one" : "all")}>
                 {getMusicMode() === "one" ? <RiRepeatOneLine /> : <RiRepeat2Line />}
               </div>
             </div>

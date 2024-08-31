@@ -9,13 +9,12 @@ import { playMusic } from "./playMusic.utils";
 import { IMusic } from "@/interfaces/music.interface";
 import { IUser } from "@/interfaces/user.interface";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { setOnEnded } from './setOnEnded.utils';
 
-export const handlePlayClick = (dispatch: Dispatch<UnknownAction>, { _id, author, listenings, name, likes, date, type }: IMusic, user: IUser | null, musicName: string | undefined, router: AppRouterInstance) => {
+export const handlePlayClick = (dispatch: Dispatch<UnknownAction>, currentMusic: IMusic, user: IUser | null, musicName: string | undefined, router: AppRouterInstance) => {
   if (!user) return router.push("/login")
   if (musicName != name) {
-    const music = getMusicMode() === "all" ? user.history[Math.floor(Math.random() * (user.history.length - 1 - 0) + 0)] : { _id, author, listenings, name, likes, date, type }
-    playMusic({ _id, author, name, listenings, likes, date, type }, dispatch, user);
-    playerController.onEnded = () => { playMusic(music, dispatch, user) };
+    setOnEnded(user, currentMusic, dispatch)
     return
   }
   if (playerController.getIsPaused) { startMusicInterval(dispatch); playerController.resume(); dispatch(setIsPaused(false)) }

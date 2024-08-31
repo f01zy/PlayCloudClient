@@ -14,7 +14,7 @@ export const playerController = new PlayerController()
 export let musicInterval: NodeJS.Timeout | null = null
 export const setMusicInterval = (newInterval: NodeJS.Timeout | null) => musicInterval = newInterval
 
-type TMusicMode = "all" | "one"
+export type TMusicMode = "all" | "one"
 
 let musicMode: TMusicMode = "all"
 
