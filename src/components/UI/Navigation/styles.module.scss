@@ -130,6 +130,8 @@ $input-height: 40px;
     }
 
     li {
+      position: relative;
+
       &:not(:first-child) {
         margin-left: 15px;
       }

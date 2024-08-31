@@ -29,7 +29,6 @@ const Navigation = () => {
   const user = useTypedSelector(selector => selector.userSlice.user)
   const dispatch = useDispatch<AppDispatch>()
   const sidebar = useTypedSelector(selector => selector.siteSlice.sidebar)
-  const { result: { music: array } } = useTypedSelector(selector => selector.searchSlice)
 
   const avatar = 35
   const inputTimeoutTime = 300
@@ -38,9 +37,8 @@ const Navigation = () => {
     clearTimeout(searchTimeout)
     searchTimeout = setTimeout(async () => {
       const q = e.target.value; if (q.length === 0) return dispatch(setMusicResult([]))
-      const res = await $api.get<Array<IMusic>>(`/search?q=${q}`).then(res => res.data)
-      dispatch(setMusicResult(res))
-      console.log(array, res)
+      const res = await $api.get<{ result: Array<IMusic>, total: number }>(`/search?q=${q}`).then(res => res.data)
+      dispatch(setMusicResult(res.result))
     }, inputTimeoutTime)
   }
 

@@ -8,7 +8,7 @@ const SearchResults = () => {
   const { result: { music: array } } = useTypedSelector(selector => selector.searchSlice)
 
   return <div className={`${styles.results} ${array.length > 0 ? styles.open : styles.hidden}`}>
-    {array.length > 0 ? array.map(music => <CardLittle {...music} />) : <h2>Not found</h2>}
+    {array.map(music => <CardLittle {...music} />)}
   </div>
 }
 
