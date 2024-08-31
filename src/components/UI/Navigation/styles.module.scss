@@ -92,12 +92,15 @@ $input-height: 40px;
 
     .input {
       width: max-content;
-      height: $input-height;
+      height: var(--input-height);
       display: flex;
       align-items: center;
       position: relative;
+      transition: width .3s ease;
 
-      svg {}
+      svg {
+        z-index: 1;
+      }
 
       input {
         width: 0;
@@ -110,19 +113,18 @@ $input-height: 40px;
         border: 0;
         border-radius: 3px;
         background: var(--card-background);
-        z-index: -1;
       }
 
       &.open {
-        width: $input-width;
+        width: var(--input-width);
 
         svg {
           margin-left: 5px;
         }
 
         input {
-          width: $input-width;
-          height: $input-height;
+          width: var(--input-width);
+          height: var(--input-height);
         }
       }
     }

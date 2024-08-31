@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+type TWindowForm = "uploadTrack" | "editProfile" | null
+
 interface ISite {
   blocked: boolean,
   sidebar: boolean,
   loading: boolean,
-  windowForm: "uploadTrack" | "editProfile" | null,
+  windowForm: TWindowForm,
 }
 
 const initialState: ISite = {
@@ -20,7 +22,7 @@ export const siteSlice = createSlice({
   reducers: {
     setBlocked(state, { payload }: { payload: boolean }) { state.blocked = payload },
     setSidebar(state, { payload }: { payload: boolean }) { state.sidebar = payload },
-    setWindowForm(state, { payload }: { payload: "uploadTrack" | "editProfile" | null }) { state.windowForm = payload },
+    setWindowForm(state, { payload }: { payload: TWindowForm }) { state.windowForm = payload },
     setLoading(state, { payload }: { payload: boolean }) { state.loading = payload },
   }
 })

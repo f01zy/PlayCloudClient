@@ -1,0 +1,19 @@
+.results {
+  width: var(--input-width);
+  height: max-content;
+  padding: 10px 10px;
+  background: #555;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .3s ease;
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

@@ -3,8 +3,9 @@ import userSlice from './user/user.slice'
 import siteSlice from './site/site.slice'
 import alertSlice from './alert/alert.slice'
 import musicSlice from './music/music.slice'
+import searchSlice from './search/search.slice'
 
-const reducers = combineReducers({ userSlice, siteSlice, alertSlice, musicSlice })
+const reducers = combineReducers({ userSlice, siteSlice, alertSlice, musicSlice, searchSlice })
 
 export const store = configureStore({
   reducer: reducers
