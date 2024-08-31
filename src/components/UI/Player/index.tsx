@@ -7,7 +7,7 @@ import Image from "next/image"
 import { FaForward, FaBackward } from "react-icons/fa"
 import { FaPause } from "react-icons/fa6"
 import { IoIosPlay } from "react-icons/io";
-import { playerController } from "../../Wrappers/Layout"
+import { getMusicMode, playerController, setMusicMode } from "../../Wrappers/Layout"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store"
 import { handlePlayClick } from "@/utils/handlePlayClick.utils"
@@ -15,7 +15,6 @@ import { formatTime } from "@/utils/formatTime.utils"
 import { useRouter } from "next/navigation"
 import Skeleton from "../Skeleton"
 import { RiRepeat2Line, RiRepeatOneLine } from "react-icons/ri";
-import { setMode } from "@/store/music/music.slice"
 
 const Player = () => {
   const { music, loading } = useTypedSelector(selector => selector.musicSlice)
@@ -45,11 +44,8 @@ const Player = () => {
               <div className={styles.button} onClick={() => playerController.rewind(5, dispatch)}>
                 <FaForward />
               </div>
-              <div className={styles.button} onClick={() => dispatch(setMode("all"))}>
-                <RiRepeat2Line />
-              </div>
-              <div className={styles.button} onClick={() => dispatch(setMode("one"))}>
-                <RiRepeatOneLine />
+              <div className={styles.button} onClick={() => setMusicMode(getMusicMode() === "all" ? "one" : "all")}>
+                {getMusicMode() === "one" ? <RiRepeatOneLine /> : <RiRepeat2Line />}
               </div>
             </div>
           </div>
