@@ -8,7 +8,7 @@ interface ISearchResults {
 }
 
 const SearchResults: FC<ISearchResults> = ({ array }) => {
-  return <div className={`${styles.results} ${array ? "" : styles.hidden}`}>
+  return <div className={`${styles.results} ${array ? styles.open : styles.hidden}`}>
     {array ? array.length > 0 ? array.map(music => <CardLittle {...music} />) : <h2>Not found</h2> : ""}
   </div>
 }

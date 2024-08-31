@@ -5,15 +5,18 @@
   width: var(--input-width);
   height: max-content;
   padding: 10px 10px;
-  background: #555;
+  background: var(--card-background);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 1;
-  visibility: visible;
   transition: opacity .3s ease;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
 
   &.hidden {
     opacity: 0;
