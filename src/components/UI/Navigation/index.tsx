@@ -34,9 +34,11 @@ const Navigation = () => {
   const inputTimeoutTime = 300
 
   const onSearchChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value)
     clearTimeout(searchTimeout)
     searchTimeout = setTimeout(async () => {
       const q = e.target.value; if (q.length === 0) return setSearchResponce(null)
+      console.log(q)
       setSearchResponce(await $api.get<Array<IMusic>>(`/search?q=${q}`).then(res => res.data))
     }, inputTimeoutTime)
   }
