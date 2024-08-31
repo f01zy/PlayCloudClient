@@ -16,20 +16,17 @@ import { useRouter } from "next/navigation"
 import Skeleton from "../Skeleton"
 import { RiRepeat2Line, RiRepeatOneLine } from "react-icons/ri";
 import { playMusic } from "@/utils/playMusic.utils"
-import { setModeLoading } from "@/store/music/music.slice"
 
 const Player = () => {
-  const { music, loading, modeLoading } = useTypedSelector(selector => selector.musicSlice)
+  const { music, loading } = useTypedSelector(selector => selector.musicSlice)
   const user = useTypedSelector(selector => selector.userSlice.user)!
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
 
   const setMusicModeAndOnLoad = (mode: TMusicMode) => {
-    dispatch(setModeLoading(true))
     setMusicMode(mode)
     const newMusic = getMusicMode() === "all" ? user.history[Math.floor(Math.random() * (user.history.length - 1 - 0) + 0)] : music!
     playerController.onEnded = () => { playMusic(newMusic, dispatch, user) };
-    dispatch(setModeLoading(false))
   }
 
   return <div className={styles.playerContainer}>
@@ -54,11 +51,9 @@ const Player = () => {
               <div className={styles.button} onClick={() => playerController.rewind(5, dispatch)}>
                 <FaForward />
               </div>
-              {
-                modeLoading ? <div><Image src={"/circle-loader-white.svg"} alt="loading" width={100} height={100} /></div> : <div className={styles.button} onClick={() => setMusicModeAndOnLoad(getMusicMode() === "all" ? "one" : "all")}>
-                  {getMusicMode() === "one" ? <RiRepeatOneLine /> : <RiRepeat2Line />}
-                </div>
-              }
+              <div className={styles.button} onClick={() => setMusicModeAndOnLoad(getMusicMode() === "all" ? "one" : "all")}>
+                {getMusicMode() === "one" ? <RiRepeatOneLine /> : <RiRepeat2Line />}
+              </div>
             </div>
           </div>
         </>

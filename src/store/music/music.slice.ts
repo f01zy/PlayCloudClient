@@ -10,13 +10,11 @@ export interface IExtendsMusic extends IMusic {
 interface IMusicStore {
   music: IExtendsMusic | null,
   loading: string | null,
-  modeLoading: boolean
 }
 
 const initialState: IMusicStore = {
   music: null,
   loading: null,
-  modeLoading: false
 }
 
 export const musicSlice = createSlice({
@@ -27,10 +25,9 @@ export const musicSlice = createSlice({
     setMusicDelay(state, { payload }: { payload: number }) { if (state.music) state.music.delay = payload },
     setIsPaused(state, { payload }: { payload: boolean }) { if (state.music) state.music.isPaused = payload },
     setLoading(state, { payload }: { payload: string | null }) { state.loading = payload },
-    setModeLoading(state, { payload }: { payload: boolean }) { state.modeLoading = payload },
   }
 })
 
-export const { setMusicDelay, setCurrentMusic, setIsPaused, setLoading, setModeLoading } = musicSlice.actions
+export const { setMusicDelay, setCurrentMusic, setIsPaused, setLoading } = musicSlice.actions
 
 export default musicSlice.reducer
