@@ -95,11 +95,18 @@ $input-height: 40px;
       height: var(--input-height);
       display: flex;
       align-items: center;
+      justify-content: space-between;
       position: relative;
       transition: width .3s ease;
 
       svg {
         z-index: 1;
+      }
+
+      img {
+        width: 18px;
+        height: 18px;
+        margin-right: 10px;
       }
 
       input {

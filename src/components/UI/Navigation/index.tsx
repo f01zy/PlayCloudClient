@@ -16,7 +16,8 @@ import { useDispatch } from "react-redux";
 import Avatar from "../Avatar";
 import { IMusic } from "@/interfaces/music.interface";
 import SearchResults from "../SearchResults";
-import { setMusicResult } from "@/store/search/search.slice";
+import { setLoading, setMusicResult } from "@/store/search/search.slice";
+import Image from "next/image";
 
 const Navigation = () => {
   const [userMenu, setUserMenu] = useState<boolean>(false)
@@ -27,8 +28,9 @@ const Navigation = () => {
   const pathname = usePathname()!
   const pathnameBreadcrumbs = ("home" + pathname).split("/"); delete pathnameBreadcrumbs[pathnameBreadcrumbs.length - 1]
   const user = useTypedSelector(selector => selector.userSlice.user)
+  const { sidebar } = useTypedSelector(selector => selector.siteSlice)
+  const { loading } = useTypedSelector(selector => selector.searchSlice)
   const dispatch = useDispatch<AppDispatch>()
-  const sidebar = useTypedSelector(selector => selector.siteSlice.sidebar)
 
   const avatar = 35
   const inputTimeoutTime = 300
@@ -37,7 +39,8 @@ const Navigation = () => {
     clearTimeout(searchTimeout)
     searchTimeout = setTimeout(async () => {
       const q = e.target.value; if (q.length === 0) return dispatch(setMusicResult([]))
-      const res = await $api.get<{ results: Array<IMusic>, total: number }>(`/search?q=${q}`).then(res => res.data)
+      dispatch(setLoading(true))
+      const res = await $api.get<{ results: Array<IMusic>, total: number }>(`/search?q=${q}`).then(res => { dispatch(setLoading(false)); return res.data })
       dispatch(setMusicResult(res.results))
     }, inputTimeoutTime)
   }
@@ -46,7 +49,7 @@ const Navigation = () => {
     <div className={`${styles.icon} ${sidebar ? styles.open : ""}`} onClick={() => dispatch(setSidebar(!sidebar))}><span></span><span></span><span></span></div>
     <h1 className={styles.logo}><b>Play</b>Cloud</h1>
     <ul className={styles.links}>
-      <li><div className={`${styles.input} ${searchInput ? styles.open : ""}`}><input type="text" onChange={onSearchChange} /><IoSearchSharp onClick={() => setSearchInput(!searchInput)} /></div><SearchResults /></li>
+      <li><div className={`${styles.input} ${searchInput ? styles.open : ""}`}><input type="text" onChange={onSearchChange} /><IoSearchSharp onClick={() => setSearchInput(!searchInput)} /></div><SearchResults />{loading ? <Image src={"/circle-loader.svg"} className={loading ? "block" : "hidden"} alt="loading" width={100} height={100} /> : ""}</li>
       {links.map(link => (
         <li key={link[1]}><Link href={link[1]} className={pathname === link[1] ? styles.active : ""}>{link[0]}</Link></li>
       ))}
