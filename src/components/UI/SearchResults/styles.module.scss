@@ -1,4 +1,7 @@
 .results {
+  left: 0;
+  top: var(--navigation-height);
+  position: absolute;
   width: var(--input-width);
   height: max-content;
   padding: 10px 10px;
