@@ -17,6 +17,7 @@ const CreatePlaylistStepTwo = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { user } = useTypedSelector(selector => selector.userSlice)
   const create = useTypedSelector(selector => selector.playlistSlice.create)
+  const { windowForm } = useTypedSelector(selector => selector.siteSlice)
 
   const onSubmit = async (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -25,8 +26,9 @@ const CreatePlaylistStepTwo = () => {
     await $api.post("/playlist", { tracks, description: create.description, name: create.name }).then(() => dispatch(setWindowForm(null))).catch(() => setError(true))
   }
 
-  return <div className={styles.selectTracks}>
+  return <div className={`${styles.selectTracks} ${windowForm === "createPlaylistStepTwo" ? styles.open : ""}`}>
     <form>
+      <h2>Choice tracks</h2>
       {error ? <p className="text-base mb-2 text-red-600">An error has occurred</p> : ""}
       <div className={styles.tracks}>
         {user ? user.tracks.map(track => <div className={`${styles.track} relative`}>
