@@ -15,6 +15,8 @@ import Image from "next/image"
 import { FC, useEffect, useState } from "react"
 import { RiEdit2Fill } from "react-icons/ri"
 import { useDispatch } from "react-redux"
+import CreatePlaylistStepOne from "@/components/Forms/CreatePlaylist/one"
+import CreatePlaylistStepTwo from "@/components/Forms/CreatePlaylist/two"
 
 enum ESlide { "Tracks", "Playlists" }
 const length = Object.keys(ESlide).length / 2
@@ -37,6 +39,8 @@ const Profile: FC<{ id: string }> = ({ id }) => {
   return fetchUser ? (
     <div className={styles.profile}>
       <Upload setFetchUser={setFetchUser} />
+      <CreatePlaylistStepOne />
+      <CreatePlaylistStepTwo />
       <EditProfile windowName="editProfile" />
       <div className={styles.user}>
         <div className={styles.banner}>{fetchUser.banner && <Image unoptimized src={`${SERVER_URL}/banner/${fetchUser._id}.jpg`} alt="banner" width={100} height={100} className="w-full h-full" />}</div>
@@ -52,7 +56,8 @@ const Profile: FC<{ id: string }> = ({ id }) => {
           {values.map(el => (
             <li onClick={() => setSlide(values.indexOf(el))} className={values.indexOf(el) === slide ? "border-b-2 border-white pb-2" : ""} key={el}>{el}</li>
           ))}
-          {user?._id === fetchUser._id ? <li onClick={() => dispatch(setWindowForm("uploadTrack"))}>Upload</li> : ""}
+          {user?._id === fetchUser._id ? <li onClick={() => dispatch(setWindowForm("uploadTrack"))}>Upload track</li> : ""}
+          {user?._id === fetchUser._id ? <li onClick={() => dispatch(setWindowForm("createPlaylistStepOne"))}>Create playlist</li> : ""}
         </ul>
       </nav>
       {slide === ESlide.Tracks ? <div className={styles.tracks}>{fetchUser.tracks.map(track => <div className={styles.track}><CardLittle key={track._id} {...track} /></div>)}</div> : ""}

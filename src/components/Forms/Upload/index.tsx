@@ -4,7 +4,7 @@ import { $api } from "@/http"
 import { IUser } from "@/interfaces/user.interface"
 import { AppDispatch } from "@/store/store"
 import { setUser } from "@/store/user/user.slice"
-import { SetStateAction, useState, Dispatch, FC } from "react"
+import { SetStateAction, Dispatch, FC } from "react"
 import { FieldValues, SubmitHandler } from "react-hook-form"
 import { useDispatch } from "react-redux"
 import { setLoading, setWindowForm } from "@/store/site/site.slice"
@@ -41,7 +41,7 @@ const Upload: FC<IUploadComponent> = ({ setFetchUser }) => {
 
   const inputs: Array<TInput | TInput & TFileInput> = [{ accept: "image/*", field: "cover", label: "Choice a cover", multiple: false, type: "file" }, { accept: ".mp3", field: "music", label: "Choice a music", multiple: false, type: "file" }, { field: "name", label: "name", type: "text" }]
 
-  return <WindowForm inputs={inputs} onSubmit={onSubmit} windowName="uploadTrack" />
+  return <WindowForm inputs={inputs} onSubmit={onSubmit} windowName="uploadTrack" title="Upload a track" />
 }
 
 export default Upload;
