@@ -8,11 +8,12 @@ import { IMusic } from "@/interfaces/music.interface";
 import { IUser } from "@/interfaces/user.interface";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { setOnEnded } from './setOnEnded.utils';
+import { playMusic } from "./playMusic.utils";
 
 export const handlePlayClick = (dispatch: Dispatch<UnknownAction>, currentMusic: IMusic, user: IUser | null, musicName: string | undefined, router: AppRouterInstance) => {
   if (!user) return router.push("/login")
   if (musicName != currentMusic.name) {
-    setOnEnded(user, currentMusic, dispatch)
+    playMusic(currentMusic, dispatch, user)
     return
   }
   if (playerController.getIsPaused) { startMusicInterval(dispatch); playerController.resume(); dispatch(setIsPaused(false)) }

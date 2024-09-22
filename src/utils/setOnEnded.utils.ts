@@ -6,6 +6,5 @@ import { IMusic } from "@/interfaces/music.interface";
 
 export const setOnEnded = (user: IUser, currentMusic: IMusic, dispatch: Dispatch<UnknownAction>) => {
   const music = getMusicMode() === "all" ? user.history[Math.floor(Math.random() * (user.history.length - 1 - 0) + 0)] : currentMusic
-  playMusic({ ...currentMusic }, dispatch, user);
   playerController.onEnded = () => { playMusic(music, dispatch, user) };
 }
