@@ -36,11 +36,11 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 20px 20px;
 
-    .input {
-      display: flex;
-      justify-content: space-between;
+    .tracks {
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 5px;
     }
   }
 }
