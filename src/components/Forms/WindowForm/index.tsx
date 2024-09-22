@@ -33,8 +33,6 @@ const WindowForm: FC<IWindowForm> = ({ inputs, onSubmit, windowName, title }) =>
     <form onSubmit={handleSubmit(onSubmit)}>
       {inputs.flatMap(input => <Input {...(input as TInput & TFileInput)} register={register} required={true} />)}
 
-      <div className="mt-4 mb-4 flex items-center"><input type="checkbox" className="w-4 h-4 mr-2" /><p className="text-sm">I agree with all the rules of publication</p></div>
-
       <Button type="submit">{loading ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Upload</p>}</Button>
     </form>
   </div>
