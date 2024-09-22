@@ -8,6 +8,7 @@ import { $api } from "@/http"
 import { ICreatePlaylist } from "@/interfaces/playlistCreate.interface"
 import { setWindowForm } from "@/store/site/site.slice"
 import { AppDispatch } from "@/store/store"
+import Image from "next/image"
 import { FormEvent, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
@@ -15,6 +16,7 @@ import { useDispatch } from "react-redux"
 const CreatePlaylistStepTwo = () => {
   const [tracks, setTracks] = useState<Array<string>>([])
   const [error, setError] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const dispatch = useDispatch<AppDispatch>()
   const { user } = useTypedSelector(selector => selector.userSlice)
@@ -25,8 +27,9 @@ const CreatePlaylistStepTwo = () => {
 
   const onSubmit: SubmitHandler<ICreatePlaylist> = async data => {
     if (!create) return
+    setLoading(true)
 
-    await $api.post("/playlist", { tracks, description: create.description, name: create.name }).then(() => dispatch(setWindowForm(null))).catch(() => setError(true))
+    await $api.post("/playlist", { tracks, description: create.description, name: create.name }).then(() => { setLoading(false); dispatch(setWindowForm(null)) }).catch(() => setError(true))
   }
 
   return <div className={`${styles.selectTracks} ${windowForm === "createPlaylistStepTwo" ? styles.open : ""}`}>
@@ -39,7 +42,7 @@ const CreatePlaylistStepTwo = () => {
           <input className="h-full w-auto ml-4" type="checkbox" onChange={e => { e.target.checked ? setTracks([...tracks, track._id]) : setTracks(tracks.filter(clearTrack => clearTrack != track._id)) }} />
         </div>) : ""}
       </div>
-      <Button type="submit"><p>Create playlist</p></Button>
+      <Button type="submit">{loading ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Create playlist</p>}</Button>
     </form>
   </div>
 }
