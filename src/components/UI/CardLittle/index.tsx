@@ -34,7 +34,7 @@ const CardLittle: FC<IMusic | IPlaylist> = (props) => {
       </div>
     </div>
     <div className="ml-3">
-      <Link href={`/tracks/${props._id}`}><h2>{props.name}</h2></Link>
+      <Link href={`/${props.type}s/${props._id}`}><h2>{props.name}</h2></Link>
       <Link href={`/profile/${props.author._id}`}><p>{props.author.username}</p></Link>
     </div>
   </div>
