@@ -9,12 +9,11 @@ import Player from "../../UI/Player";
 import { PlayerController } from "@/utils/playerController.utils";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import Mask from "../../UI/Mask";
+import { TMusicMode } from "@/types/musicMode.type";
 
 export const playerController = new PlayerController()
 export let musicInterval: NodeJS.Timeout | null = null
 export const setMusicInterval = (newInterval: NodeJS.Timeout | null) => musicInterval = newInterval
-
-export type TMusicMode = "all" | "one"
 
 let musicMode: TMusicMode = "all"
 

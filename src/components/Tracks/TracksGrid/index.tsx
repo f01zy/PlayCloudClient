@@ -13,7 +13,7 @@ interface ITracksGrid {
 }
 
 const TracksGrid: FC<ITracksGrid> = ({ quantity, label, sort, tracks: tempTracks }) => {
-  const [music, setMusic] = useState<Array<IMusic>>([])
+  const [music, setMusic] = useState<Array<IMusic>>()
   const quantitySkeletons = new Array<string>(15).fill("")
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const TracksGrid: FC<ITracksGrid> = ({ quantity, label, sort, tracks: tempTracks
 
   return <div className={styles.tracks}>
     {label && <h2>{label}</h2>}
-    <div className={styles.songs}>{music.length != 0 ? music.map(song => <Card key={song._id} {...song} />) : quantitySkeletons.map(() => <div className="w-full h-60 relative mt-5"><Skeleton width="170px" height="100%" /></div>)}</div>
+    <div className={styles.songs}>{music ? music.map(song => <Card key={song._id} {...song} />) : quantitySkeletons.map(() => <div className="w-full h-60 relative mt-5"><Skeleton width="170px" height="100%" /></div>)}</div>
   </div>
 }
 
