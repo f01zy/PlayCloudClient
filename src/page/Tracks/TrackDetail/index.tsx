@@ -51,7 +51,7 @@ const TrackDetail: FC<ITrackDetail> = ({ id }) => {
         </div>
         <div className={styles.buttons}>
           <div className={styles.button} onClick={() => {
-            handlePlayClick(dispatch, music, user, currentMusic?.name, router, useTypedSelector)
+            handlePlayClick(dispatch, music, user, currentMusic?.name, router)
           }}>
             {currentMusic ? currentMusic._id === music._id ? currentMusic.isPaused ? <IoIosPlay /> : <FaPause /> : <IoIosPlay /> : <IoIosPlay />}
           </div>

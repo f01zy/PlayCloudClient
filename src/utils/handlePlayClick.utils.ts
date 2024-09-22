@@ -8,12 +8,11 @@ import { IMusic } from "@/interfaces/music.interface";
 import { IUser } from "@/interfaces/user.interface";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { setOnEnded } from './setOnEnded.utils';
-import { useTypedSelectorType } from "@/hooks/selector.hook";
 
-export const handlePlayClick = (dispatch: Dispatch<UnknownAction>, currentMusic: IMusic, user: IUser | null, musicName: string | undefined, router: AppRouterInstance, useTypedSelector: useTypedSelectorType) => {
+export const handlePlayClick = (dispatch: Dispatch<UnknownAction>, currentMusic: IMusic, user: IUser | null, musicName: string | undefined, router: AppRouterInstance) => {
   if (!user) return router.push("/login")
   if (musicName != currentMusic.name) {
-    setOnEnded(user, currentMusic, dispatch, useTypedSelector)
+    setOnEnded(user, currentMusic, dispatch)
     return
   }
   if (playerController.getIsPaused) { startMusicInterval(dispatch); playerController.resume(); dispatch(setIsPaused(false)) }
