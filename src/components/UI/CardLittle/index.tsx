@@ -23,7 +23,7 @@ const CardLittle: FC<IMusic | IPlaylist> = (props) => {
 
   return <div className={styles.cardLittle}>
     <div className={styles.cover}>
-      {props.type === "playlist" ? <h4>{props.name[0].toUpperCase()}</h4> : <Image unoptimized src={`${SERVER_URL}/cover/${props._id}.jpg`} alt={props.name} width={100} height={100} />}
+      {props.type === "playlist" ? <h4 className="!text-white">{props.name[0].toUpperCase()}</h4> : <Image unoptimized src={`${SERVER_URL}/cover/${props._id}.jpg`} alt={props.name} width={100} height={100} />}
 
       <div className={styles.play}>
         <div onClick={() => {
