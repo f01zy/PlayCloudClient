@@ -16,12 +16,13 @@ const CreatePlaylistStepTwo = () => {
 
   const dispatch = useDispatch<AppDispatch>()
   const { user } = useTypedSelector(selector => selector.userSlice)
-  const { description, name } = useTypedSelector(selector => selector.playlistSlice.create)!
+  const create = useTypedSelector(selector => selector.playlistSlice.create)
 
   const onSubmit = async (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
+    if (!create) return
 
-    await $api.post("/playlist", { tracks, description, name }).then(() => dispatch(setWindowForm(null))).catch(() => setError(true))
+    await $api.post("/playlist", { tracks, description: create.description, name: create.name }).then(() => dispatch(setWindowForm(null))).catch(() => setError(true))
   }
 
   return <div className={styles.selectTracks}>
