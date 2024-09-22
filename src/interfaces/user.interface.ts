@@ -1,4 +1,5 @@
 import { IMusic } from "./music.interface"
+import { IPlaylist } from "./playlist.interface"
 
 export interface IUser {
   _id: string
@@ -10,4 +11,5 @@ export interface IUser {
   likes: Array<IMusic>
   tracks: Array<IMusic>
   history: Array<IMusic>
+  playlist: Array<IPlaylist>
 }

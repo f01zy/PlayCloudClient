@@ -61,6 +61,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
         </ul>
       </nav>
       {slide === ESlide.Tracks ? <div className={styles.tracks}>{fetchUser.tracks.map(track => <div className={styles.track}><CardLittle key={track._id} {...track} /></div>)}</div> : ""}
+      {slide === ESlide.Playlists ? <div className={styles.tracks}>{fetchUser.playlist.map(playlist => <div className={styles.track}><CardLittle key={playlist._id} {...playlist} /></div>)}</div> : ""}
     </div>
   ) : ""
 }
