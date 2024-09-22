@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 
 export const generateMetadata = async ({ params }: { params: { id: string } }): Promise<Metadata> => {
   const id = params.id
-  const res = await fetch(`http://147.45.160.178:5050/api/music/${id}`).then(res => res.json()).then(res => res as IMusic & TFetchError)
+  const res = await fetch(`http://94.241.171.213:5050/api/music/${id}`).then(res => res.json()).then(res => res as IMusic & TFetchError)
 
   if (res.status === 404) return notFound()
 
