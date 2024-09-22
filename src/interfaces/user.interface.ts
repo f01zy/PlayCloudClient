@@ -11,5 +11,5 @@ export interface IUser {
   likes: Array<IMusic>
   tracks: Array<IMusic>
   history: Array<IMusic>
-  playlist: Array<IPlaylist>
+  playlists: Array<IPlaylist>
 }
