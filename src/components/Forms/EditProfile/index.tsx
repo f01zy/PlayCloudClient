@@ -20,6 +20,7 @@ interface IEditProfile {
 }
 
 const EditProfile: FC<IEditProfile> = ({ windowName }) => {
+  const [error, setError] = useState<string>()
   const [avatar, setAvatar] = useState<string | ArrayBuffer | null>(null)
   const [banner, setBanner] = useState<string | ArrayBuffer | null>(null)
   const [loading, setLoading] = useState({ username: false, avatar: false, banner: false })
@@ -33,8 +34,8 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     setLoading({ username: data.username.length > 0 ? true : false, avatar: data.avatar.length > 0 ? true : false, banner: data.banner.length > 0 ? true : false })
 
     const imagesLoad: Array<"avatar" | "banner"> = ["avatar", "banner"]
-    imagesLoad.map(async el => { if (data[el].length > 0) { const formData = new FormData(); formData.append(el, data[el][0]); await $api.post(`/auth/edit/${el}`, formData).then(res => { const tempLoading = loading; tempLoading[el] = false; setLoading(tempLoading) }).finally(() => { if (!Object.values(loading).find(e => e === true)) { close() } }) } })
-    if (data.username.length > 0) await $api.post("/auth/edit/username", { username: data.username }).then(res => { const tempLoading = loading; tempLoading.username = false; setLoading(tempLoading) }).finally(() => { if (!Object.values(loading).find(e => e === true)) { close() } })
+    imagesLoad.map(async el => { if (data[el].length > 0) { const formData = new FormData(); formData.append(el, data[el][0]); await $api.post(`/auth/edit/${el}`, formData).then(res => { const tempLoading = loading; tempLoading[el] = false; setLoading(tempLoading) }).catch(err => setError(err.response.data.errorMessage)).finally(() => { if (!Object.values(loading).find(e => e === true)) { close() } }) } })
+    if (data.username.length > 0) await $api.post("/auth/edit/username", { username: data.username }).then(res => { const tempLoading = loading; tempLoading.username = false; setLoading(tempLoading) }).catch(err => setError(err.response.data.errorMessage)).finally(() => { if (!Object.values(loading).find(e => e === true)) { close() } })
   }
 
   const close = () => { setLoading({ username: false, avatar: false, banner: false }); setBanner(null); setAvatar(null); dispatch(setWindowForm(null)) }
@@ -56,6 +57,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
       <IoMdClose width={25} height={25} onClick={() => close()} />
     </div>
     <form onSubmit={handleSubmit(onSubmit)}>
+      {error && <p className="w-full mb-3 text-base text-red-600">{error}</p>}
       <div className={styles.banner}>
         {user?.banner ? <Image unoptimized src={`${SERVER_URL}/banner/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" /> : banner ? <Image unoptimized src={banner.toString()} alt="banner" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
         <input type="file" multiple={false} accept="image/*" {...register("banner", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "banner") })} />
