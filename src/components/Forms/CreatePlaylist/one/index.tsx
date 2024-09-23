@@ -21,7 +21,8 @@ const CreatePlaylistStepOne = () => {
 
     if (user?.tracks.length === 0) { dispatch(setLoading(true)); await $api.post("/playlist", { tracks: [], ...data }).then(() => dispatch(setLoading(false))); return dispatch(setWindowForm(null)) }
     dispatch(setCreate({ ...data as ICreatePlaylist }))
-    dispatch(setWindowForm("createPlaylistStepTwo"))
+    dispatch(setWindowForm(null))
+    setTimeout(() => dispatch(setWindowForm("createPlaylistStepTwo")), 1000)
   }
 
   const inputs: Array<TInput | TInput & TFileInput> = [
