@@ -19,9 +19,7 @@ const CreatePlaylistStepOne = () => {
   const { alert } = useTypedSelector(selector => selector.alertSlice)
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
-    const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
-
-    if (user?.tracks.length === 0) { dispatch(setLoading(true)); await $api.post("/playlist", { tracks: [], ...data }).then(() => dispatch(setLoading(false))); return dispatch(setWindowForm(null)) }
+    if (user?.tracks.length === 0) { const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return; dispatch(setLoading(true)); await $api.post("/playlist", { tracks: [], ...data }).then(() => dispatch(setLoading(false))); return dispatch(setWindowForm(null)) }
     dispatch(setCreate({ ...data as ICreatePlaylist }))
     dispatch(setWindowForm(null))
     setTimeout(() => dispatch(setWindowForm("createPlaylistStepTwo")))
