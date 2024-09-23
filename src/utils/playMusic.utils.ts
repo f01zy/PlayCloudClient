@@ -8,19 +8,22 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit"
 import { IUser } from "@/interfaces/user.interface"
 import { listen } from "./listen.utils"
 import { setOnEnded } from "./setOnEnded.utils"
+import { IPlaylist } from "@/interfaces/playlist.interface"
 
-export const playMusic = (music: IMusic, dispatch: Dispatch<UnknownAction>, user: IUser) => {
-  dispatch(setLoading(music._id))
+export const playMusic = (composition: IMusic | IPlaylist, dispatch: Dispatch<UnknownAction>, user: IUser) => {
+  const track = composition.type === "track" ? composition : composition.tracks[0]
 
-  listen(music._id, dispatch).then(() => {
+  dispatch(setLoading(track._id))
+
+  listen(track._id, dispatch).then(() => {
     dispatch(setMusicDelay(0))
 
-    playerController.playerSrc = music._id
+    playerController.playerSrc = track._id
 
-    setOnEnded(user, music, dispatch)
+    composition.type === "track" ? setOnEnded(user, track, dispatch) : setOnEnded(user, track, dispatch, composition._id)
 
     playerController.onLoadedMetadata = () => {
-      const setMusic: IExtendsMusic = { ...music, delay: 0, maxDelay: playerController.getMaxDelay || 0, isPaused: false }
+      const setMusic: IExtendsMusic = { ...track, delay: 0, maxDelay: playerController.getMaxDelay || 0, isPaused: false }
       dispatch(setCurrentMusic(setMusic))
       dispatch(setLoading(null))
       startMusicInterval(dispatch)

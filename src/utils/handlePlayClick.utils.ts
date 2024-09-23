@@ -7,13 +7,17 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit/react"
 import { IMusic } from "@/interfaces/music.interface";
 import { IUser } from "@/interfaces/user.interface";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { setOnEnded } from './setOnEnded.utils';
 import { playMusic } from "./playMusic.utils";
+import { IPlaylist } from "@/interfaces/playlist.interface";
+import { setPlaylist } from "@/store/playlist/playlist.slice";
 
-export const handlePlayClick = (dispatch: Dispatch<UnknownAction>, currentMusic: IMusic, user: IUser | null, musicName: string | undefined, router: AppRouterInstance) => {
+export const handlePlayClick = (dispatch: Dispatch<UnknownAction>, composition: IMusic | IPlaylist, user: IUser | null, router: AppRouterInstance, musicName: string | undefined) => {
   if (!user) return router.push("/login")
-  if (musicName != currentMusic.name) {
-    playMusic(currentMusic, dispatch, user)
+  if (composition.type === "playlist" && composition.tracks.length === 0) return alert("This playlist is empty")
+  const name = composition.type == "track" ? composition.name : composition.tracks[0].name
+  if (musicName != name) {
+    composition.type === "playlist" && dispatch(setPlaylist(composition._id))
+    playMusic(composition, dispatch, user)
     return
   }
   if (playerController.getIsPaused) { startMusicInterval(dispatch); playerController.resume(); dispatch(setIsPaused(false)) }

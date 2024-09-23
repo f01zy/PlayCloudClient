@@ -1,4 +1,4 @@
-.track {
+.composition {
   $avatar: 90px;
   width: 100%;
   height: auto;
@@ -21,13 +21,17 @@
       display: block;
     }
 
-    .trackInfo {
+    .compositionInfo {
       display: flex;
       align-items: center;
 
       .avatar {
         width: $avatar;
         height: $avatar;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: orangered;
 
         img {
           width: 100%;

@@ -7,20 +7,23 @@ type TCreate = {
 
 interface IPlaylist {
   create: TCreate | null
+  playlist: string | null
 }
 
 const initialState: IPlaylist = {
-  create: null
+  create: null,
+  playlist: null
 }
 
 export const playlistSlice = createSlice({
   initialState,
   name: "playlist",
   reducers: {
-    setCreate(state, { payload }: { payload: TCreate | null }) { state.create = payload }
+    setCreate(state, { payload }: { payload: TCreate | null }) { state.create = payload },
+    setPlaylist(state, { payload }: { payload: string }) { state.playlist = payload }
   }
 })
 
-export const { setCreate } = playlistSlice.actions
+export const { setCreate, setPlaylist } = playlistSlice.actions
 
 export default playlistSlice.reducer
