@@ -38,7 +38,7 @@ const CompositionPattern: FC<ICompositionPattern> = ({ id, type }) => {
   const likeButtonField = type === "track" ? "likes" : "saves"
   const likeUrl = type === "track" ? "/music/like" : "/playlist/save"
 
-  const paths: { [key in TComposition]: string } = { playlist: "playlist", track: "composition" }
+  const paths: { [key in TComposition]: string } = { playlist: "playlist", track: "music" }
 
   useEffect(() => { $api.get(`/${paths[type]}/${id}`).then(res => setComposition(res.data)) }, [])
 
