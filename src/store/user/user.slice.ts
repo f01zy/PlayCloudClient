@@ -1,10 +1,10 @@
 import { IUser } from "@/interfaces/user.interface"
-import { SerializedError, createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 import { login, register } from "./user.actions"
 
-interface IState { status: "success" | "error" | null, loading: boolean, user: IUser | null }
+interface IState { error: null | string | undefined, status: "success" | "error" | null, loading: boolean, user: IUser | null }
 
-const initialState: IState = { status: null, loading: false, user: null } as IState
+const initialState: IState = { error: null, status: null, loading: false, user: null } as IState
 
 export const userSlice = createSlice({
   initialState,
@@ -17,11 +17,11 @@ export const userSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(register.pending, state => { state.loading = true })
-      .addCase(register.rejected, (state, action) => { state.status = "error"; state.loading = false })
+      .addCase(register.rejected, (state, action) => { state.error = action.error.message; state.status = "error"; state.loading = false })
       .addCase(register.fulfilled, (state, action) => { state.user = action.payload!; state.status = "success"; state.loading = false })
 
       .addCase(login.pending, state => { state.loading = true })
-      .addCase(login.rejected, (state, action) => { state.status = "error"; state.loading = false })
+      .addCase(login.rejected, (state, action) => { state.error = action.error.message; state.status = "error"; state.loading = false })
       .addCase(login.fulfilled, (state, action) => { state.user = action.payload!; state.status = "success"; state.loading = false })
   }
 })
