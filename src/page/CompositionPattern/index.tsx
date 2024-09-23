@@ -1,6 +1,5 @@
 "use client"
 
-import styles from "@/page/Tracks/TrackDetail/styles.module.scss"
 import Image from "next/image";
 import { SERVER_URL } from "@/config";
 import { FC, useState, useEffect } from "react"
