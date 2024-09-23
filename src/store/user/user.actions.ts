@@ -20,6 +20,6 @@ export const login = createAsyncThunk("auth/login", async (user: ILogin, thunkAp
     localStorage.setItem("token", userResponce.accessToken)
     return userResponce.user
   } catch (error) {
-    return thunkApi.rejectWithValue((error as any).response.data.message)
+    return thunkApi.rejectWithValue(error)
   }
 })
