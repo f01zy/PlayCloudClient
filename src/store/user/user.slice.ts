@@ -17,11 +17,11 @@ export const userSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(register.pending, state => { state.loading = true })
-      .addCase(register.rejected, (state, action) => { state.error = ""; state.status = "error"; state.loading = false })
+      .addCase(register.rejected, (state, action) => { state.error = (action.payload as any).response.data.errorMessage; state.status = "error"; state.loading = false })
       .addCase(register.fulfilled, (state, action) => { state.user = action.payload!; state.status = "success"; state.loading = false })
 
       .addCase(login.pending, state => { state.loading = true })
-      .addCase(login.rejected, (state, action) => { console.log(action); state.error = ""; state.status = "error"; state.loading = false })
+      .addCase(login.rejected, (state, action) => { console.log(action); state.error = (action.payload as any).response.data.errorMessage; state.status = "error"; state.loading = false })
       .addCase(login.fulfilled, (state, action) => { state.user = action.payload!; state.status = "success"; state.loading = false })
   }
 })
