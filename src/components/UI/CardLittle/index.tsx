@@ -27,7 +27,7 @@ const CardLittle: FC<IMusic | IPlaylist> = (props) => {
 
       <div className={styles.play}>
         <div onClick={() => { handlePlayClick(dispatch, props, user, router, music?.name) }}>
-          {loading === props._id ? <Image src={"/circle-loader.svg"} alt="loading" width={100} height={100} /> : music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
+          {loading === props._id ? <Image src={"/circle-loader.svg"} alt="loading" width={100} height={100} /> : music?.name != props.name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
         </div>
       </div>
     </div>
