@@ -6,7 +6,7 @@ import CardLittle from "@/components/UI/CardLittle"
 import { useTypedSelector } from "@/hooks/selector.hook"
 import { $api } from "@/http"
 import { ICreatePlaylist } from "@/interfaces/playlistCreate.interface"
-import { setWindowForm } from "@/store/site/site.slice"
+import { setFormBlocked, setWindowForm } from "@/store/site/site.slice"
 import { AppDispatch } from "@/store/store"
 import Image from "next/image"
 import { FormEvent, useState } from "react"
@@ -21,15 +21,16 @@ const CreatePlaylistStepTwo = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { user } = useTypedSelector(selector => selector.userSlice)
   const create = useTypedSelector(selector => selector.playlistSlice.create)
-  const { windowForm } = useTypedSelector(selector => selector.siteSlice)
+  const { windowForm, formBlocked } = useTypedSelector(selector => selector.siteSlice)
 
   const { handleSubmit } = useForm<ICreatePlaylist>()
 
   const onSubmit: SubmitHandler<ICreatePlaylist> = async data => {
-    if (!create) return
+    if (!create || formBlocked) return
     setLoading(true)
+    dispatch(setFormBlocked(true))
 
-    await $api.post("/playlist", { tracks, description: create.description, name: create.name }).then(() => { setLoading(false); dispatch(setWindowForm(null)) }).catch(() => setError(true))
+    await $api.post("/playlist", { tracks, description: create.description, name: create.name }).then(() => { setLoading(false); dispatch(setWindowForm(null)); setTimeout(() => dispatch(setFormBlocked(false)), 1000) }).catch(() => setError(true))
   }
 
   return <div className={`${styles.selectTracks} ${windowForm === "createPlaylistStepTwo" ? styles.open : ""}`}>

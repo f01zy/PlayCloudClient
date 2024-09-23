@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { setCreate } from "@/store/playlist/playlist.slice";
 import { ICreatePlaylist } from "@/interfaces/playlistCreate.interface";
-import { setLoading, setWindowForm } from "@/store/site/site.slice";
+import { setFormBlocked, setLoading, setWindowForm } from "@/store/site/site.slice";
 import WindowForm from "../../WindowForm";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { $api } from "@/http";
@@ -14,15 +14,16 @@ import { $api } from "@/http";
 const CreatePlaylistStepOne = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { user } = useTypedSelector(selector => selector.userSlice)
-  const { loading } = useTypedSelector(selector => selector.siteSlice)
+  const { formBlocked } = useTypedSelector(selector => selector.siteSlice)
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
-    if (loading) return
+    if (formBlocked) return
+    dispatch(setFormBlocked(true))
 
-    if (user?.tracks.length === 0) { dispatch(setLoading(true)); await $api.post("/playlist", { tracks: [], ...data }).then(() => dispatch(setLoading(false))); return dispatch(setWindowForm(null)) }
+    if (user?.tracks.length === 0) { dispatch(setLoading(true)); await $api.post("/playlist", { tracks: [], ...data }).then(() => dispatch(setLoading(false))); dispatch(setWindowForm(null)); return setTimeout(() => dispatch(setFormBlocked(false)), 1000) }
     dispatch(setCreate({ ...data as ICreatePlaylist }))
     dispatch(setWindowForm(null))
-    setTimeout(() => dispatch(setWindowForm("createPlaylistStepTwo")), 1000)
+    setTimeout(() => { dispatch(setWindowForm("createPlaylistStepTwo")); dispatch(setFormBlocked(false)) }, 1000)
   }
 
   const inputs: Array<TInput | TInput & TFileInput> = [

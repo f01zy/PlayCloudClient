@@ -7,6 +7,7 @@ interface ISite {
   sidebar: boolean,
   loading: boolean,
   windowForm: TWindowForm,
+  formBlocked: boolean
 }
 
 const initialState: ISite = {
@@ -14,6 +15,7 @@ const initialState: ISite = {
   sidebar: false,
   loading: false,
   windowForm: null,
+  formBlocked: false
 }
 
 export const siteSlice = createSlice({
@@ -24,9 +26,10 @@ export const siteSlice = createSlice({
     setSidebar(state, { payload }: { payload: boolean }) { state.sidebar = payload },
     setWindowForm(state, { payload }: { payload: TWindowForm }) { state.windowForm = payload },
     setLoading(state, { payload }: { payload: boolean }) { state.loading = payload },
+    setFormBlocked(state, { payload }: { payload: boolean }) { state.formBlocked = payload },
   }
 })
 
-export const { setBlocked, setSidebar, setWindowForm, setLoading } = siteSlice.actions
+export const { setBlocked, setSidebar, setWindowForm, setLoading, setFormBlocked } = siteSlice.actions
 
 export default siteSlice.reducer

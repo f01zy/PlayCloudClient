@@ -7,7 +7,7 @@ import { setUser } from "@/store/user/user.slice"
 import { SetStateAction, Dispatch, FC } from "react"
 import { FieldValues, SubmitHandler } from "react-hook-form"
 import { useDispatch } from "react-redux"
-import { setLoading, setWindowForm } from "@/store/site/site.slice"
+import { setFormBlocked, setLoading, setWindowForm } from "@/store/site/site.slice"
 import WindowForm from "../WindowForm"
 import { TFileInput, TInput } from "../AuthForm"
 import { useTypedSelector } from "@/hooks/selector.hook"
@@ -18,11 +18,12 @@ interface IUploadComponent {
 
 const Upload: FC<IUploadComponent> = ({ setFetchUser }) => {
   const dispatch = useDispatch<AppDispatch>()
-  const { loading } = useTypedSelector(selector => selector.siteSlice)
+  const { formBlocked } = useTypedSelector(selector => selector.siteSlice)
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
-    if (loading) return
+    if (formBlocked) return
 
+    dispatch(setFormBlocked(true))
     dispatch(setLoading(true))
 
     const formData = new FormData()
@@ -37,6 +38,7 @@ const Upload: FC<IUploadComponent> = ({ setFetchUser }) => {
     dispatch(setUser(user))
     setFetchUser(user)
     dispatch(setWindowForm(null))
+    setTimeout(() => dispatch(setFormBlocked(false)), 1100)
   }
 
   const inputs: Array<TInput | TInput & TFileInput> = [{ accept: "image/*", field: "cover", label: "Choice a cover", multiple: false, type: "file" }, { accept: ".mp3", field: "music", label: "Choice a music", multiple: false, type: "file" }, { field: "name", label: "name", type: "text" }]
