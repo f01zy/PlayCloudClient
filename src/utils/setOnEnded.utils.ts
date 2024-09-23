@@ -12,5 +12,5 @@ export const setOnEnded = (user: IUser, currentMusic: IMusic, dispatch: Dispatch
     playlist[Math.floor(Math.random() * (playlist.length - 1 - 0) + 0)] :
     currentMusic
   console.log(playlistId, playlist.length, music.name)
-  playerController.onEnded = () => { playMusic(music, dispatch, user) };
+  playerController.onEnded = () => { playlistId ? playMusic(pl!, dispatch, user) : playMusic(music, dispatch, user) };
 }

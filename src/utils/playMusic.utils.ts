@@ -11,7 +11,7 @@ import { setOnEnded } from "./setOnEnded.utils"
 import { IPlaylist } from "@/interfaces/playlist.interface"
 
 export const playMusic = (composition: IMusic | IPlaylist, dispatch: Dispatch<UnknownAction>, user: IUser) => {
-  const track = composition.type === "track" ? composition : composition.tracks[0]
+  const track = composition.type === "track" ? composition : composition.tracks[Math.floor(Math.random() * (composition.tracks.length - 1 - 0) + 0)]
 
   dispatch(setLoading(track._id))
 
