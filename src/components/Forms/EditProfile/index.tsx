@@ -9,10 +9,11 @@ import { IProfile } from "@/interfaces/profile.interface";
 import Button from "../../UI/Button";
 import Image from "next/image";
 import { IoMdClose } from "react-icons/io";
-import { setFormBlocked, setWindowForm } from "@/store/site/site.slice";
+import { setWindowForm } from "@/store/site/site.slice";
 import { FcAddImage } from "react-icons/fc";
 import { $api } from "@/http";
 import { SERVER_URL } from "@/config";
+import { handleClickBlock } from "@/utils/handleClickBlock.utils";
 
 interface IEditProfile {
   windowName: string,
@@ -22,18 +23,18 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const [avatar, setAvatar] = useState<string | ArrayBuffer | null>(null)
   const [banner, setBanner] = useState<string | ArrayBuffer | null>(null)
   const [loading, setLoading] = useState({ username: false, avatar: false, banner: false })
-  const { windowForm, formBlocked } = useTypedSelector(selector => selector.siteSlice)
+  const { windowForm, blocked } = useTypedSelector(selector => selector.siteSlice)
   const { user } = useTypedSelector(selector => selector.userSlice)
+  const { alert } = useTypedSelector(selector => selector.alertSlice)
   const dispatch = useDispatch<AppDispatch>()
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
-    if (formBlocked) return
-    dispatch(setFormBlocked(true))
+    const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
     setLoading({ username: data.username.length > 0 ? true : false, avatar: data.avatar.length > 0 ? true : false, banner: data.banner.length > 0 ? true : false })
 
     const imagesLoad: Array<"avatar" | "banner"> = ["avatar", "banner"]
-    imagesLoad.map(async el => { if (data[el].length > 0) { const formData = new FormData(); formData.append(el, data[el][0]); await $api.post(`/auth/edit/${el}`, formData).then(res => { const tempLoading = loading; tempLoading[el] = false; setLoading(tempLoading) }).finally(() => { if (!Object.values(loading).find(e => e === true)) { close(); setTimeout(() => dispatch(setFormBlocked(false), 1000)) } }) } })
-    if (data.username.length > 0) await $api.post("/auth/edit/username", { username: data.username }).then(res => { const tempLoading = loading; tempLoading.username = false; setLoading(tempLoading) }).finally(() => { if (!Object.values(loading).find(e => e === true)) { close(); setTimeout(() => dispatch(setFormBlocked(false), 1000)) } })
+    imagesLoad.map(async el => { if (data[el].length > 0) { const formData = new FormData(); formData.append(el, data[el][0]); await $api.post(`/auth/edit/${el}`, formData).then(res => { const tempLoading = loading; tempLoading[el] = false; setLoading(tempLoading) }).finally(() => { if (!Object.values(loading).find(e => e === true)) { close() } }) } })
+    if (data.username.length > 0) await $api.post("/auth/edit/username", { username: data.username }).then(res => { const tempLoading = loading; tempLoading.username = false; setLoading(tempLoading) }).finally(() => { if (!Object.values(loading).find(e => e === true)) { close() } })
   }
 
   const close = () => { setLoading({ username: false, avatar: false, banner: false }); setBanner(null); setAvatar(null); dispatch(setWindowForm(null)) }

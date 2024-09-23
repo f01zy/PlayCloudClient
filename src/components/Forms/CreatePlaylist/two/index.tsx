@@ -6,10 +6,11 @@ import CardLittle from "@/components/UI/CardLittle"
 import { useTypedSelector } from "@/hooks/selector.hook"
 import { $api } from "@/http"
 import { ICreatePlaylist } from "@/interfaces/playlistCreate.interface"
-import { setFormBlocked, setWindowForm } from "@/store/site/site.slice"
+import { setWindowForm } from "@/store/site/site.slice"
 import { AppDispatch } from "@/store/store"
+import { handleClickBlock } from "@/utils/handleClickBlock.utils"
 import Image from "next/image"
-import { FormEvent, useState } from "react"
+import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
 
@@ -21,16 +22,17 @@ const CreatePlaylistStepTwo = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { user } = useTypedSelector(selector => selector.userSlice)
   const create = useTypedSelector(selector => selector.playlistSlice.create)
-  const { windowForm, formBlocked } = useTypedSelector(selector => selector.siteSlice)
+  const { windowForm, blocked } = useTypedSelector(selector => selector.siteSlice)
+  const { alert } = useTypedSelector(selector => selector.alertSlice)
 
   const { handleSubmit } = useForm<ICreatePlaylist>()
 
   const onSubmit: SubmitHandler<ICreatePlaylist> = async data => {
-    if (!create || formBlocked) return
+    if (!create) return
+    const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
     setLoading(true)
-    dispatch(setFormBlocked(true))
 
-    await $api.post("/playlist", { tracks, description: create.description, name: create.name }).then(() => { setLoading(false); dispatch(setWindowForm(null)); setTimeout(() => dispatch(setFormBlocked(false)), 1000) }).catch(() => setError(true))
+    await $api.post("/playlist", { tracks, description: create.description, name: create.name }).then(() => { setLoading(false); dispatch(setWindowForm(null)) }).catch(() => setError(true))
   }
 
   return <div className={`${styles.selectTracks} ${windowForm === "createPlaylistStepTwo" ? styles.open : ""}`}>
