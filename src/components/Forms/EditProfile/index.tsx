@@ -34,8 +34,8 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     setLoading({ username: data.username.length > 0 ? true : false, avatar: data.avatar.length > 0 ? true : false, banner: data.banner.length > 0 ? true : false })
 
     const imagesLoad: Array<"avatar" | "banner"> = ["avatar", "banner"]
-    imagesLoad.map(async el => { if (data[el].length > 0) { const formData = new FormData(); formData.append(el, data[el][0]); await $api.post(`/auth/edit/${el}`, formData).then(res => { const tempLoading = loading; tempLoading[el] = false; setLoading(tempLoading) }).catch(err => setError(err.response.data.errorMessage)).finally(() => { if (!Object.values(loading).find(e => e === true)) { close() } }) } })
-    if (data.username.length > 0) await $api.post("/auth/edit/username", { username: data.username }).then(res => { const tempLoading = loading; tempLoading.username = false; setLoading(tempLoading) }).catch(err => setError(err.response.data.errorMessage)).finally(() => { if (!Object.values(loading).find(e => e === true)) { close() } })
+    imagesLoad.map(async el => { if (data[el].length > 0) { const formData = new FormData(); formData.append(el, data[el][0]); await $api.post(`/auth/edit/${el}`, formData).then(res => { const tempLoading = loading; tempLoading[el] = false; setLoading(tempLoading); if (!Object.values(loading).find(e => e === true)) close() }).catch(err => setError(err.response.data.errorMessage)) } })
+    if (data.username.length > 0) await $api.post("/auth/edit/username", { username: data.username }).then(res => { const tempLoading = loading; tempLoading.username = false; setLoading(tempLoading); if (!Object.values(loading).find(e => e === true)) close() }).catch(err => setError(err.response.data.errorMessage))
   }
 
   const close = () => { setLoading({ username: false, avatar: false, banner: false }); setBanner(null); setAvatar(null); dispatch(setWindowForm(null)) }

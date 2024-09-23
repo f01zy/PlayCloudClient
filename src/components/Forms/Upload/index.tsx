@@ -7,7 +7,7 @@ import { setUser } from "@/store/user/user.slice"
 import { SetStateAction, Dispatch, FC } from "react"
 import { FieldValues, SubmitHandler } from "react-hook-form"
 import { useDispatch } from "react-redux"
-import { setLoading, setWindowForm } from "@/store/site/site.slice"
+import { setLoading, setWindowError, setWindowForm } from "@/store/site/site.slice"
 import WindowForm from "../WindowForm"
 import { TFileInput, TInput } from "../AuthForm"
 import { useTypedSelector } from "@/hooks/selector.hook"
@@ -32,7 +32,7 @@ const Upload: FC<IUploadComponent> = ({ setFetchUser }) => {
     formData.append("files", data.music[0])
     formData.append("name", data.name)
 
-    const user = await $api.post<IUser>("/music", formData, { headers: { "Content-Type": "mulpipart/form-data" } }).then(res => res.data).finally(() => dispatch(setLoading(false)))
+    const user = await $api.post<IUser>("/music", formData, { headers: { "Content-Type": "mulpipart/form-data" } }).then(res => res.data).catch(err => { dispatch(setWindowError(err.response.data.errorMessage)) }).finally(() => dispatch(setLoading(false)))
 
     if (!user) return
 

@@ -19,7 +19,7 @@ interface IWindowForm {
 }
 
 const WindowForm: FC<IWindowForm> = ({ inputs, onSubmit, windowName, title }) => {
-  const { loading, windowForm } = useTypedSelector(selector => selector.siteSlice)
+  const { loading, windowForm, windowError } = useTypedSelector(selector => selector.siteSlice)
   const dispatch = useDispatch<AppDispatch>()
 
   const { register, handleSubmit } = useForm()
@@ -31,6 +31,8 @@ const WindowForm: FC<IWindowForm> = ({ inputs, onSubmit, windowName, title }) =>
     </div>
 
     <form onSubmit={handleSubmit(onSubmit)}>
+      {windowError && <p className="w-full mb-3 text-base text-red-600">{windowError}</p>}
+
       {inputs.flatMap(input => <Input {...(input as TInput & TFileInput)} register={register} required={true} />)}
 
       <Button type="submit">{loading ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Upload</p>}</Button>
