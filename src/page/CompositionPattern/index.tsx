@@ -35,7 +35,7 @@ const CompositionPattern: FC<ICompositionPattern> = ({ id, type }) => {
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
 
-  const likeButtonField = type === "track" ? "likes" : "saves"
+  const likeButtonField = type === "track" ? "likes" : "saving"
   const likeUrl = type === "track" ? "/music/like" : "/playlist/save"
 
   const paths: { [key in TComposition]: string } = { playlist: "playlist", track: "music" }
