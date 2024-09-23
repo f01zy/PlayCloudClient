@@ -14,7 +14,6 @@ import { AppDispatch } from "@/store/store";
 import Link from "next/link";
 import { handlePlayClick } from "@/utils/handlePlayClick.utils";
 import { filterListeningsByDate } from "@/utils/filterListeningsByDate.utils";
-import DraggableWrapper from "../../Wrappers/DraggableWrapper";
 
 const Card: FC<IMusic> = ({ author, name, listenings, _id, likes, date, type }) => {
 	const router = useRouter()
@@ -29,7 +28,7 @@ const Card: FC<IMusic> = ({ author, name, listenings, _id, likes, date, type }) 
 
 				<div className={styles.play}>
 					<div onClick={() => {
-						handlePlayClick(dispatch, { _id, author, listenings, name, likes, date, type }, user, music?.name, router)
+						handlePlayClick(dispatch, { _id, author, listenings, name, likes, date, type }, user, router, music?.name)
 					}}>
 						{loading === _id ? <Image src={"/circle-loader.svg"} alt="loading" width={100} height={100} /> : music?.name != name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
 					</div>

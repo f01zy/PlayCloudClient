@@ -1,5 +1,6 @@
 "use client"
 
+import styles from "@/page/CompositionPattern/styles.module.scss"
 import Image from "next/image";
 import { SERVER_URL } from "@/config";
 import { FC, useState, useEffect } from "react"
