@@ -27,6 +27,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const dispatch = useDispatch<AppDispatch>()
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
+    if (formBlocked) return
     dispatch(setFormBlocked(true))
     setLoading({ username: data.username.length > 0 ? true : false, avatar: data.avatar.length > 0 ? true : false, banner: data.banner.length > 0 ? true : false })
 
