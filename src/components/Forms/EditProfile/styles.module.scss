@@ -1,5 +1,6 @@
 .form {
   width: fit-content;
+  height: max-content;
   padding: 20px 20px;
   background-color: #202020;
   border-radius: 10px;
@@ -32,6 +33,7 @@
     position: relative;
     max-height: 500px;
     overflow-y: auto;
+    padding-right: 10px;
 
     input[type=file] {
       position: absolute;
