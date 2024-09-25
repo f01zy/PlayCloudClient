@@ -35,15 +35,15 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     if (!user) return
 
     const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
-
-    if ((data.avatar.length === 0 && data.banner.length === 0 && data.username.length === 0) || user.username === data.username) return setError("You haven't changed any fields")
+    const isEmpty = data.avatar.length === 0 && data.banner.length === 0
+    if (isEmpty || (user.username === data.username && isEmpty)) return setError("You haven't changed any fields")
 
     setLoading(true)
 
     const formData = new FormData()
     data.avatar.length > 0 && formData.append("avatar", data.avatar[0])
     data.banner.length > 0 && formData.append("banner", data.banner[0])
-    data.username.length > 0 && formData.append("username", data.username)
+    data.username != user.username && formData.append("username", data.username)
 
     await $api.put<IUser>("/users", formData)
       .then(res => { dispatch(setUser(res.data)); close() })
