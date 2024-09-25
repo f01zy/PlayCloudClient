@@ -21,6 +21,8 @@
   transition: all 1s ease;
   visibility: hidden;
   z-index: 4;
+  max-height: 500px;
+  overflow-y: auto;
 
   &.open {
     opacity: 1;
