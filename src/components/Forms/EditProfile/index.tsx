@@ -41,9 +41,9 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     setLoading(true)
 
     const formData = new FormData()
-    data.avatar && formData.append("avatar", data.avatar[0])
-    data.banner && formData.append("banner", data.banner[0])
-    data.username && formData.append("username", data.username)
+    data.avatar.length > 0 && formData.append("avatar", data.avatar[0])
+    data.banner.length > 0 && formData.append("banner", data.banner[0])
+    data.username.length > 0 && formData.append("username", data.username)
 
     await $api.put<IUser>("/users", formData)
       .then(res => { dispatch(setUser(res.data)); close() })
