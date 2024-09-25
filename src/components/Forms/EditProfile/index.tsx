@@ -84,9 +84,9 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
       </div>
       <Input defaultValue={user?.username} min={3} max={25} field="username" label="username" required={false} type="text" register={register} />
       <Input defaultValue={user?.description} field="description" label="description" required={false} type="text" register={register} />
-      <div className="flex items-center justify-between"><h4 className="text-base mt-2 mb-1">Links</h4><FaPlus onClick={() => setLinks([...links, ""])} /></div>
+      <div className="w-full flex items-center justify-between mt-2 mb-1"><h4 className="text-base">Links</h4><FaPlus onClick={() => setLinks([...links, ""])} /></div>
       <div className={styles.links}>
-        {links ? links.map((link, index) => <div><Input label="link" onChange={e => { let tempLinks = links; tempLinks[index] = e.target.value; setLinks(tempLinks) }} /><IoMdClose onClick={() => setLinks(links.filter(l => l != link))} /></div>) : ""}
+        {links ? links.map((link, index) => <div className="w-full flex items-center justify-between"><Input label="link" onChange={e => { let tempLinks = links; tempLinks[index] = e.target.value; setLinks(tempLinks); console.log(link, tempLinks) }} /><IoMdClose onClick={() => setLinks(links.filter(l => l != link))} /></div>) : ""}
       </div>
       <Button type="submit">{loading ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>
