@@ -2,7 +2,7 @@ import styles from "@/components/Forms/EditProfile/styles.module.scss"
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store";
-import { ChangeEvent, FC, useState } from "react"
+import { ChangeEvent, FC, useEffect, useState } from "react"
 import { useTypedSelector } from "@/hooks/selector.hook";
 import Input from "../../UI/Input";
 import { IProfile } from "@/interfaces/profile.interface";
@@ -11,6 +11,7 @@ import Image from "next/image";
 import { IoMdClose } from "react-icons/io";
 import { setWindowForm } from "@/store/site/site.slice";
 import { FcAddImage } from "react-icons/fc";
+import { FaPlus } from "react-icons/fa6";
 import { $api } from "@/http";
 import { SERVER_URL } from "@/config";
 import { handleClickBlock } from "@/utils/handleClickBlock.utils";
@@ -28,8 +29,11 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const { windowForm, blocked } = useTypedSelector(selector => selector.siteSlice)
   const { user } = useTypedSelector(selector => selector.userSlice)
+  const [links, setLinks] = useState<Array<string>>([])
   const { alert } = useTypedSelector(selector => selector.alertSlice)
   const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(() => { if (user) setLinks(user.links) }, [])
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
     if (!user) return
@@ -64,7 +68,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const { register, handleSubmit } = useForm<IProfile>()
 
   return <div className={`${styles.form} ${windowForm === windowName ? styles.open : ""}`}>
-    <div className="flex justify-between items-center w-full mb-2">
+    <div className="flex justify-between items-center w-full mb-1">
       <h1>Edit profile</h1>
       <IoMdClose width={25} height={25} onClick={() => close()} />
     </div>
@@ -78,7 +82,12 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
         {avatar ? <Image unoptimized src={avatar.toString()} alt="avatar" height={100} width={100} className="w-full h-full" /> : user?.avatar ? <Image unoptimized src={`${SERVER_URL}/avatar/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
         <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "avatar") })} />
       </div>
-      <Input value={user?.username} min={3} max={25} field="username" label="username" required={false} type="text" register={register} />
+      <Input defaultValue={user?.username} min={3} max={25} field="username" label="username" required={false} type="text" register={register} />
+      <Input defaultValue={user?.description} field="description" label="description" required={false} type="text" register={register} />
+      <div className="flex items-center justify-between"><h4 className="text-base mt-2 mb-1">Links</h4><FaPlus onClick={() => setLinks([...links, ""])} /></div>
+      <div className={styles.links}>
+        {links ? links.map((link, index) => <div><Input label="link" onChange={e => { let tempLinks = links; tempLinks[index] = e.target.value; setLinks(tempLinks) }} /><IoMdClose onClick={() => setLinks(links.filter(l => l != link))} /></div>) : ""}
+      </div>
       <Button type="submit">{loading ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>
   </div>

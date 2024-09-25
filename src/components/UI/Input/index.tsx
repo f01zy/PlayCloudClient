@@ -1,23 +1,19 @@
 import styles from "@/components/UI/Input/styles.module.scss"
-import { HTMLInputTypeAttribute, FC } from "react"
+import { InputHTMLAttributes, FC } from "react"
 
-interface IInput {
-  type?: HTMLInputTypeAttribute,
-  multiple?: boolean,
-  min?: number
-  max?: number
-  value?: string
-  accept?: string
+interface IInput extends InputHTMLAttributes<HTMLInputElement> {
   label: string
-  field: string
-  required: boolean,
-  register: any,
+  field?: string
+  register?: any,
 }
 
-const Input: FC<IInput> = ({ type, field, register, required, accept, multiple, label, max, min, value }) => {
-  return <div className={type === "file" ? styles.file : styles.input}>
-    <input defaultValue={value} type={type} placeholder="" accept={accept} multiple={multiple} {...register(field, { required, minLength: min, maxLength: max })} />
-    {type === "file" ? <div><p>{label}</p></div> : <p>{label}</p>}
+const Input: FC<IInput> = ({ label, field, register, ...props }) => {
+  return <div className={props.type === "file" ? styles.file : styles.input}>
+    <input
+      {...props}
+      {...(register && field ? register(field, { ...props }) : {})}
+    />
+    {props.type === "file" ? <div><p>{label}</p></div> : <p>{label}</p>}
   </div>
 }
 

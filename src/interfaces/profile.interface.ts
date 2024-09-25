@@ -1,5 +1,7 @@
 export interface IProfile {
   banner: FileList,
   avatar: FileList,
-  username: string
+  username: string,
+  description: string,
+  links: Array<string>
 }
