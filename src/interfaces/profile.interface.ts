@@ -3,5 +3,4 @@ export interface IProfile {
   avatar: FileList,
   username: string,
   description: string,
-  links: Array<string>
 }

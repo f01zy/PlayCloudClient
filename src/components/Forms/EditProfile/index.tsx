@@ -33,10 +33,10 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const { alert } = useTypedSelector(selector => selector.alertSlice)
   const dispatch = useDispatch<AppDispatch>()
 
-  useEffect(() => { if (user) setLinks(user.links) }, [])
+  useEffect(() => { if (user) { setLinks(user.links); console.log(user.links) } }, [])
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
-    console.log(data)
+    console.log(data, links)
 
     // if (!user) return
 
