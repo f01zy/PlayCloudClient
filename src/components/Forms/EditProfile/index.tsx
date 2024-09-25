@@ -44,6 +44,8 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
 
     const changedUser = await $api.put<IUser>("/users", formData).then(res => res.data).catch(err => { setError(err.response.data.message) })
 
+    console.log(changedUser)
+
     if (changedUser) {
       dispatch(setUser(changedUser))
       dispatch(setWindowForm(null))
@@ -79,7 +81,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
         <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "avatar") })} />
       </div>
       <Input value={user?.username} min={3} max={25} field="username" label="username" required={false} type="text" register={register} />
-      <Button type="submit">{Object.values(loading).find(e => e === true) ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
+      <Button type="submit">{loading ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>
   </div>
 }
