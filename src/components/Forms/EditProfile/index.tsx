@@ -38,11 +38,13 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     if (Object.values(data).length === 0 || user?.username === data.username) return setError("You haven't changed any fields")
 
     const formData = new FormData()
-    data.avatar && formData.append("avatar", data.avatar as any)
-    data.banner && formData.append("banner", data.banner as any)
+    data.avatar && formData.append("avatar", data.avatar[0])
+    data.banner && formData.append("banner", data.banner[0])
     data.username && formData.append("username", data.username)
 
-    const changedUser = await $api.put<IUser>("/users", formData).then(res => res.data).catch(err => { setError(err.response.data.message) })
+    const changedUser = await $api.put<IUser>("/users", formData)
+      .then(res => res.data)
+      .catch(err => { setError(err.response.data.message) })
 
     console.log(changedUser)
 
