@@ -50,6 +50,8 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
       dispatch(setUser(changedUser))
       dispatch(setWindowForm(null))
     }
+
+    close()
   }
 
   const close = () => { setLoading(false) }
@@ -73,11 +75,11 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       {error && <p className="w-full mb-3 text-base text-red-600">{error}</p>}
       <div className={styles.banner}>
-        {user?.banner ? <Image unoptimized src={`${SERVER_URL}/banner/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" /> : banner ? <Image unoptimized src={banner.toString()} alt="banner" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
+        {banner ? <Image unoptimized src={banner.toString()} alt="banner" height={100} width={100} className="w-full h-full" /> : user?.banner ? <Image unoptimized src={`${SERVER_URL}/banner/${user._id}.jpg`} alt="banner" width={100} height={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
         <input type="file" multiple={false} accept="image/*" {...register("banner", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "banner") })} />
       </div>
       <div className={styles.avatar}>
-        {user?.avatar ? <Image unoptimized src={`${SERVER_URL}/avatar/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" /> : avatar ? <Image unoptimized src={avatar.toString()} alt="avatar" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
+        {avatar ? <Image unoptimized src={avatar.toString()} alt="avatar" height={100} width={100} className="w-full h-full" /> : user?.avatar ? <Image unoptimized src={`${SERVER_URL}/avatar/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
         <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "avatar") })} />
       </div>
       <Input value={user?.username} min={3} max={25} field="username" label="username" required={false} type="text" register={register} />
