@@ -32,23 +32,24 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const dispatch = useDispatch<AppDispatch>()
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
-    const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
-    setLoading(true)
+    if (!user) return
 
-    if (Object.values(data).length === 0 || user?.username === data.username) return setError("You haven't changed any fields")
+    const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
+
+    console.log(data)
+
+    if (Object.values(data).length === 0 || user.username === data.username) return setError("You haven't changed any fields")
+
+    setLoading(true)
 
     const formData = new FormData()
     data.avatar && formData.append("avatar", data.avatar[0])
     data.banner && formData.append("banner", data.banner[0])
     data.username && formData.append("username", data.username)
 
-    const changedUser = await $api.put<IUser>("/users", formData)
-      .then(res => { dispatch(setUser(res.data)) })
+    await $api.put<IUser>("/users", formData)
+      .then(res => { dispatch(setUser(res.data)); close() })
       .catch(err => { setError(err.response.data.message) })
-
-    console.log(changedUser)
-
-    close()
   }
 
   const close = () => { setLoading(false); dispatch(setWindowForm(null)); setAvatar(null); setBanner(null); setError(undefined) }
