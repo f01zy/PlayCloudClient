@@ -36,22 +36,24 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   useEffect(() => { if (user) setLinks(user.links) }, [])
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
-    if (!user) return
+    console.log(data)
 
-    const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
-    const isEmpty = data.avatar.length === 0 && data.banner.length === 0 && user.username === data.username
-    if (isEmpty) return setError("You haven't changed any fields")
+    // if (!user) return
 
-    setLoading(true)
+    // const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
+    // const isEmpty = data.avatar.length === 0 && data.banner.length === 0 && user.username === data.username
+    // if (isEmpty) return setError("You haven't changed any fields")
 
-    const formData = new FormData()
-    data.avatar.length > 0 && formData.append("avatar", data.avatar[0])
-    data.banner.length > 0 && formData.append("banner", data.banner[0])
-    data.username != user.username && formData.append("username", data.username)
+    // setLoading(true)
 
-    await $api.put<IUser>("/users", formData)
-      .then(res => { dispatch(setUser(res.data)); close() })
-      .catch(err => { setError(err.response.data.message) })
+    // const formData = new FormData()
+    // data.avatar.length > 0 && formData.append("avatar", data.avatar[0])
+    // data.banner.length > 0 && formData.append("banner", data.banner[0])
+    // data.username != user.username && formData.append("username", data.username)
+
+    // await $api.put<IUser>("/users", formData)
+    //   .then(res => { dispatch(setUser(res.data)); close() })
+    //   .catch(err => { setError(err.response.data.message) })
   }
 
   const close = () => { setLoading(false); dispatch(setWindowForm(null)); setAvatar(null); setBanner(null); setError(undefined) }
@@ -84,9 +86,9 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
       </div>
       <Input defaultValue={user?.username} min={3} max={25} field="username" label="username" required={false} type="text" register={register} />
       <Input defaultValue={user?.description} field="description" label="description" required={false} type="text" register={register} />
-      <div className="w-full flex items-center justify-between mt-3"><h4 className="text-base">Links</h4><FaPlus onClick={() => setLinks([...links, ""])} /></div>
+      <div className="w-full flex items-center justify-between mt-3"><h4 className="text-base">Links</h4><FaPlus onClick={() => { links.length >= 4 ? setError("Maximum of four links") : setLinks([...links, ""]) }} /></div>
       <div className="w-full">
-        {links ? links.map((link, index) => <div className="mt-2 w-full flex items-center justify-between"><Input label="link" onChange={e => { let tempLinks = links; tempLinks[index] = e.target.value; setLinks(tempLinks); console.log(links, tempLinks) }} /><IoMdClose onClick={() => { const tempLinks = links; delete tempLinks[index]; setLinks(tempLinks) }} /></div>) : ""}
+        {links ? links.map((link, index) => <div className="mt-2 w-full flex items-center justify-between"><Input label="link" onChange={e => { let tempLinks = links; tempLinks[index] = e.target.value; setLinks(tempLinks) }} /><IoMdClose className="ml-4" onClick={() => setLinks(links.filter((_, i) => i != index))} /></div>) : ""}
       </div>
       <Button type="submit">{loading ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>
