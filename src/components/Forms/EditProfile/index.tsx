@@ -35,8 +35,8 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     if (!user) return
 
     const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
-    const isEmpty = data.avatar.length === 0 && data.banner.length === 0
-    if (isEmpty || (user.username === data.username && isEmpty)) return setError("You haven't changed any fields")
+    const isEmpty = data.avatar.length === 0 && data.banner.length === 0 && user.username === data.username
+    if (isEmpty) return setError("You haven't changed any fields")
 
     setLoading(true)
 
