@@ -25,7 +25,7 @@ const WindowForm: FC<IWindowForm> = ({ inputs, onSubmit, windowName, title }) =>
   const { register, handleSubmit } = useForm()
 
   return <div className={`${styles.form} ${windowForm === windowName ? styles.open : ""}`}>
-    <div className="flex justify-between items-center w-full mb-5">
+    <div className="flex justify-between items-center w-full mb-2">
       <h1>{title}</h1>
       <IoMdClose width={25} height={25} onClick={() => dispatch(setWindowForm(null))} />
     </div>

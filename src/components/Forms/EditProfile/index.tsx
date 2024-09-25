@@ -64,7 +64,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const { register, handleSubmit } = useForm<IProfile>()
 
   return <div className={`${styles.form} ${windowForm === windowName ? styles.open : ""}`}>
-    <div className="flex justify-between items-center w-full mb-5">
+    <div className="flex justify-between items-center w-full mb-2">
       <h1>Edit profile</h1>
       <IoMdClose width={25} height={25} onClick={() => close()} />
     </div>
