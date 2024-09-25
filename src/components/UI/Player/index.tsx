@@ -27,7 +27,7 @@ const Player = () => {
 
   const setMusicModeAndOnLoad = (mode: TMusicMode) => {
     setMusicMode(mode)
-    const newMusic = getMusicMode() === "all" ? user.history[random(0, user.history.length)] : music!
+    const newMusic = getMusicMode() === "all" ? user.history[random(0, user.history.length - 1)] : music!
     playerController.onEnded = () => { playMusic(newMusic, dispatch, user) };
   }
 

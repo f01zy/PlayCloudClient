@@ -12,7 +12,7 @@ import { IPlaylist } from "@/interfaces/playlist.interface"
 import { random } from "./random.utils"
 
 export const playMusic = (composition: IMusic | IPlaylist, dispatch: Dispatch<UnknownAction>, user: IUser) => {
-  const track = composition.type === "track" ? composition : composition.tracks[random(0, composition.tracks.length)]
+  const track = composition.type === "track" ? composition : composition.tracks[random(0, composition.tracks.length - 1)]
 
   dispatch(setLoading(track._id))
 

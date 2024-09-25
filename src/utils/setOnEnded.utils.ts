@@ -10,7 +10,7 @@ export const setOnEnded = (user: IUser, currentMusic: IMusic, dispatch: Dispatch
   let playlist = playlistId ? pl?.tracks : user.history
   if (!playlist) return
   const music = getMusicMode() === "all" ?
-    playlist[random(0, playlist.length)] :
+    playlist[random(0, playlist.length - 1)] :
     currentMusic
   playerController.onEnded = () => { playlistId ? playMusic(pl!, dispatch, user) : playMusic(music, dispatch, user) };
 }
