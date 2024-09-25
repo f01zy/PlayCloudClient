@@ -14,6 +14,8 @@ import { FcAddImage } from "react-icons/fc";
 import { $api } from "@/http";
 import { SERVER_URL } from "@/config";
 import { handleClickBlock } from "@/utils/handleClickBlock.utils";
+import { IUser } from "@/interfaces/user.interface";
+import { setUser } from "@/store/user/user.slice";
 
 interface IEditProfile {
   windowName: string,
@@ -23,7 +25,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const [error, setError] = useState<string>()
   const [avatar, setAvatar] = useState<string | ArrayBuffer | null>(null)
   const [banner, setBanner] = useState<string | ArrayBuffer | null>(null)
-  const [loading, setLoading] = useState({ username: false, avatar: false, banner: false })
+  const [loading, setLoading] = useState<boolean>(false)
   const { windowForm, blocked } = useTypedSelector(selector => selector.siteSlice)
   const { user } = useTypedSelector(selector => selector.userSlice)
   const { alert } = useTypedSelector(selector => selector.alertSlice)
@@ -31,14 +33,24 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
     const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
-    setLoading({ username: data.username.length > 0 ? true : false, avatar: data.avatar.length > 0 ? true : false, banner: data.banner.length > 0 ? true : false })
+    setLoading(true)
 
-    const imagesLoad: Array<"avatar" | "banner"> = ["avatar", "banner"]
-    imagesLoad.map(async el => { if (data[el].length > 0) { const formData = new FormData(); formData.append(el, data[el][0]); await $api.post(`/auth/edit/${el}`, formData).then(res => { const tempLoading = loading; tempLoading[el] = false; setLoading(tempLoading); if (!Object.values(loading).find(e => e === true)) close() }).catch(err => setError(err.response.data.errorMessage)) } })
-    if (data.username.length > 0) await $api.post("/auth/edit/username", { username: data.username }).then(res => { const tempLoading = loading; tempLoading.username = false; setLoading(tempLoading); if (!Object.values(loading).find(e => e === true)) close() }).catch(err => setError(err.response.data.errorMessage))
+    if (Object.values(data).length === 0 || user?.username === data.username) return setError("You haven't changed any fields")
+
+    const formData = new FormData()
+    data.avatar && formData.append("avatar", data.avatar as any)
+    data.banner && formData.append("banner", data.banner as any)
+    data.username && formData.append("username", data.username)
+
+    const changedUser = await $api.put<IUser>("/users", formData).then(res => res.data).catch(err => { setError(err.response.data.message) })
+
+    if (changedUser) {
+      dispatch(setUser(changedUser))
+      dispatch(setWindowForm(null))
+    }
   }
 
-  const close = () => { setLoading({ username: false, avatar: false, banner: false }); setBanner(null); setAvatar(null); dispatch(setWindowForm(null)) }
+  const close = () => { setLoading(false) }
 
   const fileChange = (e: ChangeEvent<HTMLInputElement>, field: "avatar" | "banner") => {
     const file = e.target.files ? e.target.files[0] : null
@@ -66,7 +78,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
         {user?.avatar ? <Image unoptimized src={`${SERVER_URL}/avatar/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" /> : avatar ? <Image unoptimized src={avatar.toString()} alt="avatar" height={100} width={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
         <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "avatar") })} />
       </div>
-      <Input min={3} max={25} field="username" label="username" required={false} type="text" register={register} />
+      <Input value={user?.username} min={3} max={25} field="username" label="username" required={false} type="text" register={register} />
       <Button type="submit">{Object.values(loading).find(e => e === true) ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>
   </div>

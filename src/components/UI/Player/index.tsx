@@ -17,6 +17,7 @@ import Skeleton from "../Skeleton"
 import { RiRepeat2Line, RiRepeatOneLine } from "react-icons/ri";
 import { playMusic } from "@/utils/playMusic.utils"
 import { TMusicMode } from "@/types/musicMode.type"
+import { random } from "@/utils/random.utils"
 
 const Player = () => {
   const { music, loading } = useTypedSelector(selector => selector.musicSlice)
@@ -26,7 +27,7 @@ const Player = () => {
 
   const setMusicModeAndOnLoad = (mode: TMusicMode) => {
     setMusicMode(mode)
-    const newMusic = getMusicMode() === "all" ? user.history[Math.floor(Math.random() * (user.history.length - 1 - 0) + 0)] : music!
+    const newMusic = getMusicMode() === "all" ? user.history[random(0, user.history.length)] : music!
     playerController.onEnded = () => { playMusic(newMusic, dispatch, user) };
   }
 

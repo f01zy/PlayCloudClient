@@ -24,6 +24,8 @@ export type TFetchError = {
   status: number
 }
 
+export const blockedTime = 1000 * 10
+
 let i = 0
 
 const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {

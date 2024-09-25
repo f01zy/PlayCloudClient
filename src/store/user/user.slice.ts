@@ -2,9 +2,11 @@ import { IUser } from "@/interfaces/user.interface"
 import { createSlice } from "@reduxjs/toolkit"
 import { login, register } from "./user.actions"
 
-interface IState { error: null | string | undefined, status: "success" | "error" | null, loading: boolean, user: IUser | null }
+type TMessage = { status: "success" | "error", value: string }
 
-const initialState: IState = { error: null, status: null, loading: false, user: null } as IState
+interface IState { message: TMessage, loading: boolean, user: IUser | null }
+
+const initialState: IState = { message: {}, loading: false, user: null } as IState
 
 export const userSlice = createSlice({
   initialState,
@@ -17,12 +19,12 @@ export const userSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(register.pending, state => { state.loading = true })
-      .addCase(register.rejected, (state, action) => { state.error = (action.payload as any).response.data.errorMessage; state.status = "error"; state.loading = false })
-      .addCase(register.fulfilled, (state, action) => { state.user = action.payload!; state.status = "success"; state.loading = false })
+      .addCase(register.rejected, (state, action) => { state.message = { status: "error", value: (action.payload as any).response.data.message }; state.loading = false })
+      .addCase(register.fulfilled, (state, action) => { state.user = action.payload!; state.message = { status: "success", value: "Success" }; state.loading = false })
 
       .addCase(login.pending, state => { state.loading = true })
-      .addCase(login.rejected, (state, action) => { console.log(action); state.error = (action.payload as any).response.data.errorMessage; state.status = "error"; state.loading = false })
-      .addCase(login.fulfilled, (state, action) => { state.user = action.payload!; state.status = "success"; state.loading = false })
+      .addCase(login.rejected, (state, action) => { state.message = { status: "error", value: (action.payload as any).response.data.message }; state.loading = false })
+      .addCase(login.fulfilled, (state, action) => { state.user = action.payload!; state.message = { status: "success", value: "Success" }; state.loading = false })
   }
 })
 

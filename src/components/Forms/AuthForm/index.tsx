@@ -26,7 +26,7 @@ interface IAuthForm {
 }
 
 const AuthForm: FC<IAuthForm> = ({ onSubmit, inputs, buttonLabel }) => {
-  const { status, loading, error } = useTypedSelector(selector => selector.userSlice)
+  const { message, loading } = useTypedSelector(selector => selector.userSlice)
   const pathname = usePathname()
   const buttonLink = pathname === "/login" ? "register" : "login"
 
@@ -38,7 +38,7 @@ const AuthForm: FC<IAuthForm> = ({ onSubmit, inputs, buttonLabel }) => {
       <div className={styles.circle}></div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>{buttonLabel} Here</h1>
-        {status && <p className={`w-full text-base ${status === "error" ? "text-red-600" : "text-green-500"}`}>{status === "error" ? error : `You can go to the `}{status === "success" && <Link href={"/"} className="!text-blue-500">home</Link>}</p>}
+        {message.value && <p className={`w-full text-base ${message.status === "error" ? "text-red-600" : "text-green-500"}`}>{message.status === "error" ? message.value : `You can go to the `}{message.status === "success" && <Link href={"/"} className="!text-blue-500">home</Link>}</p>}
         {inputs.flatMap(input => <Input {...input} register={register} required={true} />)}
         <p className={styles.link}>{pathname === "/register" && <>Don&apos;t</>} have an account yet? - <Link href={`/${buttonLink}`} className="text-cyan-600">{buttonLink}</Link></p>
         <Button type="submit">{loading ? <Image unoptimized src={"loader.svg"} width={30} height={100} alt="loader" /> : <p>{buttonLabel}</p>}</Button>

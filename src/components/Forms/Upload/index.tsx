@@ -32,7 +32,7 @@ const Upload: FC<IUploadComponent> = ({ setFetchUser }) => {
     formData.append("files", data.music[0])
     formData.append("name", data.name)
 
-    const user = await $api.post<IUser>("/music", formData, { headers: { "Content-Type": "mulpipart/form-data" } }).then(res => res.data).catch(err => { dispatch(setWindowError(err.response.data.errorMessage)) }).finally(() => dispatch(setLoading(false)))
+    const user = await $api.post<IUser>("/music", formData, { headers: { "Content-Type": "mulpipart/form-data" } }).then(res => res.data).catch(err => { dispatch(setWindowError(err.response.data.message)) }).finally(() => dispatch(setLoading(false)))
 
     if (!user) return
 

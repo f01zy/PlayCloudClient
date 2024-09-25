@@ -1,6 +1,7 @@
 "use client"
 
 import { getAllMusic } from "@/utils/getAllMusic.utils";
+import { random } from "@/utils/random.utils";
 import { NextPage } from "next";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -10,7 +11,7 @@ const ShufflePage: NextPage = () => {
 
   useEffect(() => {
     getAllMusic()
-      .then(res => router.push("/tracks/" + res[Math.floor(Math.random() * (res.length - 0)) + 0]._id))
+      .then(res => router.push("/tracks/" + res[random(0, res.length)]._id))
   }, [])
 
   return <div className="w-full h-full flex items-center justify-center"><h3 className="text-base">loading</h3></div>
