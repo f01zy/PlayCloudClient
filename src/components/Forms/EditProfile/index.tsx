@@ -43,20 +43,15 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     data.username && formData.append("username", data.username)
 
     const changedUser = await $api.put<IUser>("/users", formData)
-      .then(res => res.data)
+      .then(res => { dispatch(setUser(res.data)) })
       .catch(err => { setError(err.response.data.message) })
 
     console.log(changedUser)
 
-    if (changedUser) {
-      dispatch(setUser(changedUser))
-      dispatch(setWindowForm(null))
-    }
-
     close()
   }
 
-  const close = () => { setLoading(false) }
+  const close = () => { setLoading(false); dispatch(setWindowForm(null)); setAvatar(null); setBanner(null); setError(undefined) }
 
   const fileChange = (e: ChangeEvent<HTMLInputElement>, field: "avatar" | "banner") => {
     const file = e.target.files ? e.target.files[0] : null
