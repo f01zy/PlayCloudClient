@@ -33,27 +33,25 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const { alert } = useTypedSelector(selector => selector.alertSlice)
   const dispatch = useDispatch<AppDispatch>()
 
-  useEffect(() => { if (user) { setLinks(user.links); console.log(user.links) } }, [])
+  useEffect(() => { if (user) { setLinks(user.links) } }, [])
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
-    console.log(data, links)
+    if (!user) return
 
-    // if (!user) return
+    const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
+    const isEmpty = data.avatar.length === 0 && data.banner.length === 0 && user.username === data.username
+    if (isEmpty) return setError("You haven't changed any fields")
 
-    // const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
-    // const isEmpty = data.avatar.length === 0 && data.banner.length === 0 && user.username === data.username
-    // if (isEmpty) return setError("You haven't changed any fields")
+    setLoading(true)
 
-    // setLoading(true)
+    const formData = new FormData()
+    data.avatar.length > 0 && formData.append("avatar", data.avatar[0])
+    data.banner.length > 0 && formData.append("banner", data.banner[0])
+    data.username != user.username && formData.append("username", data.username)
 
-    // const formData = new FormData()
-    // data.avatar.length > 0 && formData.append("avatar", data.avatar[0])
-    // data.banner.length > 0 && formData.append("banner", data.banner[0])
-    // data.username != user.username && formData.append("username", data.username)
-
-    // await $api.put<IUser>("/users", formData)
-    //   .then(res => { dispatch(setUser(res.data)); close() })
-    //   .catch(err => { setError(err.response.data.message) })
+    await $api.put<IUser>("/users", formData)
+      .then(res => { dispatch(setUser(res.data)); close() })
+      .catch(err => { setError(err.response.data.message) })
   }
 
   const close = () => { setLoading(false); dispatch(setWindowForm(null)); setAvatar(null); setBanner(null); setError(undefined) }
@@ -70,7 +68,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const { register, handleSubmit } = useForm<IProfile>()
 
   return <div className={`${styles.form} ${windowForm === windowName ? styles.open : ""}`}>
-    <div className="flex justify-between items-center w-full mt-14 mb-2">
+    <div className="flex justify-between items-center w-full mt-2 mb-2">
       <h1>Edit profile</h1>
       <IoMdClose width={25} height={25} onClick={() => close()} />
     </div>
