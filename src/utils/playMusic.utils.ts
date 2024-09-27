@@ -9,9 +9,10 @@ import { IUser } from "@/interfaces/user.interface"
 import { listen } from "./listen.utils"
 import { setOnEnded } from "./setOnEnded.utils"
 import { IPlaylist } from "@/interfaces/playlist.interface"
+import { random } from "./random.utils"
 
 export const playMusic = (composition: IMusic | IPlaylist, dispatch: Dispatch<UnknownAction>, user: IUser) => {
-  const track = composition.type === "track" ? composition : composition.tracks[0]
+  const track = composition.type === "track" ? composition : composition.tracks[random(0, composition.tracks.length - 1)]
 
   dispatch(setLoading(track._id))
 

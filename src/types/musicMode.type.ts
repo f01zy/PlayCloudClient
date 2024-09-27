@@ -1,1 +1,1 @@
-export type TMusicMode = "all" | "one"
+export type TMusicMode = "random" | "one"

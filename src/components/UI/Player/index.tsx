@@ -4,7 +4,7 @@ import styles from "@/components/UI/Player/styles.module.scss"
 import { SERVER_URL } from "@/config"
 import { useTypedSelector } from "@/hooks/selector.hook"
 import Image from "next/image"
-import { FaForward, FaBackward } from "react-icons/fa"
+import { FaForward, FaBackward, FaRandom } from "react-icons/fa"
 import { FaPause } from "react-icons/fa6"
 import { IoIosPlay } from "react-icons/io";
 import { getMusicMode, playerController, setMusicMode } from "../../Wrappers/Layout"
@@ -14,7 +14,7 @@ import { handlePlayClick } from "@/utils/handlePlayClick.utils"
 import { formatTime } from "@/utils/formatTime.utils"
 import { useRouter } from "next/navigation"
 import Skeleton from "../Skeleton"
-import { RiRepeat2Line, RiRepeatOneLine } from "react-icons/ri";
+import { RiRepeatOneLine } from "react-icons/ri";
 import { playMusic } from "@/utils/playMusic.utils"
 import { TMusicMode } from "@/types/musicMode.type"
 import { random } from "@/utils/random.utils"
@@ -27,7 +27,7 @@ const Player = () => {
 
   const setMusicModeAndOnLoad = (mode: TMusicMode) => {
     setMusicMode(mode)
-    const newMusic = getMusicMode() === "all" ? user.history[random(0, user.history.length - 1)] : music!
+    const newMusic = getMusicMode() === "random" ? user.history[random(0, user.history.length - 1)] : music!
     playerController.onEnded = () => { playMusic(newMusic, dispatch, user) };
   }
 
@@ -53,8 +53,8 @@ const Player = () => {
               <div className={styles.button} onClick={() => playerController.rewind(5, dispatch)}>
                 <FaForward />
               </div>
-              <div className={styles.button} onClick={() => setMusicModeAndOnLoad(getMusicMode() === "all" ? "one" : "all")}>
-                {getMusicMode() === "one" ? <RiRepeatOneLine /> : <RiRepeat2Line />}
+              <div className={styles.button} onClick={() => setMusicModeAndOnLoad(getMusicMode() === "random" ? "one" : "random")}>
+                {getMusicMode() === "one" ? <RiRepeatOneLine /> : <FaRandom />}
               </div>
             </div>
           </div>
