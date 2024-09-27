@@ -14,7 +14,7 @@ import { setPlaylist } from "@/store/playlist/playlist.slice";
 export const handlePlayClick = (dispatch: Dispatch<UnknownAction>, composition: IMusic | IPlaylist, user: IUser | null, router: AppRouterInstance, musicName: string | undefined) => {
   if (!user) return router.push("/login")
   if (composition.type === "playlist" && composition.tracks.length === 0) return alert("This playlist is empty")
-  const name = composition.type == "track" ? composition.name : composition.tracks[0].name
+  const name = composition.type == "track" ? composition.name : composition.tracks.find(el => el.name === musicName)
   if (musicName != name) {
     composition.type === "playlist" ? dispatch(setPlaylist(composition._id)) : dispatch(setPlaylist(null))
     playMusic(composition, dispatch, user)
