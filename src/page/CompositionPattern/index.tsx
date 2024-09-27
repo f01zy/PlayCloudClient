@@ -66,7 +66,7 @@ const CompositionPattern: FC<ICompositionPattern> = ({ id, type }) => {
         <div className={styles.buttons}>
           <div className={styles.button} onClick={() => { handlePlayClick(dispatch, composition, user, router, music?.name) }}>
             {
-              music ? (composition.type === "track" ? music._id === composition._id : playlist === composition._id) ? music.isPaused ? <IoIosPlay /> : <FaPause /> : <IoIosPlay /> : <IoIosPlay />
+              music ? music._id === composition._id ? music.isPaused ? <IoIosPlay /> : <FaPause /> : <IoIosPlay /> : <IoIosPlay />
             }
           </div>
           <div className={styles.button} onClick={() => {
