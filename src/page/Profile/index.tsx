@@ -19,6 +19,7 @@ import CreatePlaylistStepOne from "@/components/Forms/CreatePlaylist/one"
 import CreatePlaylistStepTwo from "@/components/Forms/CreatePlaylist/two"
 import Link from "next/link"
 import Skeleton from "@/components/UI/Skeleton"
+import { filterListeningsByDate } from "@/utils/filterListeningsByDate.utils"
 
 enum ESlide { "Tracks", "Playlists" }
 const length = Object.keys(ESlide).length / 2
@@ -30,13 +31,19 @@ for (let i = 0; i < length; i++) {
 
 const Profile: FC<{ id: string }> = ({ id }) => {
   const [fetchUser, setFetchUser] = useState<IUser>()
+  const [listenings, setListenings] = useState<number>(0)
   const [slide, setSlide] = useState<ESlide>(ESlide.Tracks)
   const user = useTypedSelector(selector => selector.userSlice.user)
   const dispatch = useDispatch<AppDispatch>()
 
   const avatar = 90
 
-  useEffect(() => { $api.get<IUser>(`/users/${id}`).then(res => setFetchUser(res.data)) }, [])
+  useEffect(() => {
+    $api.get<IUser>(`/users/${id}`).then(res => res.data).then(user => {
+      user.tracks.map(music => setListenings(listenings + filterListeningsByDate(music.listenings).length))
+      setFetchUser(user)
+    })
+  }, [])
 
   return <div className={styles.profile}>
     <Upload setFetchUser={setFetchUser} />
@@ -52,9 +59,8 @@ const Profile: FC<{ id: string }> = ({ id }) => {
               <>
                 <Avatar user={fetchUser} width={avatar} height={avatar} />
                 <h3>{fetchUser.username}</h3>
-                <p>{fetchUser.tracks.length} tracks</p>
-                <p>{fetchUser.playlists.length} playlists</p>
-                {user?._id === fetchUser._id && <RiEdit2Fill width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="ml-3 mt-4 cursor-pointer" />}
+                <p>({listenings} listening on last week)</p>
+                {user?._id === fetchUser._id && <RiEdit2Fill style={{ marginTop: "15px" }} width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="ml-3 cursor-pointer" />}
               </> :
               <>
                 <Skeleton width={`${avatar}px`} height={`${avatar}px`} />
