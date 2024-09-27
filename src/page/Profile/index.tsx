@@ -54,7 +54,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
                 <h3>{fetchUser.username}</h3>
                 <p>{fetchUser.tracks.length} tracks</p>
                 <p>{fetchUser.playlists.length} playlists</p>
-                {user?._id === fetchUser._id && <RiEdit2Fill style={{ marginTop: "15px" }} width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="ml-3 cursor-pointer" />}
+                {user?._id === fetchUser._id && <RiEdit2Fill width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="ml-3 mt-4 cursor-pointer" />}
               </> :
               <>
                 <Skeleton width={`${avatar}px`} height={`${avatar}px`} />
@@ -64,10 +64,10 @@ const Profile: FC<{ id: string }> = ({ id }) => {
       </div>
       <p className={`${styles.description} text-base`}>{fetchUser ? fetchUser.description : <Skeleton width="200px" height="20px" />}</p>
       <div className={`${styles.links} mt-3`}>
-        <h3 className="text-base">Links</h3>
         {
           fetchUser &&
           <>
+            <h3 className="text-base">Links</h3>
             {
               fetchUser.links.length > 0 ?
                 <ul>
