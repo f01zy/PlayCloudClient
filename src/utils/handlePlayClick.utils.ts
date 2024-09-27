@@ -16,7 +16,7 @@ export const handlePlayClick = (dispatch: Dispatch<UnknownAction>, composition: 
   if (composition.type === "playlist" && composition.tracks.length === 0) return alert("This playlist is empty")
   const name = composition.type == "track" ? composition.name : composition.tracks[0].name
   if (musicName != name) {
-    composition.type === "playlist" && dispatch(setPlaylist(composition._id))
+    composition.type === "playlist" ? dispatch(setPlaylist(composition._id)) : dispatch(setPlaylist(null))
     playMusic(composition, dispatch, user)
     return
   }
