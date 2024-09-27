@@ -55,7 +55,16 @@ const Profile: FC<{ id: string }> = ({ id }) => {
           </div>
         </div>
         <p className={`${styles.description} text-base mt-2`}>{fetchUser.description}</p>
-        <div className={`${styles.links} mt-3`}><h3 className="text-base">Links</h3>{fetchUser.links.map(link => <Link className="text-sm" href={link}>{link}</Link>)}</div>
+        <div className={`${styles.links} mt-3`}>
+          <h3 className="text-base">Links</h3>
+          {
+            fetchUser.links.length > 0 ?
+              <ul>
+                {fetchUser.links.map(link => <li><Link className="text-sm" href={link}>{link}</Link></li>)}
+              </ul> :
+              <h4 className="text-sm mt-2">Have&apos;nt links</h4>
+          }
+        </div>
       </div>
       <nav>
         <ul>
