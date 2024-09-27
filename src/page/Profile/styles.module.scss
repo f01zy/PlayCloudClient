@@ -37,6 +37,22 @@
         margin-top: 13px;
       }
     }
+
+    .description {
+      margin-left: calc($avatar / 2);
+    }
+
+    .links {
+      margin-left: calc($avatar / 2);
+
+      a {
+        text-decoration: underline;
+
+        &:not(:first-child) {
+          margin-top: 8px;
+        }
+      }
+    }
   }
 
   nav {

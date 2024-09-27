@@ -17,6 +17,7 @@ import { RiEdit2Fill } from "react-icons/ri"
 import { useDispatch } from "react-redux"
 import CreatePlaylistStepOne from "@/components/Forms/CreatePlaylist/one"
 import CreatePlaylistStepTwo from "@/components/Forms/CreatePlaylist/two"
+import Link from "next/link"
 
 enum ESlide { "Tracks", "Playlists" }
 const length = Object.keys(ESlide).length / 2
@@ -50,6 +51,8 @@ const Profile: FC<{ id: string }> = ({ id }) => {
           <p>{fetchUser.tracks.length} треков</p>
           {user?._id === fetchUser._id && <RiEdit2Fill style={{ marginTop: "15px" }} width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="ml-3 cursor-pointer" />}
         </div>
+        <p className={`${styles.description} text-base mt-2`}>{fetchUser.description}</p>
+        <div className={`${styles.links} mt-2`}>{fetchUser.links.map(link => <Link className="text-base" href={link}>{link}</Link>)}</div>
       </div>
       <nav>
         <ul>
