@@ -20,6 +20,7 @@ import CreatePlaylistStepTwo from "@/components/Forms/CreatePlaylist/two"
 import Link from "next/link"
 import Skeleton from "@/components/UI/Skeleton"
 import { filterListeningsByDate } from "@/utils/filterListeningsByDate.utils"
+import { IListening } from "@/interfaces/listening.interface"
 
 enum ESlide { "Tracks", "Playlists" }
 const length = Object.keys(ESlide).length / 2
@@ -31,7 +32,7 @@ for (let i = 0; i < length; i++) {
 
 const Profile: FC<{ id: string }> = ({ id }) => {
   const [fetchUser, setFetchUser] = useState<IUser>()
-  const [listenings, setListenings] = useState<number>(0)
+  const [listenings, setListenings] = useState<Array<IListening>>([])
   const [slide, setSlide] = useState<ESlide>(ESlide.Tracks)
   const user = useTypedSelector(selector => selector.userSlice.user)
   const dispatch = useDispatch<AppDispatch>()
@@ -40,7 +41,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
 
   useEffect(() => {
     $api.get<IUser>(`/users/${id}`).then(res => res.data).then(user => {
-      user.tracks.map(music => setListenings(listenings + filterListeningsByDate(music.listenings).length))
+      user.tracks.map(music => setListenings([...listenings, ...music.listenings]))
       setFetchUser(user)
     })
   }, [])
@@ -59,7 +60,7 @@ const Profile: FC<{ id: string }> = ({ id }) => {
               <>
                 <Avatar user={fetchUser} width={avatar} height={avatar} />
                 <h3>{fetchUser.username}</h3>
-                <p>({listenings} listening on last week)</p>
+                <p>({filterListeningsByDate(listenings).length} listening on last week)</p>
                 {user?._id === fetchUser._id && <RiEdit2Fill style={{ marginTop: "15px" }} width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="ml-3 cursor-pointer" />}
               </> :
               <>
