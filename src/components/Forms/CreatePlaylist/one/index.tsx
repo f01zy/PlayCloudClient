@@ -9,17 +9,17 @@ import { setLoading, setWindowForm } from "@/store/site/site.slice";
 import WindowForm from "../../WindowForm";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { $api } from "@/http";
-import { handleClickBlock } from "@/utils/handleClickBlock.utils";
 import { TInputExtends } from "@/types/input.type";
+import { useState } from "react";
 
 const CreatePlaylistStepOne = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { user } = useTypedSelector(selector => selector.userSlice)
-  const { blocked } = useTypedSelector(selector => selector.siteSlice)
-  const { alert } = useTypedSelector(selector => selector.alertSlice)
+  const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
-    if (user?.tracks.length === 0) { const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return; dispatch(setLoading(true)); await $api.post("/playlist", { tracks: [], ...data }).then(() => dispatch(setLoading(false))); return dispatch(setWindowForm(null)) }
+    if (isSuccess) return
+    if (user?.tracks.length === 0) { setIsSuccess(true); dispatch(setLoading(true)); await $api.post("/playlist", { tracks: [], ...data }).then(() => dispatch(setLoading(false))); dispatch(setWindowForm(null)); return setTimeout(() => setIsSuccess(false), 2000) }
     dispatch(setCreate({ ...data as ICreatePlaylist }))
     dispatch(setWindowForm(null))
     setTimeout(() => dispatch(setWindowForm("createPlaylistStepTwo")))

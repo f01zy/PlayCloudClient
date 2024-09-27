@@ -4,13 +4,11 @@ import { $api } from "@/http"
 import { IUser } from "@/interfaces/user.interface"
 import { AppDispatch } from "@/store/store"
 import { setUser } from "@/store/user/user.slice"
-import { SetStateAction, Dispatch, FC } from "react"
+import { SetStateAction, Dispatch, FC, useState } from "react"
 import { FieldValues, SubmitHandler } from "react-hook-form"
 import { useDispatch } from "react-redux"
 import { setLoading, setWindowError, setWindowForm } from "@/store/site/site.slice"
 import WindowForm from "../WindowForm"
-import { useTypedSelector } from "@/hooks/selector.hook"
-import { handleClickBlock } from "@/utils/handleClickBlock.utils"
 import { TInputExtends } from "@/types/input.type"
 
 interface IUploadComponent {
@@ -19,11 +17,10 @@ interface IUploadComponent {
 
 const Upload: FC<IUploadComponent> = ({ setFetchUser }) => {
   const dispatch = useDispatch<AppDispatch>()
-  const { alert } = useTypedSelector(selector => selector.alertSlice)
-  const { blocked } = useTypedSelector(selector => selector.siteSlice)
+  const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
   const onSubmit: SubmitHandler<FieldValues> = async data => {
-    const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
+    if (isSuccess) return
 
     dispatch(setLoading(true))
 
@@ -32,13 +29,14 @@ const Upload: FC<IUploadComponent> = ({ setFetchUser }) => {
     formData.append("files", data.music[0])
     formData.append("name", data.name)
 
-    const user = await $api.post<IUser>("/music", formData, { headers: { "Content-Type": "mulpipart/form-data" } }).then(res => res.data).catch(err => { dispatch(setWindowError(err.response.data.message)) }).finally(() => dispatch(setLoading(false)))
+    const user = await $api.post<IUser>("/music", formData, { headers: { "Content-Type": "mulpipart/form-data" } }).then(res => { setIsSuccess(true); return res.data }).catch(err => { dispatch(setWindowError(err.response.data.message)) }).finally(() => dispatch(setLoading(false)))
 
     if (!user) return
 
     dispatch(setUser(user))
     setFetchUser(user)
     dispatch(setWindowForm(null))
+    setTimeout(() => setIsSuccess(false), 2000)
   }
 
   const inputs: Array<TInputExtends> = [{ accept: "image/*", field: "cover", label: "Choice a cover", multiple: false, type: "file" }, { accept: ".mp3", field: "music", label: "Choice a music", multiple: false, type: "file" }, { field: "name", label: "name", type: "text" }]

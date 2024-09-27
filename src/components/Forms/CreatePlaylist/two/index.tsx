@@ -8,7 +8,6 @@ import { $api } from "@/http"
 import { ICreatePlaylist } from "@/interfaces/playlistCreate.interface"
 import { setWindowForm } from "@/store/site/site.slice"
 import { AppDispatch } from "@/store/store"
-import { handleClickBlock } from "@/utils/handleClickBlock.utils"
 import Image from "next/image"
 import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
@@ -18,21 +17,20 @@ const CreatePlaylistStepTwo = () => {
   const [tracks, setTracks] = useState<Array<string>>([])
   const [error, setError] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
+  const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
   const dispatch = useDispatch<AppDispatch>()
   const { user } = useTypedSelector(selector => selector.userSlice)
   const create = useTypedSelector(selector => selector.playlistSlice.create)
-  const { windowForm, blocked } = useTypedSelector(selector => selector.siteSlice)
-  const { alert } = useTypedSelector(selector => selector.alertSlice)
+  const { windowForm } = useTypedSelector(selector => selector.siteSlice)
 
   const { handleSubmit } = useForm<ICreatePlaylist>()
 
   const onSubmit: SubmitHandler<ICreatePlaylist> = async data => {
-    if (!create) return
-    const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
+    if (!create || isSuccess) return
     setLoading(true)
 
-    await $api.post("/playlist", { tracks, description: create.description, name: create.name }).then(() => { setLoading(false); dispatch(setWindowForm(null)) }).catch(() => setError(true))
+    await $api.post("/playlist", { tracks, description: create.description, name: create.name }).then(() => { setIsSuccess(true), setLoading(false); dispatch(setWindowForm(null)); setTimeout(() => setIsSuccess(false), 2000) }).catch(() => setError(true))
   }
 
   return <div className={`${styles.selectTracks} ${windowForm === "createPlaylistStepTwo" ? styles.open : ""}`}>

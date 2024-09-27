@@ -14,7 +14,6 @@ import { FcAddImage } from "react-icons/fc";
 import { FaPlus } from "react-icons/fa6";
 import { $api } from "@/http";
 import { SERVER_URL } from "@/config";
-import { handleClickBlock } from "@/utils/handleClickBlock.utils";
 import { IUser } from "@/interfaces/user.interface";
 import { setUser } from "@/store/user/user.slice";
 
@@ -27,19 +26,17 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const [avatar, setAvatar] = useState<string | ArrayBuffer | null>(null)
   const [banner, setBanner] = useState<string | ArrayBuffer | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
-  const [disabled, setDisabled] = useState<boolean>(false)
-  const { windowForm, blocked } = useTypedSelector(selector => selector.siteSlice)
+  const [isSuccess, setIsSuccess] = useState<boolean>(false)
+  const { windowForm } = useTypedSelector(selector => selector.siteSlice)
   const { user } = useTypedSelector(selector => selector.userSlice)
   const [links, setLinks] = useState<Array<string>>([""])
-  const { alert } = useTypedSelector(selector => selector.alertSlice)
   const dispatch = useDispatch<AppDispatch>()
 
-  useEffect(() => { if (user && user.links.length > 0) { setLinks(user.links) } }, [])
+  useEffect(() => { if (user && user.links.length > 0) { setLinks(user.links) } }, [user])
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
-    if (!user) return
+    if (!user || isSuccess) return
 
-    const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
     const isEmpty = data.avatar.length === 0 &&
       data.banner.length === 0 &&
       (user.username === data.username || data.username.length === 0) &&
@@ -61,11 +58,11 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     }
 
     await $api.put<IUser>("/users", formData)
-      .then(res => { setDisabled(true); dispatch(setUser(res.data)); close() })
+      .then(res => { setIsSuccess(true); dispatch(setUser(res.data)); close() })
       .catch(err => { setError(err.response.data.message) })
   }
 
-  const close = () => { setLoading(false); dispatch(setWindowForm(null)); setAvatar(null); setBanner(null); setError(undefined) }
+  const close = () => { setLoading(false); dispatch(setWindowForm(null)); setAvatar(null); setBanner(null); setError(undefined); setLinks([]); setTimeout(() => setIsSuccess(false), 2000) }
 
   const fileChange = (e: ChangeEvent<HTMLInputElement>, field: "avatar" | "banner") => {
     const file = e.target.files ? e.target.files[0] : null
@@ -99,7 +96,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
       <div className="w-full">
         {links ? links.map((link, index) => <div className="mt-2 w-full flex items-center justify-between"><Input label="link" type="url" onChange={e => { let tempLinks = links; tempLinks[index] = e.target.value; setLinks(tempLinks) }} />{links.length > 1 && <IoMdClose className="ml-4" onClick={() => setLinks(links.filter((_, i) => i != index))} />}</div>) : ""}
       </div>
-      <Button disabled={disabled} type="submit">{loading ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
+      <Button type="submit">{loading ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>
   </div>
 }
