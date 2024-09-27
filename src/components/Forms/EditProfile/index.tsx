@@ -100,7 +100,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
       <Input defaultValue={user?.description} max={200} field="description" label="description" required={false} type="text" register={register} />
       <div className="w-full flex items-center justify-between mt-3"><h4 className="text-base">Links</h4><FaPlus onClick={() => { links.length >= 4 ? setError("Maximum of four links") : setLinks([...links, ""]) }} /></div>
       <div className="w-full">
-        {links ? links.map((link, index) => <div className="mt-2 w-full flex items-center justify-between"><Input label="link" type="url" onChange={e => { let tempLinks = links; tempLinks[index] = e.target.value; setLinks(tempLinks) }} />{links.length > 1 && <IoMdClose className="ml-4" onClick={() => setLinks(links.filter((_, i) => i != index))} />}</div>) : ""}
+        {links.map((link, index) => <div className="mt-2 w-full flex items-center justify-between"><Input label="link" type="url" onChange={e => { let tempLinks = links; tempLinks[index] = e.target.value; setLinks(tempLinks) }} />{links.length > 1 && <IoMdClose className="ml-4" onClick={() => setLinks(links.filter((_, i) => i != index))} />}</div>)}
       </div>
       <Button type="submit">{loading ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>

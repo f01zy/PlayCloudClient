@@ -4,6 +4,8 @@
   height: auto;
 
   .user {
+    margin-bottom: 30px;
+
     .container {
       width: 100%;
       height: 30vh;
@@ -27,7 +29,6 @@
         margin-left: calc($avatar / 2);
 
         h3 {
-          margin-right: 10px;
           font-size: 19px;
           margin-top: 10px;
         }
@@ -36,6 +37,7 @@
           font-size: 15px;
           color: #bababa;
           margin-top: 13px;
+          margin-left: 10px;
         }
       }
     }

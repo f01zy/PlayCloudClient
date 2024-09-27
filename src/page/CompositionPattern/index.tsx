@@ -29,6 +29,7 @@ interface ICompositionPattern {
 const CompositionPattern: FC<ICompositionPattern> = ({ id, type }) => {
   const [composition, setComposition] = useState<IMusic | IPlaylist>()
   const { music } = useTypedSelector(selector => selector.musicSlice)
+  const { playlist } = useTypedSelector(selector => selector.playlistSlice)
   const { alert } = useTypedSelector(selector => selector.alertSlice)
   const { blocked } = useTypedSelector(selector => selector.siteSlice)
   const user = useTypedSelector(selector => selector.userSlice.user)
@@ -64,7 +65,9 @@ const CompositionPattern: FC<ICompositionPattern> = ({ id, type }) => {
         </div>
         <div className={styles.buttons}>
           <div className={styles.button} onClick={() => { handlePlayClick(dispatch, composition, user, router, music?.name) }}>
-            {music ? music._id === composition._id ? music.isPaused ? <IoIosPlay /> : <FaPause /> : <IoIosPlay /> : <IoIosPlay />}
+            {
+              music ? (composition.type === "track" ? music._id === composition._id : playlist === composition._id) ? music.isPaused ? <IoIosPlay /> : <FaPause /> : <IoIosPlay /> : <IoIosPlay />
+            }
           </div>
           <div className={styles.button} onClick={() => {
             const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return

@@ -20,7 +20,7 @@ export const playlistSlice = createSlice({
   name: "playlist",
   reducers: {
     setCreate(state, { payload }: { payload: TCreate | null }) { state.create = payload },
-    setPlaylist(state, { payload }: { payload: string }) { state.playlist = payload }
+    setPlaylist(state, { payload }: { payload: string | null }) { state.playlist = payload }
   }
 })
 
