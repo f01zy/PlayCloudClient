@@ -52,7 +52,7 @@ const CompositionPattern: FC<ICompositionPattern> = ({ id, type }) => {
             {composition.type === "playlist" ? <h4 className="!text-white">{composition.name[0].toUpperCase()}</h4> : <Image unoptimized src={`${SERVER_URL}/cover/${composition._id}.jpg`} alt={composition.name} width={100} height={100} />}
           </div>
           <div className={styles.info}>
-            <Link href={`/tracks/${composition._id}`}><h1>{composition.name}</h1></Link>
+            <Link href={`/${composition.type}s/${composition._id}`}><h1>{composition.name}</h1></Link>
             <p>
               {
                 composition.type === "track" ?
