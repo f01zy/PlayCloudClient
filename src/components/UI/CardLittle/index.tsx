@@ -19,6 +19,7 @@ const CardLittle: FC<IMusic | IPlaylist> = (props) => {
   const dispatch = useDispatch<AppDispatch>()
   const user = useTypedSelector(selector => selector.userSlice.user)
   const { music, loading } = useTypedSelector(selector => selector.musicSlice)
+  const { playlist } = useTypedSelector(selector => selector.playlistSlice)
   const router = useRouter()
 
   return <div className={styles.cardLittle}>
@@ -26,7 +27,7 @@ const CardLittle: FC<IMusic | IPlaylist> = (props) => {
       {props.type === "playlist" ? <h4 className="!text-white">{props.name[0].toUpperCase()}</h4> : <Image unoptimized src={`${SERVER_URL}/cover/${props._id}.jpg`} alt={props.name} width={100} height={100} />}
 
       <div className={styles.play}>
-        <div onClick={() => { handlePlayClick(dispatch, props, user, router, music?.name) }}>
+        <div onClick={() => { const id = props.type === "playlist" ? playlist! : music?._id; handlePlayClick(dispatch, props, user, router, id) }}>
           {loading === props._id ? <Image src={"/circle-loader.svg"} alt="loading" width={100} height={100} /> : music?.name != props.name ? <IoIosPlay /> : music?.isPaused ? <IoIosPlay /> : <FaPause />}
         </div>
       </div>

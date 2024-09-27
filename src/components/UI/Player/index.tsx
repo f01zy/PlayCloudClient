@@ -46,7 +46,7 @@ const Player = () => {
                 <FaBackward />
               </div>
               <div className={styles.button} onClick={() => {
-                handlePlayClick(dispatch, music, user, router, music.name)
+                handlePlayClick(dispatch, music, user, router, music._id)
               }}>
                 {music.isPaused ? <IoIosPlay /> : <FaPause />}
               </div>
