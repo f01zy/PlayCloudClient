@@ -19,7 +19,6 @@ const TracksGrid: FC<ITracksGrid> = ({ quantity, label, sort, tracks: tempTracks
   useEffect(() => {
     const setup = async () => {
       let tracks = tempTracks ? tempTracks : await getAllMusic()
-      console.log(tracks, quantity, sort)
       if (sort) tracks = tracks.sort((a, b) => b[sort].length - a[sort].length)
       if (quantity) tracks = tracks.slice(0, quantity > tracks.length ? tracks.length : quantity)
       setMusic(tracks)

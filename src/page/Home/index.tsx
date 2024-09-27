@@ -10,7 +10,7 @@ const Home = () => {
 
   return <div className={styles.home}>
     <Banner title="PlayCloud" value="The best platform for high-quality music listening" />
-    {user && user.tracks.length > 0 && <TracksGrid label="Your most popular tracks" tracks={user.tracks} quantity={6} sort="listenings" />}
+    {user && user.tracks.length > 0 && <TracksGrid label="Your tracks" tracks={user.tracks} quantity={6} />}
     <TracksGrid label="Most popular" quantity={6} sort="listenings" />
   </div>
 }
