@@ -7,22 +7,12 @@ import { FC, HTMLInputTypeAttribute } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import Button from "../../UI/Button"
 import Input from "@/components/UI/Input"
-
-export type TFileInput = {
-  multiple: boolean,
-  accept: string
-}
-
-export type TInput = {
-  type?: HTMLInputTypeAttribute,
-  field: string,
-  label: string
-}
+import { TInputExtends } from "@/types/input.type"
 
 interface IAuthForm {
   buttonLabel: string,
   onSubmit: SubmitHandler<FieldValues>,
-  inputs: Array<TInput>
+  inputs: Array<TInputExtends>
 }
 
 const AuthForm: FC<IAuthForm> = ({ onSubmit, inputs, buttonLabel }) => {

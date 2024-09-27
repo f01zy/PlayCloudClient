@@ -9,9 +9,9 @@ import { FieldValues, SubmitHandler } from "react-hook-form"
 import { useDispatch } from "react-redux"
 import { setLoading, setWindowError, setWindowForm } from "@/store/site/site.slice"
 import WindowForm from "../WindowForm"
-import { TFileInput, TInput } from "../AuthForm"
 import { useTypedSelector } from "@/hooks/selector.hook"
 import { handleClickBlock } from "@/utils/handleClickBlock.utils"
+import { TInputExtends } from "@/types/input.type"
 
 interface IUploadComponent {
   setFetchUser: Dispatch<SetStateAction<IUser | undefined>>
@@ -41,7 +41,7 @@ const Upload: FC<IUploadComponent> = ({ setFetchUser }) => {
     dispatch(setWindowForm(null))
   }
 
-  const inputs: Array<TInput | TInput & TFileInput> = [{ accept: "image/*", field: "cover", label: "Choice a cover", multiple: false, type: "file" }, { accept: ".mp3", field: "music", label: "Choice a music", multiple: false, type: "file" }, { field: "name", label: "name", type: "text" }]
+  const inputs: Array<TInputExtends> = [{ accept: "image/*", field: "cover", label: "Choice a cover", multiple: false, type: "file" }, { accept: ".mp3", field: "music", label: "Choice a music", multiple: false, type: "file" }, { field: "name", label: "name", type: "text" }]
 
   return <WindowForm inputs={inputs} onSubmit={onSubmit} windowName="uploadTrack" title="Upload a track" />
 }

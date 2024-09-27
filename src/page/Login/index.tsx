@@ -1,12 +1,13 @@
 "use client"
 
-import AuthForm, { TInput } from "@/components/Forms/AuthForm"
+import AuthForm from "@/components/Forms/AuthForm"
 import { ILogin } from "@/interfaces/login.interface"
 import { AppDispatch } from "@/store/store"
 import { login } from "@/store/user/user.actions"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
 import { useState } from "react"
+import { TInputExtends } from "@/types/input.type"
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -21,7 +22,7 @@ const Login = () => {
     dispatch(login(typedData)).then(() => setIsSended(false))
   }
 
-  const inputs: Array<TInput> = [
+  const inputs: Array<TInputExtends> = [
     {
       field: "email",
       label: "email",

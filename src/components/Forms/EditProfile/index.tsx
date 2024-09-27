@@ -29,7 +29,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const { windowForm, blocked } = useTypedSelector(selector => selector.siteSlice)
   const { user } = useTypedSelector(selector => selector.userSlice)
-  const [links, setLinks] = useState<Array<string>>([])
+  const [links, setLinks] = useState<Array<string>>([""])
   const { alert } = useTypedSelector(selector => selector.alertSlice)
   const dispatch = useDispatch<AppDispatch>()
 
@@ -39,15 +39,20 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     if (!user) return
 
     const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
-    const isEmpty = data.avatar.length === 0 && data.banner.length === 0 && user.username === data.username
+    const isEmpty = data.avatar.length === 0 && data.banner.length === 0 && (user.username === data.username || data.username.length === 0)
     if (isEmpty) return setError("You haven't changed any fields")
 
     setLoading(true)
 
     const formData = new FormData()
+
     data.avatar.length > 0 && formData.append("avatar", data.avatar[0])
     data.banner.length > 0 && formData.append("banner", data.banner[0])
-    data.username != user.username && formData.append("username", data.username)
+    !(user.username === data.username || data.username.length === 0) && formData.append("username", data.username)
+    data.description && formData.append("description", data.description)
+    if (links.some(el => el.trim().length > 0)) {
+      links.forEach((link, index) => formData.append(`links[${index}]`, link))
+    }
 
     await $api.put<IUser>("/users", formData)
       .then(res => { dispatch(setUser(res.data)); close() })
@@ -82,11 +87,11 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
         {avatar ? <Image unoptimized src={avatar.toString()} alt="avatar" height={100} width={100} className="w-full h-full" /> : user?.avatar ? <Image unoptimized src={`${SERVER_URL}/avatar/${user._id}.jpg`} alt="avatar" width={100} height={100} className="w-full h-full" /> : <FcAddImage width={40} className={styles.load} />}
         <input type="file" multiple={false} accept="image/*" {...register("avatar", { required: false, onChange: (e: ChangeEvent<HTMLInputElement>) => fileChange(e, "avatar") })} />
       </div>
-      <Input defaultValue={user?.username} min={3} max={25} field="username" label="username" required={false} type="text" register={register} />
-      <Input defaultValue={user?.description} field="description" label="description" required={false} type="text" register={register} />
+      <Input defaultValue={user?.username} min={4} max={16} field="username" label="username" required={false} type="text" register={register} />
+      <Input defaultValue={user?.description} max={200} field="description" label="description" required={false} type="text" register={register} />
       <div className="w-full flex items-center justify-between mt-3"><h4 className="text-base">Links</h4><FaPlus onClick={() => { links.length >= 4 ? setError("Maximum of four links") : setLinks([...links, ""]) }} /></div>
       <div className="w-full">
-        {links ? links.map((link, index) => <div className="mt-2 w-full flex items-center justify-between"><Input label="link" onChange={e => { let tempLinks = links; tempLinks[index] = e.target.value; setLinks(tempLinks) }} /><IoMdClose className="ml-4" onClick={() => setLinks(links.filter((_, i) => i != index))} /></div>) : ""}
+        {links ? links.map((link, index) => <div className="mt-2 w-full flex items-center justify-between"><Input label="link" type="url" onChange={e => { let tempLinks = links; tempLinks[index] = e.target.value; setLinks(tempLinks) }} />{links.length > 1 && <IoMdClose className="ml-4" onClick={() => setLinks(links.filter((_, i) => i != index))} />}</div>) : ""}
       </div>
       <Button type="submit">{loading ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>

@@ -1,6 +1,5 @@
 "use client"
 
-import { TFileInput, TInput } from "../../AuthForm";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
@@ -11,6 +10,7 @@ import WindowForm from "../../WindowForm";
 import { useTypedSelector } from "@/hooks/selector.hook";
 import { $api } from "@/http";
 import { handleClickBlock } from "@/utils/handleClickBlock.utils";
+import { TInputExtends } from "@/types/input.type";
 
 const CreatePlaylistStepOne = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -25,7 +25,7 @@ const CreatePlaylistStepOne = () => {
     setTimeout(() => dispatch(setWindowForm("createPlaylistStepTwo")))
   }
 
-  const inputs: Array<TInput | TInput & TFileInput> = [
+  const inputs: Array<TInputExtends> = [
     {
       field: "name",
       label: "name",
