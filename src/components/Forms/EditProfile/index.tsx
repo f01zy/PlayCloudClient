@@ -2,7 +2,7 @@ import styles from "@/components/Forms/EditProfile/styles.module.scss"
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/store/store";
-import { ChangeEvent, FC, useState } from "react"
+import { ChangeEvent, FC, useEffect, useState } from "react"
 import { useTypedSelector } from "@/hooks/selector.hook";
 import Input from "../../UI/Input";
 import { IProfile } from "@/interfaces/profile.interface";
@@ -28,12 +28,11 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
   const { windowForm } = useTypedSelector(selector => selector.siteSlice)
-  const { user } = useTypedSelector(selector => selector.userSlice)!
-
-  if (!user) return
-
-  const [links, setLinks] = useState<Array<string>>(user.links.length > 0 ? user.links : [""])
+  const { user } = useTypedSelector(selector => selector.userSlice)
+  const [links, setLinks] = useState<Array<string>>([""])
   const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(() => { if (user && user.links.length > 0) setLinks(user.links) }, [user])
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
     if (!user || isSuccess) return

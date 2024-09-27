@@ -44,15 +44,18 @@ const Profile: FC<{ id: string }> = ({ id }) => {
       <CreatePlaylistStepTwo />
       <EditProfile windowName="editProfile" />
       <div className={styles.user}>
-        <div className={styles.banner}>{fetchUser.banner && <Image unoptimized src={`${SERVER_URL}/banner/${fetchUser._id}.jpg`} alt="banner" width={100} height={100} className="w-full h-full" />}</div>
-        <div className={styles.user_info}>
-          <Avatar user={fetchUser} width={avatar} height={avatar} />
-          <h3>{fetchUser.username}</h3>
-          <p>{fetchUser.tracks.length} треков</p>
-          {user?._id === fetchUser._id && <RiEdit2Fill style={{ marginTop: "15px" }} width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="ml-3 cursor-pointer" />}
+        <div className={styles.container}>
+          <div className={styles.banner}>{fetchUser.banner && <Image unoptimized src={`${SERVER_URL}/banner/${fetchUser._id}.jpg`} alt="banner" width={100} height={100} className="w-full h-full" />}</div>
+          <div className={styles.user_info}>
+            <Avatar user={fetchUser} width={avatar} height={avatar} />
+            <h3>{fetchUser.username}</h3>
+            <p>{fetchUser.tracks.length} tracks</p>
+            <p>{fetchUser.playlists.length} playlists</p>
+            {user?._id === fetchUser._id && <RiEdit2Fill style={{ marginTop: "15px" }} width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="ml-3 cursor-pointer" />}
+          </div>
         </div>
         <p className={`${styles.description} text-base mt-2`}>{fetchUser.description}</p>
-        <div className={`${styles.links} mt-2`}>{fetchUser.links.map(link => <Link className="text-base" href={link}>{link}</Link>)}</div>
+        <div className={`${styles.links} mt-3`}><h3 className="text-base">Links</h3>{fetchUser.links.map(link => <Link className="text-sm" href={link}>{link}</Link>)}</div>
       </div>
       <nav>
         <ul>
