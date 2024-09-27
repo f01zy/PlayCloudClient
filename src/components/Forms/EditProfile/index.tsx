@@ -27,19 +27,25 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const [avatar, setAvatar] = useState<string | ArrayBuffer | null>(null)
   const [banner, setBanner] = useState<string | ArrayBuffer | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
+  const [disabled, setDisabled] = useState<boolean>(false)
   const { windowForm, blocked } = useTypedSelector(selector => selector.siteSlice)
   const { user } = useTypedSelector(selector => selector.userSlice)
   const [links, setLinks] = useState<Array<string>>([""])
   const { alert } = useTypedSelector(selector => selector.alertSlice)
   const dispatch = useDispatch<AppDispatch>()
 
-  useEffect(() => { if (user) { setLinks(user.links) } }, [])
+  useEffect(() => { if (user && user.links.length > 0) { setLinks(user.links) } }, [])
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
     if (!user) return
 
     const isBlocked = handleClickBlock(dispatch, blocked, alert.isShow); if (isBlocked) return
-    const isEmpty = data.avatar.length === 0 && data.banner.length === 0 && (user.username === data.username || data.username.length === 0)
+    const isEmpty = data.avatar.length === 0 &&
+      data.banner.length === 0 &&
+      (user.username === data.username || data.username.length === 0) &&
+      (user.description === data.description || data.description.length === 0) &&
+      user.links === links
+
     if (isEmpty) return setError("You haven't changed any fields")
 
     setLoading(true)
@@ -55,7 +61,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
     }
 
     await $api.put<IUser>("/users", formData)
-      .then(res => { dispatch(setUser(res.data)); close() })
+      .then(res => { setDisabled(true); dispatch(setUser(res.data)); close() })
       .catch(err => { setError(err.response.data.message) })
   }
 
@@ -93,7 +99,7 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
       <div className="w-full">
         {links ? links.map((link, index) => <div className="mt-2 w-full flex items-center justify-between"><Input label="link" type="url" onChange={e => { let tempLinks = links; tempLinks[index] = e.target.value; setLinks(tempLinks) }} />{links.length > 1 && <IoMdClose className="ml-4" onClick={() => setLinks(links.filter((_, i) => i != index))} />}</div>) : ""}
       </div>
-      <Button type="submit">{loading ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
+      <Button disabled={disabled} type="submit">{loading ? <Image unoptimized src={"/loader.svg"} width={30} height={100} alt="loader" /> : <p>Save changes</p>}</Button>
     </form>
   </div>
 }
