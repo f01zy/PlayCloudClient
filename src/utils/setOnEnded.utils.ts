@@ -12,5 +12,6 @@ export const setOnEnded = (user: IUser, currentMusic: IMusic, dispatch: Dispatch
   const music = getMusicMode() === "random" ?
     playlist[random(0, playlist.length - 1)] :
     currentMusic
+  console.log(playlist, music)
   playerController.onEnded = () => { id ? playMusic(findPlaylist!, dispatch, user) : playMusic(music, dispatch, user) };
 }
