@@ -32,7 +32,13 @@ const EditProfile: FC<IEditProfile> = ({ windowName }) => {
   const [links, setLinks] = useState<Array<string>>([""])
   const dispatch = useDispatch<AppDispatch>()
 
-  useEffect(() => { if (user && user.links.length > 0) setLinks(user.links) }, [user])
+  useEffect(() => {
+    if (user && user.links) {
+      if (user.links.length > 0) {
+        setLinks(user.links)
+      }
+    }
+  }, [user])
 
   const onSubmit: SubmitHandler<IProfile> = async data => {
     if (!user || isSuccess) return
