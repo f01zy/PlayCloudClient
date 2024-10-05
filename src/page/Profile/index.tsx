@@ -78,12 +78,9 @@ const Profile: FC<{ id: string }> = ({ id }) => {
     {slide === ESlide.Tracks ? <div className={styles.tracks}>{fetchUser.tracks.map(track => <div className={styles.track}><CardLittle key={track._id} {...track} /></div>)}</div> : ""}
     {slide === ESlide.Playlists ? <div className={styles.tracks}>{fetchUser.playlists.map(playlist => playlist.author._id === fetchUser._id && <div className={styles.track}><CardLittle key={playlist._id} {...playlist} /></div>)}</div> : ""}
   </div> : <div className={styles.profile}>
-    <Upload setFetchUser={setFetchUser} />
-    <CreatePlaylistStepOne />
-    <CreatePlaylistStepTwo />
-    <EditProfile windowName="editProfile" />
     <div className={styles.user}>
       <div className={styles.container}>
+        <div className={styles.banner}></div>
         <div className={styles.user_info}>
           <Skeleton width={`${avatar}px`} height={`${avatar}px`} />
         </div>
