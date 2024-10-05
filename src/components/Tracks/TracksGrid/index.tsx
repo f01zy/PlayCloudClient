@@ -29,9 +29,9 @@ const TracksGrid: FC<ITracksGrid> = ({ quantity, label, sort, tracks: tempTracks
   return <div className={styles.tracks}>
     {label && <h2>{label}</h2>}
     {
-      music && music.length > 0 ?
-        <div className={styles.songs}>{music ? music.map(song => <Card key={song._id} {...song} />) : quantitySkeletons.map(() => <div className="w-full h-60 relative mt-5"><Skeleton width="170px" height="100%" /></div>)}</div> :
-        <h4 className="text-sm mt-1">It's empty so far. Maybe you're the one who uploaded the first track?</h4>
+      music && music.length === 0 ?
+        <h4 className="text-sm mt-1">It's empty so far. Maybe you're the one who uploaded the first track?</h4> :
+        <div className={styles.songs}>{music ? music.map(song => <Card key={song._id} {...song} />) : quantitySkeletons.map(() => <div className="w-full h-60 relative mt-5"><Skeleton width="170px" height="100%" /></div>)}</div>
     }
   </div>
 }
