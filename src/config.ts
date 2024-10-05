@@ -27,4 +27,4 @@ export const libraryLinks: [string, string][] = [
 ]
 
 export const MODE: string = "production"
-export const SERVER_URL = MODE === "development" ? "http://localhost:5050" : "http://94.241.171.213:5050"
+export const SERVER_URL = MODE === "development" ? "http://localhost:5050" : "http://79.137.133.81:5050"
