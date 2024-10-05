@@ -38,78 +38,70 @@ const Profile: FC<{ id: string }> = ({ id }) => {
 
   useEffect(() => { $api.get<IUser>(`/users/${id}`).then(res => setFetchUser(res.data)) }, [])
 
-  return <div className={styles.profile}>
+  return fetchUser ? <div className={styles.profile}>
     <Upload setFetchUser={setFetchUser} />
     <CreatePlaylistStepOne />
     <CreatePlaylistStepTwo />
     <EditProfile windowName="editProfile" />
     <div className={styles.user}>
       <div className={styles.container}>
-        <div className={styles.banner}>{fetchUser ? fetchUser.banner && <Image unoptimized src={`${SERVER_URL}/banner/${fetchUser._id}.jpg`} alt="banner" width={100} height={100} className="w-full h-full" /> : ""}</div>
+        <div className={styles.banner}>{fetchUser.banner && <Image unoptimized src={`${SERVER_URL}/banner/${fetchUser._id}.jpg`} alt="banner" width={100} height={100} className="w-full h-full" />}</div>
         <div className={styles.user_info}>
-          {
-            fetchUser ?
-              <>
-                <Avatar user={fetchUser} width={avatar} height={avatar} />
-                <h3>{fetchUser.username}</h3>
-                <p>{fetchUser.tracks.length} tracks</p>
-                <p>{fetchUser.playlists.length} playlists</p>
-                {user?._id === fetchUser._id && <RiEdit2Fill style={{ marginTop: "15px" }} width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="ml-3 cursor-pointer" />}
-              </> :
-              <>
-                <Skeleton width={`${avatar}px`} height={`${avatar}px`} />
-              </>
-          }
+          <Avatar user={fetchUser} width={avatar} height={avatar} />
+          <h3>{fetchUser.username}</h3>
+          <p>{fetchUser.tracks.length} tracks</p>
+          <p>{fetchUser.playlists.length} playlists</p>
+          {user?._id === fetchUser._id && <RiEdit2Fill style={{ marginTop: "15px" }} width={30} onClick={() => dispatch(setWindowForm("editProfile"))} className="ml-3 cursor-pointer" />}
         </div>
       </div>
-      <p className={`${styles.description} text-base`}>{fetchUser ? fetchUser.description : <Skeleton width="200px" height="20px" />}</p>
+      <p className={`${styles.description} text-base`}>{fetchUser.description}</p>
       <div className={`${styles.links} mt-3`}>
+        <h3 className="text-base">Links</h3>
         {
-          fetchUser &&
-          <>
-            <h3 className="text-base">Links</h3>
-            {
-              fetchUser.links.length > 0 ?
-                <ul>
-                  {fetchUser.links.map(link => <li><Link className="text-sm" href={link}>{link}</Link></li>)}
-                </ul> :
-                <h4 className="text-sm mt-2">Have&apos;nt links</h4>
-            }
-          </>
+          fetchUser.links.length > 0 ?
+            <ul>
+              {fetchUser.links.map(link => <li><Link className="text-sm" href={link}>{link}</Link></li>)}
+            </ul> :
+            <h4 className="text-sm mt-2">Have&apos;nt links</h4>
         }
       </div>
     </div>
     <nav>
       <ul>
-        {
-          fetchUser ?
-            <>
-              {values.map(el => (
-                <li onClick={() => setSlide(values.indexOf(el))} className={values.indexOf(el) === slide ? "border-b-2 border-white pb-2" : ""} key={el}>{el}</li>
-              ))}
-              {user?._id === fetchUser._id ? <li onClick={() => dispatch(setWindowForm("uploadTrack"))}>Upload track</li> : ""}
-              {user?._id === fetchUser._id ? <li onClick={() => dispatch(setWindowForm("createPlaylistStepOne"))}>Create playlist</li> : ""}
-            </> :
-            <>
-              <li><Skeleton width="100px" height="25px" /></li>
-              <li><Skeleton width="100px" height="25px" /></li>
-              <li><Skeleton width="100px" height="25px" /></li>
-            </>
-        }
+        {values.map(el => (
+          <li onClick={() => setSlide(values.indexOf(el))} className={values.indexOf(el) === slide ? "border-b-2 border-white pb-2" : ""} key={el}>{el}</li>
+        ))}
+        {user?._id === fetchUser._id ? <li onClick={() => dispatch(setWindowForm("uploadTrack"))}>Upload track</li> : ""}
+        {user?._id === fetchUser._id ? <li onClick={() => dispatch(setWindowForm("createPlaylistStepOne"))}>Create playlist</li> : ""}
       </ul>
     </nav>
-    {
-      fetchUser ?
-        <>
-          {slide === ESlide.Tracks ? <div className={styles.tracks}>{fetchUser.tracks.map(track => <div className={styles.track}><CardLittle key={track._id} {...track} /></div>)}</div> : ""}
-          {slide === ESlide.Playlists ? <div className={styles.tracks}>{fetchUser.playlists.map(playlist => playlist.author._id === fetchUser._id && <div className={styles.track}><CardLittle key={playlist._id} {...playlist} /></div>)}</div> : ""}
-        </> :
-        <div className={styles.tracks}>
-          <div className={styles.track}><Skeleton width="100%" height="50px" /></div>
-          <div className={styles.track}><Skeleton width="100%" height="50px" /></div>
-          <div className={styles.track}><Skeleton width="100%" height="50px" /></div>
+    {slide === ESlide.Tracks ? <div className={styles.tracks}>{fetchUser.tracks.map(track => <div className={styles.track}><CardLittle key={track._id} {...track} /></div>)}</div> : ""}
+    {slide === ESlide.Playlists ? <div className={styles.tracks}>{fetchUser.playlists.map(playlist => playlist.author._id === fetchUser._id && <div className={styles.track}><CardLittle key={playlist._id} {...playlist} /></div>)}</div> : ""}
+  </div> : <div className={styles.profile}>
+    <Upload setFetchUser={setFetchUser} />
+    <CreatePlaylistStepOne />
+    <CreatePlaylistStepTwo />
+    <EditProfile windowName="editProfile" />
+    <div className={styles.user}>
+      <div className={styles.container}>
+        <div className={styles.user_info}>
+          <Skeleton width={`${avatar}px`} height={`${avatar}px`} />
         </div>
-    }
+      </div>
+      <p className={`${styles.description} text-base`}><Skeleton width="200px" height="20px" /></p>
+    </div>
+    <nav>
+      <ul>
+        <li><Skeleton width="100px" height="25px" /></li>
+        <li><Skeleton width="100px" height="25px" /></li>
+        <li><Skeleton width="100px" height="25px" /></li>
+      </ul>
+    </nav>
+    <div className={styles.tracks}>
+      <div className={styles.track}><Skeleton width="100%" height="50px" /></div>
+      <div className={styles.track}><Skeleton width="100%" height="50px" /></div>
+      <div className={styles.track}><Skeleton width="100%" height="50px" /></div>
+    </div>
   </div>
 }
 
